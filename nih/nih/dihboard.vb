@@ -1,20 +1,33 @@
-﻿Public Class dihboard
+Public Class dihboard
 
-    Private Sub dihboard_Load(
-        sender As Object,
-        e As EventArgs
-    ) Handles MyBase.Load
+    Private ReadOnly _nim As String
 
-        Text = "Dashboard Mahasiswa"
-        StartPosition = FormStartPosition.CenterScreen
+    ''' <summary>True when the user pressed "Keluar", so the login form should reappear.</summary>
+    Public Property LoggedOut As Boolean
+
+    ' Required by the WinForms designer.
+    Public Sub New()
+        Me.New(String.Empty)
     End Sub
 
-    Private Sub dihboard_FormClosed(
-        sender As Object,
-        e As FormClosedEventArgs
-    ) Handles MyBase.FormClosed
+    Public Sub New(nim As String)
+        InitializeComponent()
+        _nim = nim
+    End Sub
 
-        Application.Exit()
+    Public ReadOnly Property Nim As String
+        Get
+            Return _nim
+        End Get
+    End Property
+
+    Private Sub dihboard_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        lblUser.Text = "NIM " & _nim
+    End Sub
+
+    Private Sub btnLogout_Click(sender As Object, e As EventArgs) Handles btnLogout.Click
+        LoggedOut = True
+        Close()
     End Sub
 
 End Class
