@@ -1,57 +1,114 @@
-﻿Public Class Form1
+﻿Imports MySql.Data.MySqlClient
 
-    Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        ' Fokus langsung ke input username saat form dibuka
-        Me.ActiveControl = txtUsername
+Public Class Form1
+
+    Private Sub Form1_Load(
+        sender As Object,
+        e As EventArgs
+    ) Handles MyBase.Load
+
+        txtUsername.Focus()
     End Sub
 
-    Private Sub btnLogin_Click(sender As Object, e As EventArgs) Handles btnLogin.Click
+    Private Sub btnLogin_Click(
+        sender As Object,
+        e As EventArgs
+    ) Handles btnLogin.Click
+
         Dim username As String = txtUsername.Text.Trim()
         Dim password As String = txtPassword.Text
 
-        ' 1. Validasi jika kolom username kosong
         If String.IsNullOrWhiteSpace(username) Then
-            MessageBox.Show("Silakan masukkan username terlebih dahulu!", "Peringatan", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            MessageBox.Show(
+                "Username harus diisi.",
+                "Validasi",
+                MessageBoxButtons.OK,
+                MessageBoxIcon.Warning
+            )
+
             txtUsername.Focus()
             Return
         End If
 
-        ' 2. Validasi jika kolom password kosong
         If String.IsNullOrWhiteSpace(password) Then
-            MessageBox.Show("Silakan masukkan password terlebih dahulu!", "Peringatan", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            MessageBox.Show(
+                "Password harus diisi.",
+                "Validasi",
+                MessageBoxButtons.OK,
+                MessageBoxIcon.Warning
+            )
+
             txtPassword.Focus()
             Return
         End If
 
-        ' 3. Cek kredensial login (contoh kredensial default)
-        If (username.Equals("admin", StringComparison.OrdinalIgnoreCase) AndAlso password = "admin") OrElse
-           (username.Equals("user", StringComparison.OrdinalIgnoreCase) AndAlso password = "12345") Then
+        Try
+            Dim loginBerhasil As Boolean =
+                DatabaseHelper.Login(username, password)
 
-            MessageBox.Show($"Selamat datang, {username}!" & vbCrLf & "Login berhasil.", "Sukses", MessageBoxButtons.OK, MessageBoxIcon.Information)
+            If loginBerhasil Then
+                txtPassword.Clear()
 
-            ' Contoh jika ada Form utama / Dashboard yang ingin dibuka:
-            ' Dim frmMain As New FormUtama()
-            ' frmMain.Show()
-            ' Me.Hide()
+                Dim dashboard As New Dashboard With {
+                    .Username = username,
+                    .LoginForm = Me
+                }
 
-        Else
-            MessageBox.Show("Username atau Password salah! Silakan coba lagi.", "Login Gagal", MessageBoxButtons.OK, MessageBoxIcon.Error)
-            txtPassword.Clear()
-            txtPassword.Focus()
-        End If
+                Hide()
+                dashboard.Show()
+            Else
+                MessageBox.Show(
+                    "Username atau password salah.",
+                    "Login Gagal",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error
+                )
+
+                txtPassword.Clear()
+                txtPassword.Focus()
+            End If
+
+        Catch ex As MySqlException
+            MessageBox.Show(
+                "Tidak dapat terhubung ke database MySQL." &
+                Environment.NewLine &
+                "Pastikan MySQL XAMPP sedang berjalan." &
+                Environment.NewLine &
+                Environment.NewLine &
+                ex.Message,
+                "Kesalahan Database",
+                MessageBoxButtons.OK,
+                MessageBoxIcon.Error
+            )
+
+        Catch ex As Exception
+            MessageBox.Show(
+                ex.Message,
+                "Kesalahan",
+                MessageBoxButtons.OK,
+                MessageBoxIcon.Error
+            )
+        End Try
     End Sub
 
-    Private Sub btnBatal_Click(sender As Object, e As EventArgs) Handles btnBatal.Click
-        ' Mengosongkan form login
+    Private Sub btnBatal_Click(
+        sender As Object,
+        e As EventArgs
+    ) Handles btnBatal.Click
+
         txtUsername.Clear()
         txtPassword.Clear()
         chkShowPassword.Checked = False
         txtUsername.Focus()
     End Sub
 
-    Private Sub chkShowPassword_CheckedChanged(sender As Object, e As EventArgs) Handles chkShowPassword.CheckedChanged
-        ' Toggle sembunyikan/tampilkan password
-        txtPassword.UseSystemPasswordChar = Not chkShowPassword.Checked
+    Private Sub chkShowPassword_CheckedChanged(
+        sender As Object,
+        e As EventArgs
+    ) Handles chkShowPassword.CheckedChanged
+
+        txtPassword.UseSystemPasswordChar =
+            Not chkShowPassword.Checked
     End Sub
 
 End Class
