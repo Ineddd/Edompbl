@@ -58,7 +58,7 @@ Partial Class dihboard
         pnlHeader.Location = New Point(0, 0)
         pnlHeader.Margin = New Padding(3, 4, 3, 4)
         pnlHeader.Name = "pnlHeader"
-        pnlHeader.Size = New Size(1163, 85)
+        pnlHeader.Size = New Size(1097, 85)
         pnlHeader.TabIndex = 1
         ' 
         ' lblBrand
@@ -77,11 +77,10 @@ Partial Class dihboard
         lblUser.Anchor = AnchorStyles.Top Or AnchorStyles.Right
         lblUser.Font = New Font("Segoe UI", 10.0F)
         lblUser.ForeColor = Color.FromArgb(CByte(214), CByte(226), CByte(220))
-        lblUser.Location = New Point(706, 27)
+        lblUser.Location = New Point(640, 27)
         lblUser.Name = "lblUser"
         lblUser.Size = New Size(297, 32)
         lblUser.TabIndex = 1
-        lblUser.Text = "NIM"
         lblUser.TextAlign = ContentAlignment.MiddleRight
         ' 
         ' btnLogout
@@ -95,7 +94,7 @@ Partial Class dihboard
         btnLogout.FlatStyle = FlatStyle.Flat
         btnLogout.Font = New Font("Segoe UI", 9.5F)
         btnLogout.ForeColor = Color.White
-        btnLogout.Location = New Point(1021, 19)
+        btnLogout.Location = New Point(955, 19)
         btnLogout.Margin = New Padding(3, 4, 3, 4)
         btnLogout.Name = "btnLogout"
         btnLogout.Size = New Size(110, 48)
@@ -114,7 +113,7 @@ Partial Class dihboard
         pnlBody.Margin = New Padding(3, 4, 3, 4)
         pnlBody.Name = "pnlBody"
         pnlBody.Padding = New Padding(37, 43, 37, 43)
-        pnlBody.Size = New Size(1163, 715)
+        pnlBody.Size = New Size(1097, 715)
         pnlBody.TabIndex = 0
         ' 
         ' lblTitle
@@ -149,7 +148,7 @@ Partial Class dihboard
         pnlEmpty.Location = New Point(39, 165)
         pnlEmpty.Margin = New Padding(3, 4, 3, 4)
         pnlEmpty.Name = "pnlEmpty"
-        pnlEmpty.Size = New Size(1953, 175)
+        pnlEmpty.Size = New Size(1887, 175)
         pnlEmpty.TabIndex = 2
         ' 
         ' lblEmptyTitle
@@ -170,7 +169,7 @@ Partial Class dihboard
         lblEmptyBody.ForeColor = Color.FromArgb(CByte(84), CByte(90), CByte(86))
         lblEmptyBody.Location = New Point(27, 77)
         lblEmptyBody.Name = "lblEmptyBody"
-        lblEmptyBody.Size = New Size(1894, 64)
+        lblEmptyBody.Size = New Size(1828, 64)
         lblEmptyBody.TabIndex = 1
         lblEmptyBody.Text = "Daftar dosen dan mata kuliah akan muncul di sini setelah data perkuliahan Anda dimasukkan ke database."
         ' 
@@ -179,7 +178,7 @@ Partial Class dihboard
         AutoScaleDimensions = New SizeF(8.0F, 20.0F)
         AutoScaleMode = AutoScaleMode.Font
         BackColor = Color.FromArgb(CByte(250), CByte(248), CByte(243))
-        ClientSize = New Size(1163, 800)
+        ClientSize = New Size(1097, 800)
         Controls.Add(pnlBody)
         Controls.Add(pnlHeader)
         Margin = New Padding(3, 4, 3, 4)
