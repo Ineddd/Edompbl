@@ -17,415 +17,425 @@ Partial Class Dashboard
 
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
-        Me.sidebar = New System.Windows.Forms.Panel()
-        Me.btnLogout = New System.Windows.Forms.Button()
-        Me.btnDashboard = New System.Windows.Forms.Button()
-        Me.lblBrandSubtitle = New System.Windows.Forms.Label()
-        Me.lblBrand = New System.Windows.Forms.Label()
-        Me.header = New System.Windows.Forms.Panel()
-        Me.lblInfo = New System.Windows.Forms.Label()
-        Me.lblWelcome = New System.Windows.Forms.Label()
-        Me.content = New System.Windows.Forms.Panel()
-        Me.lblAnnouncement = New System.Windows.Forms.Label()
-        Me.lblAnnouncementTitle = New System.Windows.Forms.Label()
-        Me.dgvSchedule = New System.Windows.Forms.DataGridView()
-        Me.colJam = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.colMataKuliah = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.colDosen = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.colRuangan = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.lblScheduleTitle = New System.Windows.Forms.Label()
-        Me.cardCourse = New System.Windows.Forms.Panel()
-        Me.lblCourseValue = New System.Windows.Forms.Label()
-        Me.lblCourseTitle = New System.Windows.Forms.Label()
-        Me.cardSemester = New System.Windows.Forms.Panel()
-        Me.lblSemesterValue = New System.Windows.Forms.Label()
-        Me.lblSemesterTitle = New System.Windows.Forms.Label()
-        Me.cardSks = New System.Windows.Forms.Panel()
-        Me.lblSksValue = New System.Windows.Forms.Label()
-        Me.lblSksTitle = New System.Windows.Forms.Label()
-        Me.cardIpk = New System.Windows.Forms.Panel()
-        Me.lblIpkValue = New System.Windows.Forms.Label()
-        Me.lblIpkTitle = New System.Windows.Forms.Label()
-        Me.lblSummaryTitle = New System.Windows.Forms.Label()
-        Me.sidebar.SuspendLayout()
-        Me.header.SuspendLayout()
-        Me.content.SuspendLayout()
-        CType(Me.dgvSchedule, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.cardCourse.SuspendLayout()
-        Me.cardSemester.SuspendLayout()
-        Me.cardSks.SuspendLayout()
-        Me.cardIpk.SuspendLayout()
-        Me.SuspendLayout()
-        '
-        'sidebar
-        '
-        Me.sidebar.BackColor = System.Drawing.Color.FromArgb(25, 45, 78)
-        Me.sidebar.Controls.Add(Me.btnLogout)
-        Me.sidebar.Controls.Add(Me.btnDashboard)
-        Me.sidebar.Controls.Add(Me.lblBrandSubtitle)
-        Me.sidebar.Controls.Add(Me.lblBrand)
-        Me.sidebar.Dock = System.Windows.Forms.DockStyle.Left
-        Me.sidebar.Location = New System.Drawing.Point(0, 0)
-        Me.sidebar.Name = "sidebar"
-        Me.sidebar.Size = New System.Drawing.Size(240, 720)
-        Me.sidebar.TabIndex = 0
-        '
-        'btnLogout
-        '
-        Me.btnLogout.BackColor = System.Drawing.Color.FromArgb(220, 53, 69)
-        Me.btnLogout.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.btnLogout.FlatAppearance.BorderSize = 0
-        Me.btnLogout.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.btnLogout.Font = New System.Drawing.Font("Segoe UI", 10.0!, System.Drawing.FontStyle.Bold)
-        Me.btnLogout.ForeColor = System.Drawing.Color.White
-        Me.btnLogout.Location = New System.Drawing.Point(25, 645)
-        Me.btnLogout.Name = "btnLogout"
-        Me.btnLogout.Size = New System.Drawing.Size(190, 42)
-        Me.btnLogout.TabIndex = 8
-        Me.btnLogout.Text = "Keluar"
-        Me.btnLogout.UseVisualStyleBackColor = False
-        '
-        'btnDashboard
-        '
-        Me.btnDashboard.BackColor = System.Drawing.Color.FromArgb(13, 110, 253)
-        Me.btnDashboard.FlatAppearance.BorderSize = 0
-        Me.btnDashboard.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.btnDashboard.Font = New System.Drawing.Font("Segoe UI", 9.5!, System.Drawing.FontStyle.Bold)
-        Me.btnDashboard.ForeColor = System.Drawing.Color.White
-        Me.btnDashboard.Location = New System.Drawing.Point(15, 140)
-        Me.btnDashboard.Name = "btnDashboard"
-        Me.btnDashboard.Size = New System.Drawing.Size(210, 42)
-        Me.btnDashboard.TabIndex = 2
-        Me.btnDashboard.Text = "    Dashboard"
-        Me.btnDashboard.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.btnDashboard.UseVisualStyleBackColor = False
-        '
-        'lblBrandSubtitle
-        '
-        Me.lblBrandSubtitle.AutoSize = True
-        Me.lblBrandSubtitle.Font = New System.Drawing.Font("Segoe UI", 8.5!)
-        Me.lblBrandSubtitle.ForeColor = System.Drawing.Color.FromArgb(190, 205, 220)
-        Me.lblBrandSubtitle.Location = New System.Drawing.Point(30, 70)
-        Me.lblBrandSubtitle.Name = "lblBrandSubtitle"
-        Me.lblBrandSubtitle.Size = New System.Drawing.Size(148, 15)
-        Me.lblBrandSubtitle.TabIndex = 1
-        Me.lblBrandSubtitle.Text = "Sistem Informasi Akademik"
-        '
-        'lblBrand
-        '
-        Me.lblBrand.AutoSize = True
-        Me.lblBrand.Font = New System.Drawing.Font("Segoe UI", 22.0!, System.Drawing.FontStyle.Bold)
-        Me.lblBrand.ForeColor = System.Drawing.Color.White
-        Me.lblBrand.Location = New System.Drawing.Point(27, 25)
-        Me.lblBrand.Name = "lblBrand"
-        Me.lblBrand.Size = New System.Drawing.Size(111, 41)
-        Me.lblBrand.TabIndex = 0
-        Me.lblBrand.Text = "SIAKAD"
-        '
-        'header
-        '
-        Me.header.BackColor = System.Drawing.Color.White
-        Me.header.Controls.Add(Me.lblInfo)
-        Me.header.Controls.Add(Me.lblWelcome)
-        Me.header.Dock = System.Windows.Forms.DockStyle.Top
-        Me.header.Location = New System.Drawing.Point(240, 0)
-        Me.header.Name = "header"
-        Me.header.Size = New System.Drawing.Size(1044, 90)
-        Me.header.TabIndex = 1
-        '
-        'lblInfo
-        '
-        Me.lblInfo.AutoSize = True
-        Me.lblInfo.Font = New System.Drawing.Font("Segoe UI", 9.0!)
-        Me.lblInfo.ForeColor = System.Drawing.Color.FromArgb(108, 117, 125)
-        Me.lblInfo.Location = New System.Drawing.Point(37, 55)
-        Me.lblInfo.Name = "lblInfo"
-        Me.lblInfo.Size = New System.Drawing.Size(259, 15)
-        Me.lblInfo.TabIndex = 1
-        Me.lblInfo.Text = "Kelola aktivitas akademik Anda dengan mudah"
-        '
-        'lblWelcome
-        '
-        Me.lblWelcome.AutoSize = True
-        Me.lblWelcome.Font = New System.Drawing.Font("Segoe UI", 18.0!, System.Drawing.FontStyle.Bold)
-        Me.lblWelcome.ForeColor = System.Drawing.Color.FromArgb(33, 37, 41)
-        Me.lblWelcome.Location = New System.Drawing.Point(35, 18)
-        Me.lblWelcome.Name = "lblWelcome"
-        Me.lblWelcome.Size = New System.Drawing.Size(275, 32)
-        Me.lblWelcome.TabIndex = 0
-        Me.lblWelcome.Text = "Selamat datang, Mahasiswa"
-        '
-        'content
-        '
-        Me.content.AutoScroll = True
-        Me.content.BackColor = System.Drawing.Color.FromArgb(245, 247, 251)
-        Me.content.Controls.Add(Me.lblAnnouncement)
-        Me.content.Controls.Add(Me.lblAnnouncementTitle)
-        Me.content.Controls.Add(Me.dgvSchedule)
-        Me.content.Controls.Add(Me.lblScheduleTitle)
-        Me.content.Controls.Add(Me.cardCourse)
-        Me.content.Controls.Add(Me.cardSemester)
-        Me.content.Controls.Add(Me.cardSks)
-        Me.content.Controls.Add(Me.cardIpk)
-        Me.content.Controls.Add(Me.lblSummaryTitle)
-        Me.content.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.content.Location = New System.Drawing.Point(240, 90)
-        Me.content.Name = "content"
-        Me.content.Padding = New System.Windows.Forms.Padding(35, 25, 35, 25)
-        Me.content.Size = New System.Drawing.Size(1044, 630)
-        Me.content.TabIndex = 2
-        '
-        'lblAnnouncement
-        '
-        Me.lblAnnouncement.BackColor = System.Drawing.Color.White
-        Me.lblAnnouncement.Dock = System.Windows.Forms.DockStyle.Top
-        Me.lblAnnouncement.Font = New System.Drawing.Font("Segoe UI", 10.0!)
-        Me.lblAnnouncement.ForeColor = System.Drawing.Color.FromArgb(73, 80, 87)
-        Me.lblAnnouncement.Location = New System.Drawing.Point(35, 545)
-        Me.lblAnnouncement.Name = "lblAnnouncement"
-        Me.lblAnnouncement.Padding = New System.Windows.Forms.Padding(15)
-        Me.lblAnnouncement.Size = New System.Drawing.Size(974, 90)
-        Me.lblAnnouncement.TabIndex = 8
-        Me.lblAnnouncement.Text = "• Pengisian KRS semester berikutnya dimulai tanggal 15 Juli." &
-            vbCrLf & "• Pembayaran UKT terakhir tanggal 20 Juli." &
-            vbCrLf & "• Ujian akhir semester dilaksanakan pada bulan Agustus."
-        '
-        'lblAnnouncementTitle
-        '
-        Me.lblAnnouncementTitle.Dock = System.Windows.Forms.DockStyle.Top
-        Me.lblAnnouncementTitle.Font = New System.Drawing.Font("Segoe UI", 13.0!, System.Drawing.FontStyle.Bold)
-        Me.lblAnnouncementTitle.ForeColor = System.Drawing.Color.FromArgb(33, 37, 41)
-        Me.lblAnnouncementTitle.Location = New System.Drawing.Point(35, 500)
-        Me.lblAnnouncementTitle.Name = "lblAnnouncementTitle"
-        Me.lblAnnouncementTitle.Padding = New System.Windows.Forms.Padding(0, 12, 0, 0)
-        Me.lblAnnouncementTitle.Size = New System.Drawing.Size(974, 45)
-        Me.lblAnnouncementTitle.TabIndex = 7
-        Me.lblAnnouncementTitle.Text = "Pengumuman Akademik"
-        '
-        'dgvSchedule
-        '
-        Me.dgvSchedule.AllowUserToAddRows = False
-        Me.dgvSchedule.AllowUserToDeleteRows = False
-        Me.dgvSchedule.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill
-        Me.dgvSchedule.BackgroundColor = System.Drawing.Color.White
-        Me.dgvSchedule.BorderStyle = System.Windows.Forms.BorderStyle.None
-        Me.dgvSchedule.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.dgvSchedule.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {
-            Me.colJam,
-            Me.colMataKuliah,
-            Me.colDosen,
-            Me.colRuangan})
-        Me.dgvSchedule.Dock = System.Windows.Forms.DockStyle.Top
-        Me.dgvSchedule.Location = New System.Drawing.Point(35, 320)
-        Me.dgvSchedule.Name = "dgvSchedule"
-        Me.dgvSchedule.ReadOnly = True
-        Me.dgvSchedule.RowHeadersVisible = False
-        Me.dgvSchedule.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.dgvSchedule.Size = New System.Drawing.Size(974, 180)
-        Me.dgvSchedule.TabIndex = 6
-        '
-        'colJam
-        '
-        Me.colJam.HeaderText = "Jam"
-        Me.colJam.Name = "colJam"
-        Me.colJam.ReadOnly = True
-        '
-        'colMataKuliah
-        '
-        Me.colMataKuliah.HeaderText = "Mata Kuliah"
-        Me.colMataKuliah.Name = "colMataKuliah"
-        Me.colMataKuliah.ReadOnly = True
-        '
-        'colDosen
-        '
-        Me.colDosen.HeaderText = "Dosen"
-        Me.colDosen.Name = "colDosen"
-        Me.colDosen.ReadOnly = True
-        '
-        'colRuangan
-        '
-        Me.colRuangan.HeaderText = "Ruangan"
-        Me.colRuangan.Name = "colRuangan"
-        Me.colRuangan.ReadOnly = True
-        '
-        'lblScheduleTitle
-        '
-        Me.lblScheduleTitle.Dock = System.Windows.Forms.DockStyle.Top
-        Me.lblScheduleTitle.Font = New System.Drawing.Font("Segoe UI", 13.0!, System.Drawing.FontStyle.Bold)
-        Me.lblScheduleTitle.ForeColor = System.Drawing.Color.FromArgb(33, 37, 41)
-        Me.lblScheduleTitle.Location = New System.Drawing.Point(35, 275)
-        Me.lblScheduleTitle.Name = "lblScheduleTitle"
-        Me.lblScheduleTitle.Padding = New System.Windows.Forms.Padding(0, 12, 0, 0)
-        Me.lblScheduleTitle.Size = New System.Drawing.Size(974, 45)
-        Me.lblScheduleTitle.TabIndex = 5
-        Me.lblScheduleTitle.Text = "Jadwal Kuliah Hari Ini"
-        '
-        'cardCourse
-        '
-        Me.cardCourse.BackColor = System.Drawing.Color.White
-        Me.cardCourse.Controls.Add(Me.lblCourseValue)
-        Me.cardCourse.Controls.Add(Me.lblCourseTitle)
-        Me.cardCourse.Location = New System.Drawing.Point(770, 70)
-        Me.cardCourse.Name = "cardCourse"
-        Me.cardCourse.Size = New System.Drawing.Size(205, 100)
-        Me.cardCourse.TabIndex = 4
-        '
-        'lblCourseValue
-        '
-        Me.lblCourseValue.AutoSize = True
-        Me.lblCourseValue.Font = New System.Drawing.Font("Segoe UI", 20.0!, System.Drawing.FontStyle.Bold)
-        Me.lblCourseValue.ForeColor = System.Drawing.Color.FromArgb(111, 66, 193)
-        Me.lblCourseValue.Location = New System.Drawing.Point(20, 45)
-        Me.lblCourseValue.Name = "lblCourseValue"
-        Me.lblCourseValue.Size = New System.Drawing.Size(29, 37)
-        Me.lblCourseValue.TabIndex = 1
-        Me.lblCourseValue.Text = "8"
-        '
-        'lblCourseTitle
-        '
-        Me.lblCourseTitle.AutoSize = True
-        Me.lblCourseTitle.Font = New System.Drawing.Font("Segoe UI", 9.0!)
-        Me.lblCourseTitle.ForeColor = System.Drawing.Color.FromArgb(108, 117, 125)
-        Me.lblCourseTitle.Location = New System.Drawing.Point(20, 17)
-        Me.lblCourseTitle.Name = "lblCourseTitle"
-        Me.lblCourseTitle.Size = New System.Drawing.Size(92, 15)
-        Me.lblCourseTitle.TabIndex = 0
-        Me.lblCourseTitle.Text = "Mata Kuliah"
-        '
-        'cardSemester
-        '
-        Me.cardSemester.BackColor = System.Drawing.Color.White
-        Me.cardSemester.Controls.Add(Me.lblSemesterValue)
-        Me.cardSemester.Controls.Add(Me.lblSemesterTitle)
-        Me.cardSemester.Location = New System.Drawing.Point(550, 70)
-        Me.cardSemester.Name = "cardSemester"
-        Me.cardSemester.Size = New System.Drawing.Size(205, 100)
-        Me.cardSemester.TabIndex = 3
-        '
-        'lblSemesterValue
-        '
-        Me.lblSemesterValue.AutoSize = True
-        Me.lblSemesterValue.Font = New System.Drawing.Font("Segoe UI", 20.0!, System.Drawing.FontStyle.Bold)
-        Me.lblSemesterValue.ForeColor = System.Drawing.Color.FromArgb(255, 193, 7)
-        Me.lblSemesterValue.Location = New System.Drawing.Point(20, 45)
-        Me.lblSemesterValue.Name = "lblSemesterValue"
-        Me.lblSemesterValue.Size = New System.Drawing.Size(26, 37)
-        Me.lblSemesterValue.TabIndex = 1
-        Me.lblSemesterValue.Text = "6"
-        '
-        'lblSemesterTitle
-        '
-        Me.lblSemesterTitle.AutoSize = True
-        Me.lblSemesterTitle.Font = New System.Drawing.Font("Segoe UI", 9.0!)
-        Me.lblSemesterTitle.ForeColor = System.Drawing.Color.FromArgb(108, 117, 125)
-        Me.lblSemesterTitle.Location = New System.Drawing.Point(20, 17)
-        Me.lblSemesterTitle.Name = "lblSemesterTitle"
-        Me.lblSemesterTitle.Size = New System.Drawing.Size(87, 15)
-        Me.lblSemesterTitle.TabIndex = 0
-        Me.lblSemesterTitle.Text = "Semester Aktif"
-        '
-        'cardSks
-        '
-        Me.cardSks.BackColor = System.Drawing.Color.White
-        Me.cardSks.Controls.Add(Me.lblSksValue)
-        Me.cardSks.Controls.Add(Me.lblSksTitle)
-        Me.cardSks.Location = New System.Drawing.Point(330, 70)
-        Me.cardSks.Name = "cardSks"
-        Me.cardSks.Size = New System.Drawing.Size(205, 100)
-        Me.cardSks.TabIndex = 2
-        '
-        'lblSksValue
-        '
-        Me.lblSksValue.AutoSize = True
-        Me.lblSksValue.Font = New System.Drawing.Font("Segoe UI", 20.0!, System.Drawing.FontStyle.Bold)
-        Me.lblSksValue.ForeColor = System.Drawing.Color.FromArgb(25, 135, 84)
-        Me.lblSksValue.Location = New System.Drawing.Point(20, 45)
-        Me.lblSksValue.Name = "lblSksValue"
-        Me.lblSksValue.Size = New System.Drawing.Size(86, 37)
-        Me.lblSksValue.TabIndex = 1
-        Me.lblSksValue.Text = "96 SKS"
-        '
-        'lblSksTitle
-        '
-        Me.lblSksTitle.AutoSize = True
-        Me.lblSksTitle.Font = New System.Drawing.Font("Segoe UI", 9.0!)
-        Me.lblSksTitle.ForeColor = System.Drawing.Color.FromArgb(108, 117, 125)
-        Me.lblSksTitle.Location = New System.Drawing.Point(20, 17)
-        Me.lblSksTitle.Name = "lblSksTitle"
-        Me.lblSksTitle.Size = New System.Drawing.Size(62, 15)
-        Me.lblSksTitle.TabIndex = 0
-        Me.lblSksTitle.Text = "Total SKS"
-        '
-        'cardIpk
-        '
-        Me.cardIpk.BackColor = System.Drawing.Color.White
-        Me.cardIpk.Controls.Add(Me.lblIpkValue)
-        Me.cardIpk.Controls.Add(Me.lblIpkTitle)
-        Me.cardIpk.Location = New System.Drawing.Point(110, 70)
-        Me.cardIpk.Name = "cardIpk"
-        Me.cardIpk.Size = New System.Drawing.Size(205, 100)
-        Me.cardIpk.TabIndex = 1
-        '
-        'lblIpkValue
-        '
-        Me.lblIpkValue.AutoSize = True
-        Me.lblIpkValue.Font = New System.Drawing.Font("Segoe UI", 20.0!, System.Drawing.FontStyle.Bold)
-        Me.lblIpkValue.ForeColor = System.Drawing.Color.FromArgb(13, 110, 253)
-        Me.lblIpkValue.Location = New System.Drawing.Point(20, 45)
-        Me.lblIpkValue.Name = "lblIpkValue"
-        Me.lblIpkValue.Size = New System.Drawing.Size(59, 37)
-        Me.lblIpkValue.TabIndex = 1
-        Me.lblIpkValue.Text = "3.75"
-        '
-        'lblIpkTitle
-        '
-        Me.lblIpkTitle.AutoSize = True
-        Me.lblIpkTitle.Font = New System.Drawing.Font("Segoe UI", 9.0!)
-        Me.lblIpkTitle.ForeColor = System.Drawing.Color.FromArgb(108, 117, 125)
-        Me.lblIpkTitle.Location = New System.Drawing.Point(20, 17)
-        Me.lblIpkTitle.Name = "lblIpkTitle"
-        Me.lblIpkTitle.Size = New System.Drawing.Size(84, 15)
-        Me.lblIpkTitle.TabIndex = 0
-        Me.lblIpkTitle.Text = "IPK Kumulatif"
-        '
-        'lblSummaryTitle
-        '
-        Me.lblSummaryTitle.Dock = System.Windows.Forms.DockStyle.Top
-        Me.lblSummaryTitle.Font = New System.Drawing.Font("Segoe UI", 16.0!, System.Drawing.FontStyle.Bold)
-        Me.lblSummaryTitle.ForeColor = System.Drawing.Color.FromArgb(33, 37, 41)
-        Me.lblSummaryTitle.Location = New System.Drawing.Point(35, 25)
-        Me.lblSummaryTitle.Name = "lblSummaryTitle"
-        Me.lblSummaryTitle.Size = New System.Drawing.Size(974, 45)
-        Me.lblSummaryTitle.TabIndex = 0
-        Me.lblSummaryTitle.Text = "Ringkasan Akademik"
-        '
-        'Dashboard
-        '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 15.0!)
-        Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1284, 720)
-        Me.Controls.Add(Me.content)
-        Me.Controls.Add(Me.header)
-        Me.Controls.Add(Me.sidebar)
-        Me.MinimumSize = New System.Drawing.Size(1100, 700)
-        Me.Name = "Dashboard"
-        Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
-        Me.Text = "Dashboard Akademik"
-        Me.sidebar.ResumeLayout(False)
-        Me.sidebar.PerformLayout()
-        Me.header.ResumeLayout(False)
-        Me.header.PerformLayout()
-        Me.content.ResumeLayout(False)
-        CType(Me.dgvSchedule, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.cardCourse.ResumeLayout(False)
-        Me.cardCourse.PerformLayout()
-        Me.cardSemester.ResumeLayout(False)
-        Me.cardSemester.PerformLayout()
-        Me.cardSks.ResumeLayout(False)
-        Me.cardSks.PerformLayout()
-        Me.cardIpk.ResumeLayout(False)
-        Me.cardIpk.PerformLayout()
-        Me.ResumeLayout(False)
+        sidebar = New Panel()
+        btnLogout = New Button()
+        btnDashboard = New Button()
+        lblBrandSubtitle = New Label()
+        lblBrand = New Label()
+        header = New Panel()
+        lblInfo = New Label()
+        lblWelcome = New Label()
+        content = New Panel()
+        lblAnnouncement = New Label()
+        lblAnnouncementTitle = New Label()
+        dgvSchedule = New DataGridView()
+        colJam = New DataGridViewTextBoxColumn()
+        colMataKuliah = New DataGridViewTextBoxColumn()
+        colDosen = New DataGridViewTextBoxColumn()
+        colRuangan = New DataGridViewTextBoxColumn()
+        lblScheduleTitle = New Label()
+        cardCourse = New Panel()
+        lblCourseValue = New Label()
+        lblCourseTitle = New Label()
+        cardSemester = New Panel()
+        lblSemesterValue = New Label()
+        lblSemesterTitle = New Label()
+        cardSks = New Panel()
+        lblSksValue = New Label()
+        lblSksTitle = New Label()
+        cardIpk = New Panel()
+        lblIpkValue = New Label()
+        lblIpkTitle = New Label()
+        lblSummaryTitle = New Label()
+        sidebar.SuspendLayout()
+        header.SuspendLayout()
+        content.SuspendLayout()
+        CType(dgvSchedule, ComponentModel.ISupportInitialize).BeginInit()
+        cardCourse.SuspendLayout()
+        cardSemester.SuspendLayout()
+        cardSks.SuspendLayout()
+        cardIpk.SuspendLayout()
+        SuspendLayout()
+        ' 
+        ' sidebar
+        ' 
+        sidebar.BackColor = Color.FromArgb(CByte(30), CByte(59), CByte(51))
+        sidebar.Controls.Add(btnLogout)
+        sidebar.Controls.Add(btnDashboard)
+        sidebar.Controls.Add(lblBrandSubtitle)
+        sidebar.Controls.Add(lblBrand)
+        sidebar.Dock = DockStyle.Left
+        sidebar.Location = New Point(0, 0)
+        sidebar.Margin = New Padding(3, 4, 3, 4)
+        sidebar.Name = "sidebar"
+        sidebar.Size = New Size(274, 960)
+        sidebar.TabIndex = 0
+        ' 
+        ' btnLogout
+        ' 
+        btnLogout.BackColor = Color.FromArgb(CByte(220), CByte(53), CByte(69))
+        btnLogout.Cursor = Cursors.Hand
+        btnLogout.FlatAppearance.BorderSize = 0
+        btnLogout.FlatStyle = FlatStyle.Flat
+        btnLogout.Font = New Font("Segoe UI", 10F, FontStyle.Bold)
+        btnLogout.ForeColor = Color.White
+        btnLogout.Location = New Point(29, 860)
+        btnLogout.Margin = New Padding(3, 4, 3, 4)
+        btnLogout.Name = "btnLogout"
+        btnLogout.Size = New Size(217, 56)
+        btnLogout.TabIndex = 8
+        btnLogout.Text = "Keluar"
+        btnLogout.UseVisualStyleBackColor = False
+        ' 
+        ' btnDashboard
+        ' 
+        btnDashboard.BackColor = Color.Yellow
+        btnDashboard.FlatAppearance.BorderSize = 0
+        btnDashboard.FlatStyle = FlatStyle.Flat
+        btnDashboard.Font = New Font("Segoe UI", 9.5F, FontStyle.Bold)
+        btnDashboard.ForeColor = Color.White
+        btnDashboard.Location = New Point(17, 187)
+        btnDashboard.Margin = New Padding(3, 4, 3, 4)
+        btnDashboard.Name = "btnDashboard"
+        btnDashboard.Size = New Size(240, 56)
+        btnDashboard.TabIndex = 2
+        btnDashboard.Text = "    Dashboard"
+        btnDashboard.TextAlign = ContentAlignment.MiddleLeft
+        btnDashboard.UseVisualStyleBackColor = False
+        ' 
+        ' lblBrandSubtitle
+        ' 
+        lblBrandSubtitle.AutoSize = True
+        lblBrandSubtitle.Font = New Font("Segoe UI", 8.5F)
+        lblBrandSubtitle.ForeColor = Color.FromArgb(CByte(190), CByte(205), CByte(220))
+        lblBrandSubtitle.Location = New Point(34, 93)
+        lblBrandSubtitle.Name = "lblBrandSubtitle"
+        lblBrandSubtitle.Size = New Size(189, 20)
+        lblBrandSubtitle.TabIndex = 1
+        lblBrandSubtitle.Text = "Sistem Informasi Akademik"
+        ' 
+        ' lblBrand
+        ' 
+        lblBrand.AutoSize = True
+        lblBrand.Font = New Font("Segoe UI", 22F, FontStyle.Bold)
+        lblBrand.ForeColor = Color.White
+        lblBrand.Location = New Point(31, 33)
+        lblBrand.Name = "lblBrand"
+        lblBrand.Size = New Size(158, 50)
+        lblBrand.TabIndex = 0
+        lblBrand.Text = "SIAKAD"
+        ' 
+        ' header
+        ' 
+        header.BackColor = Color.White
+        header.Controls.Add(lblInfo)
+        header.Controls.Add(lblWelcome)
+        header.Dock = DockStyle.Top
+        header.Location = New Point(274, 0)
+        header.Margin = New Padding(3, 4, 3, 4)
+        header.Name = "header"
+        header.Size = New Size(1193, 120)
+        header.TabIndex = 1
+        ' 
+        ' lblInfo
+        ' 
+        lblInfo.AutoSize = True
+        lblInfo.Font = New Font("Segoe UI", 9F)
+        lblInfo.ForeColor = Color.FromArgb(CByte(108), CByte(117), CByte(125))
+        lblInfo.Location = New Point(42, 73)
+        lblInfo.Name = "lblInfo"
+        lblInfo.Size = New Size(320, 20)
+        lblInfo.TabIndex = 1
+        lblInfo.Text = "Kelola aktivitas akademik Anda dengan mudah"
+        ' 
+        ' lblWelcome
+        ' 
+        lblWelcome.AutoSize = True
+        lblWelcome.Font = New Font("Segoe UI", 18F, FontStyle.Bold)
+        lblWelcome.ForeColor = Color.FromArgb(CByte(33), CByte(37), CByte(41))
+        lblWelcome.Location = New Point(40, 24)
+        lblWelcome.Name = "lblWelcome"
+        lblWelcome.Size = New Size(409, 41)
+        lblWelcome.TabIndex = 0
+        lblWelcome.Text = "Selamat datang, Mahasiswa"
+        ' 
+        ' content
+        ' 
+        content.AutoScroll = True
+        content.BackColor = Color.FromArgb(CByte(245), CByte(247), CByte(251))
+        content.Controls.Add(lblAnnouncement)
+        content.Controls.Add(lblAnnouncementTitle)
+        content.Controls.Add(dgvSchedule)
+        content.Controls.Add(lblScheduleTitle)
+        content.Controls.Add(cardCourse)
+        content.Controls.Add(cardSemester)
+        content.Controls.Add(cardSks)
+        content.Controls.Add(cardIpk)
+        content.Controls.Add(lblSummaryTitle)
+        content.Dock = DockStyle.Fill
+        content.Location = New Point(274, 120)
+        content.Margin = New Padding(3, 4, 3, 4)
+        content.Name = "content"
+        content.Padding = New Padding(40, 33, 40, 33)
+        content.Size = New Size(1193, 840)
+        content.TabIndex = 2
+        ' 
+        ' lblAnnouncement
+        ' 
+        lblAnnouncement.BackColor = Color.White
+        lblAnnouncement.Dock = DockStyle.Top
+        lblAnnouncement.Font = New Font("Segoe UI", 10F)
+        lblAnnouncement.ForeColor = Color.FromArgb(CByte(73), CByte(80), CByte(87))
+        lblAnnouncement.Location = New Point(40, 453)
+        lblAnnouncement.Name = "lblAnnouncement"
+        lblAnnouncement.Padding = New Padding(17, 20, 17, 20)
+        lblAnnouncement.Size = New Size(1113, 120)
+        lblAnnouncement.TabIndex = 8
+        lblAnnouncement.Text = "• Pengisian Edom terakhir 12 Januari" & vbCrLf & "• Marksheet dibagikan  setelah pengisian Edom" & vbCrLf & " "
+        ' 
+        ' lblAnnouncementTitle
+        ' 
+        lblAnnouncementTitle.Dock = DockStyle.Top
+        lblAnnouncementTitle.Font = New Font("Segoe UI", 13F, FontStyle.Bold)
+        lblAnnouncementTitle.ForeColor = Color.FromArgb(CByte(33), CByte(37), CByte(41))
+        lblAnnouncementTitle.Location = New Point(40, 393)
+        lblAnnouncementTitle.Name = "lblAnnouncementTitle"
+        lblAnnouncementTitle.Padding = New Padding(0, 16, 0, 0)
+        lblAnnouncementTitle.Size = New Size(1113, 60)
+        lblAnnouncementTitle.TabIndex = 7
+        lblAnnouncementTitle.Text = "Pengumuman Akademik"
+        ' 
+        ' dgvSchedule
+        ' 
+        dgvSchedule.AllowUserToAddRows = False
+        dgvSchedule.AllowUserToDeleteRows = False
+        dgvSchedule.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill
+        dgvSchedule.BackgroundColor = Color.White
+        dgvSchedule.BorderStyle = BorderStyle.None
+        dgvSchedule.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        dgvSchedule.Columns.AddRange(New DataGridViewColumn() {colJam, colMataKuliah, colDosen, colRuangan})
+        dgvSchedule.Dock = DockStyle.Top
+        dgvSchedule.Location = New Point(40, 153)
+        dgvSchedule.Margin = New Padding(3, 4, 3, 4)
+        dgvSchedule.Name = "dgvSchedule"
+        dgvSchedule.ReadOnly = True
+        dgvSchedule.RowHeadersVisible = False
+        dgvSchedule.RowHeadersWidth = 51
+        dgvSchedule.SelectionMode = DataGridViewSelectionMode.FullRowSelect
+        dgvSchedule.Size = New Size(1113, 240)
+        dgvSchedule.TabIndex = 6
+        ' 
+        ' colJam
+        ' 
+        colJam.HeaderText = "Jam"
+        colJam.MinimumWidth = 6
+        colJam.Name = "colJam"
+        colJam.ReadOnly = True
+        ' 
+        ' colMataKuliah
+        ' 
+        colMataKuliah.HeaderText = "Mata Kuliah"
+        colMataKuliah.MinimumWidth = 6
+        colMataKuliah.Name = "colMataKuliah"
+        colMataKuliah.ReadOnly = True
+        ' 
+        ' colDosen
+        ' 
+        colDosen.HeaderText = "Dosen"
+        colDosen.MinimumWidth = 6
+        colDosen.Name = "colDosen"
+        colDosen.ReadOnly = True
+        ' 
+        ' colRuangan
+        ' 
+        colRuangan.HeaderText = "Ruangan"
+        colRuangan.MinimumWidth = 6
+        colRuangan.Name = "colRuangan"
+        colRuangan.ReadOnly = True
+        ' 
+        ' lblScheduleTitle
+        ' 
+        lblScheduleTitle.Dock = DockStyle.Top
+        lblScheduleTitle.Font = New Font("Segoe UI", 13F, FontStyle.Bold)
+        lblScheduleTitle.ForeColor = Color.FromArgb(CByte(33), CByte(37), CByte(41))
+        lblScheduleTitle.Location = New Point(40, 93)
+        lblScheduleTitle.Name = "lblScheduleTitle"
+        lblScheduleTitle.Padding = New Padding(0, 16, 0, 0)
+        lblScheduleTitle.Size = New Size(1113, 60)
+        lblScheduleTitle.TabIndex = 5
+        lblScheduleTitle.Text = "Jadwal Kuliah Hari Ini"
+        ' 
+        ' cardCourse
+        ' 
+        cardCourse.BackColor = Color.White
+        cardCourse.Controls.Add(lblCourseValue)
+        cardCourse.Controls.Add(lblCourseTitle)
+        cardCourse.Location = New Point(880, 93)
+        cardCourse.Margin = New Padding(3, 4, 3, 4)
+        cardCourse.Name = "cardCourse"
+        cardCourse.Size = New Size(234, 133)
+        cardCourse.TabIndex = 4
+        ' 
+        ' lblCourseValue
+        ' 
+        lblCourseValue.AutoSize = True
+        lblCourseValue.Font = New Font("Segoe UI", 20F, FontStyle.Bold)
+        lblCourseValue.ForeColor = Color.FromArgb(CByte(111), CByte(66), CByte(193))
+        lblCourseValue.Location = New Point(23, 60)
+        lblCourseValue.Name = "lblCourseValue"
+        lblCourseValue.Size = New Size(40, 46)
+        lblCourseValue.TabIndex = 1
+        lblCourseValue.Text = "8"
+        ' 
+        ' lblCourseTitle
+        ' 
+        lblCourseTitle.AutoSize = True
+        lblCourseTitle.Font = New Font("Segoe UI", 9F)
+        lblCourseTitle.ForeColor = Color.FromArgb(CByte(108), CByte(117), CByte(125))
+        lblCourseTitle.Location = New Point(23, 23)
+        lblCourseTitle.Name = "lblCourseTitle"
+        lblCourseTitle.Size = New Size(88, 20)
+        lblCourseTitle.TabIndex = 0
+        lblCourseTitle.Text = "Mata Kuliah"
+        ' 
+        ' cardSemester
+        ' 
+        cardSemester.BackColor = Color.White
+        cardSemester.Controls.Add(lblSemesterValue)
+        cardSemester.Controls.Add(lblSemesterTitle)
+        cardSemester.Location = New Point(629, 93)
+        cardSemester.Margin = New Padding(3, 4, 3, 4)
+        cardSemester.Name = "cardSemester"
+        cardSemester.Size = New Size(234, 133)
+        cardSemester.TabIndex = 3
+        ' 
+        ' lblSemesterValue
+        ' 
+        lblSemesterValue.AutoSize = True
+        lblSemesterValue.Font = New Font("Segoe UI", 20F, FontStyle.Bold)
+        lblSemesterValue.ForeColor = Color.FromArgb(CByte(255), CByte(193), CByte(7))
+        lblSemesterValue.Location = New Point(23, 60)
+        lblSemesterValue.Name = "lblSemesterValue"
+        lblSemesterValue.Size = New Size(40, 46)
+        lblSemesterValue.TabIndex = 1
+        lblSemesterValue.Text = "6"
+        ' 
+        ' lblSemesterTitle
+        ' 
+        lblSemesterTitle.AutoSize = True
+        lblSemesterTitle.Font = New Font("Segoe UI", 9F)
+        lblSemesterTitle.ForeColor = Color.FromArgb(CByte(108), CByte(117), CByte(125))
+        lblSemesterTitle.Location = New Point(23, 23)
+        lblSemesterTitle.Name = "lblSemesterTitle"
+        lblSemesterTitle.Size = New Size(105, 20)
+        lblSemesterTitle.TabIndex = 0
+        lblSemesterTitle.Text = "Semester Aktif"
+        ' 
+        ' cardSks
+        ' 
+        cardSks.BackColor = Color.White
+        cardSks.Controls.Add(lblSksValue)
+        cardSks.Controls.Add(lblSksTitle)
+        cardSks.Location = New Point(377, 93)
+        cardSks.Margin = New Padding(3, 4, 3, 4)
+        cardSks.Name = "cardSks"
+        cardSks.Size = New Size(234, 133)
+        cardSks.TabIndex = 2
+        ' 
+        ' lblSksValue
+        ' 
+        lblSksValue.AutoSize = True
+        lblSksValue.Font = New Font("Segoe UI", 20F, FontStyle.Bold)
+        lblSksValue.ForeColor = Color.FromArgb(CByte(25), CByte(135), CByte(84))
+        lblSksValue.Location = New Point(23, 60)
+        lblSksValue.Name = "lblSksValue"
+        lblSksValue.Size = New Size(129, 46)
+        lblSksValue.TabIndex = 1
+        lblSksValue.Text = "96 SKS"
+        ' 
+        ' lblSksTitle
+        ' 
+        lblSksTitle.AutoSize = True
+        lblSksTitle.Font = New Font("Segoe UI", 9F)
+        lblSksTitle.ForeColor = Color.FromArgb(CByte(108), CByte(117), CByte(125))
+        lblSksTitle.Location = New Point(23, 23)
+        lblSksTitle.Name = "lblSksTitle"
+        lblSksTitle.Size = New Size(71, 20)
+        lblSksTitle.TabIndex = 0
+        lblSksTitle.Text = "Total SKS"
+        ' 
+        ' cardIpk
+        ' 
+        cardIpk.BackColor = Color.White
+        cardIpk.Controls.Add(lblIpkValue)
+        cardIpk.Controls.Add(lblIpkTitle)
+        cardIpk.Location = New Point(126, 93)
+        cardIpk.Margin = New Padding(3, 4, 3, 4)
+        cardIpk.Name = "cardIpk"
+        cardIpk.Size = New Size(234, 133)
+        cardIpk.TabIndex = 1
+        ' 
+        ' lblIpkValue
+        ' 
+        lblIpkValue.AutoSize = True
+        lblIpkValue.Font = New Font("Segoe UI", 20F, FontStyle.Bold)
+        lblIpkValue.ForeColor = Color.FromArgb(CByte(13), CByte(110), CByte(253))
+        lblIpkValue.Location = New Point(23, 60)
+        lblIpkValue.Name = "lblIpkValue"
+        lblIpkValue.Size = New Size(89, 46)
+        lblIpkValue.TabIndex = 1
+        lblIpkValue.Text = "3.75"
+        ' 
+        ' lblIpkTitle
+        ' 
+        lblIpkTitle.AutoSize = True
+        lblIpkTitle.Font = New Font("Segoe UI", 9F)
+        lblIpkTitle.ForeColor = Color.FromArgb(CByte(108), CByte(117), CByte(125))
+        lblIpkTitle.Location = New Point(23, 23)
+        lblIpkTitle.Name = "lblIpkTitle"
+        lblIpkTitle.Size = New Size(98, 20)
+        lblIpkTitle.TabIndex = 0
+        lblIpkTitle.Text = "IPK Kumulatif"
+        ' 
+        ' lblSummaryTitle
+        ' 
+        lblSummaryTitle.Dock = DockStyle.Top
+        lblSummaryTitle.Font = New Font("Segoe UI", 16F, FontStyle.Bold)
+        lblSummaryTitle.ForeColor = Color.FromArgb(CByte(33), CByte(37), CByte(41))
+        lblSummaryTitle.Location = New Point(40, 33)
+        lblSummaryTitle.Name = "lblSummaryTitle"
+        lblSummaryTitle.Size = New Size(1113, 60)
+        lblSummaryTitle.TabIndex = 0
+        lblSummaryTitle.Text = "Ringkasan Akademik"
+        ' 
+        ' Dashboard
+        ' 
+        AutoScaleDimensions = New SizeF(8F, 20F)
+        AutoScaleMode = AutoScaleMode.Font
+        ClientSize = New Size(1467, 960)
+        Controls.Add(content)
+        Controls.Add(header)
+        Controls.Add(sidebar)
+        Margin = New Padding(3, 4, 3, 4)
+        MinimumSize = New Size(1255, 918)
+        Name = "Dashboard"
+        StartPosition = FormStartPosition.CenterScreen
+        Text = "Dashboard Akademik"
+        sidebar.ResumeLayout(False)
+        sidebar.PerformLayout()
+        header.ResumeLayout(False)
+        header.PerformLayout()
+        content.ResumeLayout(False)
+        CType(dgvSchedule, ComponentModel.ISupportInitialize).EndInit()
+        cardCourse.ResumeLayout(False)
+        cardCourse.PerformLayout()
+        cardSemester.ResumeLayout(False)
+        cardSemester.PerformLayout()
+        cardSks.ResumeLayout(False)
+        cardSks.PerformLayout()
+        cardIpk.ResumeLayout(False)
+        cardIpk.PerformLayout()
+        ResumeLayout(False)
 
     End Sub
 

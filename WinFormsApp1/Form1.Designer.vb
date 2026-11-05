@@ -1,4 +1,4 @@
-﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
+<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
 Partial Class Form1
     Inherits System.Windows.Forms.Form
 
@@ -14,191 +14,407 @@ Partial Class Form1
         End Try
     End Sub
 
-    'Required by the Windows Form Designer
     Private components As System.ComponentModel.IContainer
 
-    'NOTE: The following procedure is required by the Windows Form Designer
-    'It can be modified using the Windows Form Designer.  
-    'Do not modify it using the code editor.
+    Friend WithEvents pnlLeft As Panel
+    Friend WithEvents pnlLogin As Panel
+    Friend WithEvents lblBrand As Label
+    Friend WithEvents lblBrandSub As Label
+    Friend WithEvents lblIntro As Label
+    Friend WithEvents lblScaleTitle As Label
+    Friend WithEvents lblScale1 As Label
+    Friend WithEvents lblScale2 As Label
+    Friend WithEvents lblScale3 As Label
+    Friend WithEvents lblScale4 As Label
+    Friend WithEvents lblScale5 As Label
+    Friend WithEvents lblScaleLow As Label
+    Friend WithEvents lblScaleHigh As Label
+    Friend WithEvents lblTitle As Label
+    Friend WithEvents lblHint As Label
+    Friend WithEvents lblNim As Label
+    Friend WithEvents pnlNimBox As Panel
+    Friend WithEvents txtNim As TextBox
+    Friend WithEvents lblPassword As Label
+    Friend WithEvents pnlPasswordBox As Panel
+    Friend WithEvents txtPassword As TextBox
+    Friend WithEvents chkShowPassword As CheckBox
+    Friend WithEvents lnkForgotPassword As LinkLabel
+    Friend WithEvents lblError As Label
+    Friend WithEvents btnLogin As Button
+
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
-        Me.pnlCard = New System.Windows.Forms.Panel()
-        Me.lblTitle = New System.Windows.Forms.Label()
-        Me.lblSubtitle = New System.Windows.Forms.Label()
-        Me.lblUsername = New System.Windows.Forms.Label()
-        Me.txtUsername = New System.Windows.Forms.TextBox()
-        Me.lblPassword = New System.Windows.Forms.Label()
-        Me.txtPassword = New System.Windows.Forms.TextBox()
-        Me.chkShowPassword = New System.Windows.Forms.CheckBox()
-        Me.btnLogin = New System.Windows.Forms.Button()
-        Me.btnBatal = New System.Windows.Forms.Button()
-        Me.lblFooter = New System.Windows.Forms.Label()
-        Me.pnlCard.SuspendLayout()
-        Me.SuspendLayout()
-        '
-        'pnlCard
-        '
-        Me.pnlCard.BackColor = System.Drawing.Color.White
-        Me.pnlCard.Controls.Add(Me.lblTitle)
-        Me.pnlCard.Controls.Add(Me.lblSubtitle)
-        Me.pnlCard.Controls.Add(Me.lblUsername)
-        Me.pnlCard.Controls.Add(Me.txtUsername)
-        Me.pnlCard.Controls.Add(Me.lblPassword)
-        Me.pnlCard.Controls.Add(Me.txtPassword)
-        Me.pnlCard.Controls.Add(Me.chkShowPassword)
-        Me.pnlCard.Controls.Add(Me.btnLogin)
-        Me.pnlCard.Controls.Add(Me.btnBatal)
-        Me.pnlCard.Controls.Add(Me.lblFooter)
-        Me.pnlCard.Location = New System.Drawing.Point(30, 25)
-        Me.pnlCard.Name = "pnlCard"
-        Me.pnlCard.Size = New System.Drawing.Size(380, 430)
-        Me.pnlCard.TabIndex = 0
-        '
-        'lblTitle
-        '
-        Me.lblTitle.Font = New System.Drawing.Font("Segoe UI", 16.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point)
-        Me.lblTitle.ForeColor = System.Drawing.Color.FromArgb(33, 37, 41)
-        Me.lblTitle.Location = New System.Drawing.Point(15, 25)
-        Me.lblTitle.Name = "lblTitle"
-        Me.lblTitle.Size = New System.Drawing.Size(350, 35)
-        Me.lblTitle.TabIndex = 0
-        Me.lblTitle.Text = "HALAMAN LOGIN"
-        Me.lblTitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
-        '
-        'lblSubtitle
-        '
-        Me.lblSubtitle.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point)
-        Me.lblSubtitle.ForeColor = System.Drawing.Color.FromArgb(108, 117, 125)
-        Me.lblSubtitle.Location = New System.Drawing.Point(15, 60)
-        Me.lblSubtitle.Name = "lblSubtitle"
-        Me.lblSubtitle.Size = New System.Drawing.Size(350, 22)
-        Me.lblSubtitle.TabIndex = 1
-        Me.lblSubtitle.Text = "Masukkan username dan password Anda"
-        Me.lblSubtitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
-        '
-        'lblUsername
-        '
-        Me.lblUsername.AutoSize = True
-        Me.lblUsername.Font = New System.Drawing.Font("Segoe UI Semibold", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point)
-        Me.lblUsername.ForeColor = System.Drawing.Color.FromArgb(52, 58, 64)
-        Me.lblUsername.Location = New System.Drawing.Point(35, 100)
-        Me.lblUsername.Name = "lblUsername"
-        Me.lblUsername.Size = New System.Drawing.Size(69, 17)
-        Me.lblUsername.TabIndex = 2
-        Me.lblUsername.Text = "Username"
-        '
-        'txtUsername
-        '
-        Me.txtUsername.Font = New System.Drawing.Font("Segoe UI", 11.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point)
-        Me.txtUsername.Location = New System.Drawing.Point(35, 122)
-        Me.txtUsername.Name = "txtUsername"
-        Me.txtUsername.Size = New System.Drawing.Size(310, 27)
-        Me.txtUsername.TabIndex = 3
-        '
-        'lblPassword
-        '
-        Me.lblPassword.AutoSize = True
-        Me.lblPassword.Font = New System.Drawing.Font("Segoe UI Semibold", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point)
-        Me.lblPassword.ForeColor = System.Drawing.Color.FromArgb(52, 58, 64)
-        Me.lblPassword.Location = New System.Drawing.Point(35, 165)
-        Me.lblPassword.Name = "lblPassword"
-        Me.lblPassword.Size = New System.Drawing.Size(66, 17)
-        Me.lblPassword.TabIndex = 4
-        Me.lblPassword.Text = "Password"
-        '
-        'txtPassword
-        '
-        Me.txtPassword.Font = New System.Drawing.Font("Segoe UI", 11.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point)
-        Me.txtPassword.Location = New System.Drawing.Point(35, 187)
-        Me.txtPassword.Name = "txtPassword"
-        Me.txtPassword.Size = New System.Drawing.Size(310, 27)
-        Me.txtPassword.TabIndex = 5
-        Me.txtPassword.UseSystemPasswordChar = True
-        '
-        'chkShowPassword
-        '
-        Me.chkShowPassword.AutoSize = True
-        Me.chkShowPassword.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.chkShowPassword.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point)
-        Me.chkShowPassword.ForeColor = System.Drawing.Color.FromArgb(73, 80, 87)
-        Me.chkShowPassword.Location = New System.Drawing.Point(35, 224)
-        Me.chkShowPassword.Name = "chkShowPassword"
-        Me.chkShowPassword.Size = New System.Drawing.Size(129, 19)
-        Me.chkShowPassword.TabIndex = 6
-        Me.chkShowPassword.Text = "Tampilkan Password"
-        Me.chkShowPassword.UseVisualStyleBackColor = True
-        '
-        'btnLogin
-        '
-        Me.btnLogin.BackColor = System.Drawing.Color.FromArgb(13, 110, 253)
-        Me.btnLogin.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.btnLogin.FlatAppearance.BorderSize = 0
-        Me.btnLogin.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.btnLogin.Font = New System.Drawing.Font("Segoe UI Semibold", 10.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point)
-        Me.btnLogin.ForeColor = System.Drawing.Color.White
-        Me.btnLogin.Location = New System.Drawing.Point(35, 260)
-        Me.btnLogin.Name = "btnLogin"
-        Me.btnLogin.Size = New System.Drawing.Size(310, 40)
-        Me.btnLogin.TabIndex = 7
-        Me.btnLogin.Text = "LOGIN"
-        Me.btnLogin.UseVisualStyleBackColor = False
-        '
-        'btnBatal
-        '
-        Me.btnBatal.BackColor = System.Drawing.Color.FromArgb(233, 236, 239)
-        Me.btnBatal.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.btnBatal.FlatAppearance.BorderSize = 0
-        Me.btnBatal.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.btnBatal.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point)
-        Me.btnBatal.ForeColor = System.Drawing.Color.FromArgb(73, 80, 87)
-        Me.btnBatal.Location = New System.Drawing.Point(35, 310)
-        Me.btnBatal.Name = "btnBatal"
-        Me.btnBatal.Size = New System.Drawing.Size(310, 36)
-        Me.btnBatal.TabIndex = 8
-        Me.btnBatal.Text = "Reset / Bersihkan"
-        Me.btnBatal.UseVisualStyleBackColor = False
-        '
-        'lblFooter
-        '
-        Me.lblFooter.Font = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point)
-        Me.lblFooter.ForeColor = System.Drawing.Color.FromArgb(108, 117, 125)
-        Me.lblFooter.Location = New System.Drawing.Point(15, 365)
-        Me.lblFooter.Name = "lblFooter"
-        Me.lblFooter.Size = New System.Drawing.Size(350, 40)
-        Me.lblFooter.TabIndex = 9
-        Me.lblFooter.Text = "Default akun:" & vbCrLf & "Username: admin | Password: admin"
-        Me.lblFooter.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
-        '
-        'Form1
-        '
-        Me.AcceptButton = Me.btnLogin
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 15.0!)
-        Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.BackColor = System.Drawing.Color.FromArgb(240, 244, 248)
-        Me.CancelButton = Me.btnBatal
-        Me.ClientSize = New System.Drawing.Size(440, 480)
-        Me.Controls.Add(Me.pnlCard)
-        Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog
-        Me.MaximizeBox = False
-        Me.Name = "Form1"
-        Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
-        Me.Text = "Login Sistem"
-        Me.pnlCard.ResumeLayout(False)
-        Me.pnlCard.PerformLayout()
-        Me.ResumeLayout(False)
-
+        pnlLeft = New Panel()
+        lblBrand = New Label()
+        lblBrandSub = New Label()
+        lblIntro = New Label()
+        lblScaleTitle = New Label()
+        lblScale1 = New Label()
+        lblScale2 = New Label()
+        lblScale3 = New Label()
+        lblScale4 = New Label()
+        lblScale5 = New Label()
+        lblScaleLow = New Label()
+        lblScaleHigh = New Label()
+        pnlLogin = New Panel()
+        lblTitle = New Label()
+        lblHint = New Label()
+        lblNim = New Label()
+        pnlNimBox = New Panel()
+        txtNim = New TextBox()
+        lblPassword = New Label()
+        pnlPasswordBox = New Panel()
+        txtPassword = New TextBox()
+        chkShowPassword = New CheckBox()
+        lnkForgotPassword = New LinkLabel()
+        lblError = New Label()
+        btnLogin = New Button()
+        pnlLeft.SuspendLayout()
+        pnlLogin.SuspendLayout()
+        pnlNimBox.SuspendLayout()
+        pnlPasswordBox.SuspendLayout()
+        SuspendLayout()
+        ' 
+        ' pnlLeft
+        ' 
+        pnlLeft.BackColor = Color.FromArgb(CByte(30), CByte(59), CByte(51))
+        pnlLeft.Controls.Add(lblBrand)
+        pnlLeft.Controls.Add(lblBrandSub)
+        pnlLeft.Controls.Add(lblIntro)
+        pnlLeft.Controls.Add(lblScaleTitle)
+        pnlLeft.Controls.Add(lblScale1)
+        pnlLeft.Controls.Add(lblScale2)
+        pnlLeft.Controls.Add(lblScale3)
+        pnlLeft.Controls.Add(lblScale4)
+        pnlLeft.Controls.Add(lblScale5)
+        pnlLeft.Controls.Add(lblScaleLow)
+        pnlLeft.Controls.Add(lblScaleHigh)
+        pnlLeft.Dock = DockStyle.Left
+        pnlLeft.Location = New Point(0, 0)
+        pnlLeft.Margin = New Padding(3, 4, 3, 4)
+        pnlLeft.Name = "pnlLeft"
+        pnlLeft.Size = New Size(411, 747)
+        pnlLeft.TabIndex = 1
+        ' 
+        ' lblBrand
+        ' 
+        lblBrand.AutoSize = True
+        lblBrand.Font = New Font("Georgia", 30F, FontStyle.Bold)
+        lblBrand.ForeColor = Color.White
+        lblBrand.Location = New Point(46, 75)
+        lblBrand.Name = "lblBrand"
+        lblBrand.Size = New Size(238, 58)
+        lblBrand.TabIndex = 0
+        lblBrand.Text = "SIAKAD"
+        ' 
+        ' lblBrandSub
+        ' 
+        lblBrandSub.AutoSize = True
+        lblBrandSub.Font = New Font("Segoe UI", 11F)
+        lblBrandSub.ForeColor = Color.FromArgb(CByte(214), CByte(226), CByte(220))
+        lblBrandSub.Location = New Point(50, 147)
+        lblBrandSub.Name = "lblBrandSub"
+        lblBrandSub.Size = New Size(238, 25)
+        lblBrandSub.TabIndex = 1
+        lblBrandSub.Text = "Sistem Informasi Akademik"
+        ' 
+        ' lblIntro
+        ' 
+        lblIntro.Font = New Font("Segoe UI", 10.5F)
+        lblIntro.ForeColor = Color.White
+        lblIntro.Location = New Point(50, 261)
+        lblIntro.Name = "lblIntro"
+        lblIntro.Size = New Size(320, 120)
+        lblIntro.TabIndex = 2
+        lblIntro.Text = "Masuk dengan NIM untuk mengisi evaluasi setiap dosen pengampu mata kuliah Anda semester ini."
+        ' 
+        ' lblScaleTitle
+        ' 
+        lblScaleTitle.AutoSize = True
+        lblScaleTitle.Font = New Font("Segoe UI", 9F)
+        lblScaleTitle.ForeColor = Color.FromArgb(CByte(214), CByte(226), CByte(220))
+        lblScaleTitle.Location = New Point(50, 525)
+        lblScaleTitle.Name = "lblScaleTitle"
+        lblScaleTitle.Size = New Size(198, 20)
+        lblScaleTitle.TabIndex = 3
+        lblScaleTitle.Text = "Skala penilaian yang dipakai"
+        ' 
+        ' lblScale1
+        ' 
+        lblScale1.BackColor = Color.FromArgb(CByte(46), CByte(82), CByte(72))
+        lblScale1.Font = New Font("Georgia", 12F, FontStyle.Bold)
+        lblScale1.ForeColor = Color.White
+        lblScale1.Location = New Point(50, 560)
+        lblScale1.Name = "lblScale1"
+        lblScale1.Size = New Size(50, 59)
+        lblScale1.TabIndex = 4
+        lblScale1.Text = "1"
+        lblScale1.TextAlign = ContentAlignment.MiddleCenter
+        ' 
+        ' lblScale2
+        ' 
+        lblScale2.BackColor = Color.FromArgb(CByte(46), CByte(82), CByte(72))
+        lblScale2.Font = New Font("Georgia", 12F, FontStyle.Bold)
+        lblScale2.ForeColor = Color.White
+        lblScale2.Location = New Point(110, 560)
+        lblScale2.Name = "lblScale2"
+        lblScale2.Size = New Size(50, 59)
+        lblScale2.TabIndex = 5
+        lblScale2.Text = "2"
+        lblScale2.TextAlign = ContentAlignment.MiddleCenter
+        ' 
+        ' lblScale3
+        ' 
+        lblScale3.BackColor = Color.FromArgb(CByte(46), CByte(82), CByte(72))
+        lblScale3.Font = New Font("Georgia", 12F, FontStyle.Bold)
+        lblScale3.ForeColor = Color.White
+        lblScale3.Location = New Point(169, 560)
+        lblScale3.Name = "lblScale3"
+        lblScale3.Size = New Size(50, 59)
+        lblScale3.TabIndex = 6
+        lblScale3.Text = "3"
+        lblScale3.TextAlign = ContentAlignment.MiddleCenter
+        ' 
+        ' lblScale4
+        ' 
+        lblScale4.BackColor = Color.FromArgb(CByte(46), CByte(82), CByte(72))
+        lblScale4.Font = New Font("Georgia", 12F, FontStyle.Bold)
+        lblScale4.ForeColor = Color.White
+        lblScale4.Location = New Point(229, 560)
+        lblScale4.Name = "lblScale4"
+        lblScale4.Size = New Size(50, 59)
+        lblScale4.TabIndex = 7
+        lblScale4.Text = "4"
+        lblScale4.TextAlign = ContentAlignment.MiddleCenter
+        ' 
+        ' lblScale5
+        ' 
+        lblScale5.BackColor = Color.FromArgb(CByte(46), CByte(82), CByte(72))
+        lblScale5.Font = New Font("Georgia", 12F, FontStyle.Bold)
+        lblScale5.ForeColor = Color.White
+        lblScale5.Location = New Point(288, 560)
+        lblScale5.Name = "lblScale5"
+        lblScale5.Size = New Size(50, 59)
+        lblScale5.TabIndex = 8
+        lblScale5.Text = "5"
+        lblScale5.TextAlign = ContentAlignment.MiddleCenter
+        ' 
+        ' lblScaleLow
+        ' 
+        lblScaleLow.AutoSize = True
+        lblScaleLow.Font = New Font("Segoe UI", 8.5F)
+        lblScaleLow.ForeColor = Color.FromArgb(CByte(214), CByte(226), CByte(220))
+        lblScaleLow.Location = New Point(48, 629)
+        lblScaleLow.Name = "lblScaleLow"
+        lblScaleLow.Size = New Size(104, 20)
+        lblScaleLow.TabIndex = 9
+        lblScaleLow.Text = "Sangat kurang"
+        ' 
+        ' lblScaleHigh
+        ' 
+        lblScaleHigh.AutoSize = True
+        lblScaleHigh.Font = New Font("Segoe UI", 8.5F)
+        lblScaleHigh.ForeColor = Color.FromArgb(CByte(214), CByte(226), CByte(220))
+        lblScaleHigh.Location = New Point(270, 629)
+        lblScaleHigh.Name = "lblScaleHigh"
+        lblScaleHigh.Size = New Size(87, 20)
+        lblScaleHigh.TabIndex = 10
+        lblScaleHigh.Text = "Sangat baik"
+        ' 
+        ' pnlLogin
+        ' 
+        pnlLogin.BackColor = Color.FromArgb(CByte(250), CByte(248), CByte(243))
+        pnlLogin.Controls.Add(lblTitle)
+        pnlLogin.Controls.Add(lblHint)
+        pnlLogin.Controls.Add(lblNim)
+        pnlLogin.Controls.Add(pnlNimBox)
+        pnlLogin.Controls.Add(lblPassword)
+        pnlLogin.Controls.Add(pnlPasswordBox)
+        pnlLogin.Controls.Add(chkShowPassword)
+        pnlLogin.Controls.Add(lnkForgotPassword)
+        pnlLogin.Controls.Add(lblError)
+        pnlLogin.Controls.Add(btnLogin)
+        pnlLogin.Dock = DockStyle.Fill
+        pnlLogin.Location = New Point(411, 0)
+        pnlLogin.Margin = New Padding(3, 4, 3, 4)
+        pnlLogin.Name = "pnlLogin"
+        pnlLogin.Size = New Size(618, 747)
+        pnlLogin.TabIndex = 0
+        ' 
+        ' lblTitle
+        ' 
+        lblTitle.AutoSize = True
+        lblTitle.Font = New Font("Georgia", 22F, FontStyle.Bold)
+        lblTitle.ForeColor = Color.FromArgb(CByte(31), CByte(36), CByte(33))
+        lblTitle.Location = New Point(75, 128)
+        lblTitle.Name = "lblTitle"
+        lblTitle.Size = New Size(146, 43)
+        lblTitle.TabIndex = 0
+        lblTitle.Text = "Masuk"
+        ' 
+        ' lblHint
+        ' 
+        lblHint.AutoSize = True
+        lblHint.Font = New Font("Segoe UI", 10F)
+        lblHint.ForeColor = Color.FromArgb(CByte(84), CByte(90), CByte(86))
+        lblHint.Location = New Point(80, 192)
+        lblHint.Name = "lblHint"
+        lblHint.Size = New Size(394, 23)
+        lblHint.TabIndex = 1
+        lblHint.Text = "Gunakan NIM dan password akun akademik Anda."
+        ' 
+        ' lblNim
+        ' 
+        lblNim.AutoSize = True
+        lblNim.Font = New Font("Segoe UI Semibold", 10F, FontStyle.Bold)
+        lblNim.ForeColor = Color.FromArgb(CByte(31), CByte(36), CByte(33))
+        lblNim.Location = New Point(80, 261)
+        lblNim.Name = "lblNim"
+        lblNim.Size = New Size(44, 23)
+        lblNim.TabIndex = 2
+        lblNim.Text = "NIM"
+        ' 
+        ' pnlNimBox
+        ' 
+        pnlNimBox.BackColor = Color.White
+        pnlNimBox.Controls.Add(txtNim)
+        pnlNimBox.Cursor = Cursors.IBeam
+        pnlNimBox.Location = New Point(80, 293)
+        pnlNimBox.Margin = New Padding(3, 4, 3, 4)
+        pnlNimBox.Name = "pnlNimBox"
+        pnlNimBox.Padding = New Padding(14, 12, 14, 0)
+        pnlNimBox.Size = New Size(457, 53)
+        pnlNimBox.TabIndex = 3
+        ' 
+        ' txtNim
+        ' 
+        txtNim.BackColor = Color.White
+        txtNim.BorderStyle = BorderStyle.None
+        txtNim.Dock = DockStyle.Top
+        txtNim.Font = New Font("Segoe UI", 11F)
+        txtNim.ForeColor = Color.FromArgb(CByte(31), CByte(36), CByte(33))
+        txtNim.Location = New Point(14, 12)
+        txtNim.Margin = New Padding(3, 4, 3, 4)
+        txtNim.MaxLength = 15
+        txtNim.Name = "txtNim"
+        txtNim.Size = New Size(429, 25)
+        txtNim.TabIndex = 0
+        ' 
+        ' lblPassword
+        ' 
+        lblPassword.AutoSize = True
+        lblPassword.Font = New Font("Segoe UI Semibold", 10F, FontStyle.Bold)
+        lblPassword.ForeColor = Color.FromArgb(CByte(31), CByte(36), CByte(33))
+        lblPassword.Location = New Point(80, 371)
+        lblPassword.Name = "lblPassword"
+        lblPassword.Size = New Size(82, 23)
+        lblPassword.TabIndex = 4
+        lblPassword.Text = "Password"
+        ' 
+        ' pnlPasswordBox
+        ' 
+        pnlPasswordBox.BackColor = Color.White
+        pnlPasswordBox.Controls.Add(txtPassword)
+        pnlPasswordBox.Cursor = Cursors.IBeam
+        pnlPasswordBox.Location = New Point(80, 403)
+        pnlPasswordBox.Margin = New Padding(3, 4, 3, 4)
+        pnlPasswordBox.Name = "pnlPasswordBox"
+        pnlPasswordBox.Padding = New Padding(14, 12, 14, 0)
+        pnlPasswordBox.Size = New Size(457, 53)
+        pnlPasswordBox.TabIndex = 5
+        ' 
+        ' txtPassword
+        ' 
+        txtPassword.BackColor = Color.White
+        txtPassword.BorderStyle = BorderStyle.None
+        txtPassword.Dock = DockStyle.Top
+        txtPassword.Font = New Font("Segoe UI", 11F)
+        txtPassword.ForeColor = Color.FromArgb(CByte(31), CByte(36), CByte(33))
+        txtPassword.Location = New Point(14, 12)
+        txtPassword.Margin = New Padding(3, 4, 3, 4)
+        txtPassword.Name = "txtPassword"
+        txtPassword.Size = New Size(429, 25)
+        txtPassword.TabIndex = 1
+        txtPassword.UseSystemPasswordChar = True
+        ' 
+        ' chkShowPassword
+        ' 
+        chkShowPassword.AutoSize = True
+        chkShowPassword.Cursor = Cursors.Hand
+        chkShowPassword.Font = New Font("Segoe UI", 9.5F)
+        chkShowPassword.ForeColor = Color.FromArgb(CByte(84), CByte(90), CByte(86))
+        chkShowPassword.Location = New Point(80, 469)
+        chkShowPassword.Margin = New Padding(3, 4, 3, 4)
+        chkShowPassword.Name = "chkShowPassword"
+        chkShowPassword.Size = New Size(173, 25)
+        chkShowPassword.TabIndex = 2
+        chkShowPassword.Text = "Tampilkan password"
+        chkShowPassword.UseVisualStyleBackColor = True
+        ' 
+        ' lnkForgotPassword
+        ' 
+        lnkForgotPassword.ActiveLinkColor = Color.FromArgb(CByte(14), CByte(31), CByte(27))
+        lnkForgotPassword.AutoSize = True
+        lnkForgotPassword.Font = New Font("Segoe UI", 9.5F)
+        lnkForgotPassword.LinkColor = Color.FromArgb(CByte(30), CByte(59), CByte(51))
+        lnkForgotPassword.Location = New Point(427, 472)
+        lnkForgotPassword.Name = "lnkForgotPassword"
+        lnkForgotPassword.Size = New Size(122, 21)
+        lnkForgotPassword.TabIndex = 3
+        lnkForgotPassword.TabStop = True
+        lnkForgotPassword.Text = "Lupa password?"
+        ' 
+        ' lblError
+        ' 
+        lblError.Font = New Font("Segoe UI", 9.5F)
+        lblError.ForeColor = Color.FromArgb(CByte(180), CByte(35), CByte(24))
+        lblError.Location = New Point(80, 512)
+        lblError.Name = "lblError"
+        lblError.Size = New Size(457, 53)
+        lblError.TabIndex = 6
+        lblError.Visible = False
+        ' 
+        ' btnLogin
+        ' 
+        btnLogin.BackColor = Color.FromArgb(CByte(30), CByte(59), CByte(51))
+        btnLogin.Cursor = Cursors.Hand
+        btnLogin.FlatAppearance.BorderSize = 0
+        btnLogin.FlatAppearance.MouseDownBackColor = Color.FromArgb(CByte(14), CByte(31), CByte(27))
+        btnLogin.FlatAppearance.MouseOverBackColor = Color.FromArgb(CByte(22), CByte(45), CByte(39))
+        btnLogin.FlatStyle = FlatStyle.Flat
+        btnLogin.Font = New Font("Segoe UI Semibold", 11F, FontStyle.Bold)
+        btnLogin.ForeColor = Color.White
+        btnLogin.Location = New Point(80, 571)
+        btnLogin.Margin = New Padding(3, 4, 3, 4)
+        btnLogin.Name = "btnLogin"
+        btnLogin.Size = New Size(457, 61)
+        btnLogin.TabIndex = 4
+        btnLogin.Text = "Masuk ke EDOM"
+        btnLogin.UseVisualStyleBackColor = False
+        ' 
+        ' Form1
+        ' 
+        AcceptButton = btnLogin
+        AutoScaleDimensions = New SizeF(8F, 20F)
+        AutoScaleMode = AutoScaleMode.Font
+        BackColor = Color.FromArgb(CByte(250), CByte(248), CByte(243))
+        ClientSize = New Size(1029, 747)
+        Controls.Add(pnlLogin)
+        Controls.Add(pnlLeft)
+        FormBorderStyle = FormBorderStyle.FixedSingle
+        Margin = New Padding(3, 4, 3, 4)
+        MaximizeBox = False
+        Name = "Form1"
+        StartPosition = FormStartPosition.CenterScreen
+        Text = "SIAKAD - Login"
+        pnlLeft.ResumeLayout(False)
+        pnlLeft.PerformLayout()
+        pnlLogin.ResumeLayout(False)
+        pnlLogin.PerformLayout()
+        pnlNimBox.ResumeLayout(False)
+        pnlNimBox.PerformLayout()
+        pnlPasswordBox.ResumeLayout(False)
+        pnlPasswordBox.PerformLayout()
+        ResumeLayout(False)
     End Sub
-
-    Friend WithEvents pnlCard As System.Windows.Forms.Panel
-    Friend WithEvents lblTitle As System.Windows.Forms.Label
-    Friend WithEvents lblSubtitle As System.Windows.Forms.Label
-    Friend WithEvents lblUsername As System.Windows.Forms.Label
-    Friend WithEvents txtUsername As System.Windows.Forms.TextBox
-    Friend WithEvents lblPassword As System.Windows.Forms.Label
-    Friend WithEvents txtPassword As System.Windows.Forms.TextBox
-    Friend WithEvents chkShowPassword As System.Windows.Forms.CheckBox
-    Friend WithEvents btnLogin As System.Windows.Forms.Button
-    Friend WithEvents btnBatal As System.Windows.Forms.Button
-    Friend WithEvents lblFooter As System.Windows.Forms.Label
-
 End Class

@@ -27,23 +27,23 @@ Public Class Dashboard
 
         dgvSchedule.Rows.Add(
             "08:00 - 09:40",
-            "Pemrograman Web",
-            "Dr. Budi Santoso",
-            "Lab Komputer 1"
+            "Pemrograman Web Lanjut",
+            "Asep Taufik, M.Kom.",
+            "AA 301"
         )
 
         dgvSchedule.Rows.Add(
             "10:00 - 11:40",
-            "Basis Data",
-            "Siti Rahma, M.Kom.",
-            "Ruang 204"
+            "Pemrograman Basis Data",
+            "Risna Sari, M.Kom.",
+            "GSG 204"
         )
 
         dgvSchedule.Rows.Add(
             "13:00 - 14:40",
             "Analisis Sistem",
-            "Andi Wijaya, M.Kom.",
-            "Ruang 301"
+            "Bagus Wijaya, M.Kom.",
+            "PUT 301"
         )
     End Sub
 
@@ -82,5 +82,6 @@ Public Class Dashboard
             Application.Exit()
         End If
     End Sub
+
 
 End Class
