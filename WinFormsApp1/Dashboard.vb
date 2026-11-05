@@ -1,12 +1,16 @@
-﻿Imports System.Drawing
+Imports System.Drawing
 Imports System.Windows.Forms
 
 Public Class Dashboard
+
+    Private ReadOnly ActiveMenuColor As Color = Color.FromArgb(114, 142, 109)
+    Private ReadOnly InactiveMenuColor As Color = Color.FromArgb(46, 82, 72)
 
     Public Property Username As String
     Public Property LoginForm As Form
 
     Private loggingOut As Boolean
+    Private navigating As Boolean
 
     Public Sub New()
         InitializeComponent()
@@ -21,7 +25,8 @@ Public Class Dashboard
             Username = "Mahasiswa"
         End If
 
-        lblWelcome.Text = $"Selamat datang, {Username}"
+        lblWelcome.Text = $"Selamat datang {Username}"
+        SetActiveMenuButton(btnDashboard)
 
         dgvSchedule.Rows.Clear()
 
@@ -47,10 +52,47 @@ Public Class Dashboard
         )
     End Sub
 
+    Public Sub SetActiveMenuButton(activeButton As Button)
+        btnDashboard.BackColor = If(activeButton Is btnDashboard, ActiveMenuColor, InactiveMenuColor)
+        Button1.BackColor = If(activeButton Is Button1, ActiveMenuColor, InactiveMenuColor)
+    End Sub
+
+    Private Sub btnDashboard_Click(
+        sender As Object,
+        e As EventArgs
+    ) Handles btnDashboard.Click
+
+        SetActiveMenuButton(btnDashboard)
+    End Sub
+
+    Private Sub Button1_Click(
+        sender As Object,
+        e As EventArgs
+    ) Handles Button1.Click
+
+        SetActiveMenuButton(Button1)
+
+        Dim edomForm As New pengisianEdom With {
+            .Username = Username,
+            .LoginForm = LoginForm,
+            .DashboardForm = Me,
+            .StartPosition = FormStartPosition.Manual,
+            .Location = Location,
+            .Size = Size,
+            .WindowState = WindowState
+        }
+
+        navigating = True
+        Hide()
+        edomForm.Show()
+    End Sub
+
     Private Sub btnLogout_Click(
         sender As Object,
         e As EventArgs
     ) Handles btnLogout.Click
+
+        btnLogout.BackColor = Color.FromArgb(176, 42, 55)
 
         Dim result As DialogResult =
             MessageBox.Show(
@@ -61,6 +103,7 @@ Public Class Dashboard
             )
 
         If result <> DialogResult.Yes Then
+            btnLogout.BackColor = Color.FromArgb(220, 53, 69)
             Return
         End If
 
@@ -78,10 +121,9 @@ Public Class Dashboard
         e As FormClosedEventArgs
     ) Handles MyBase.FormClosed
 
-        If Not loggingOut Then
+        If Not loggingOut AndAlso Not navigating Then
             Application.Exit()
         End If
     End Sub
-
 
 End Class

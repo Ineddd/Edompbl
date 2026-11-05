@@ -20,7 +20,6 @@ Partial Class Form1
     Friend WithEvents pnlLogin As Panel
     Friend WithEvents lblBrand As Label
     Friend WithEvents lblBrandSub As Label
-    Friend WithEvents lblIntro As Label
     Friend WithEvents lblScaleTitle As Label
     Friend WithEvents lblScale1 As Label
     Friend WithEvents lblScale2 As Label
@@ -47,7 +46,6 @@ Partial Class Form1
         pnlLeft = New Panel()
         lblBrand = New Label()
         lblBrandSub = New Label()
-        lblIntro = New Label()
         lblScaleTitle = New Label()
         lblScale1 = New Label()
         lblScale2 = New Label()
@@ -80,7 +78,6 @@ Partial Class Form1
         pnlLeft.BackColor = Color.FromArgb(CByte(30), CByte(59), CByte(51))
         pnlLeft.Controls.Add(lblBrand)
         pnlLeft.Controls.Add(lblBrandSub)
-        pnlLeft.Controls.Add(lblIntro)
         pnlLeft.Controls.Add(lblScaleTitle)
         pnlLeft.Controls.Add(lblScale1)
         pnlLeft.Controls.Add(lblScale2)
@@ -117,16 +114,6 @@ Partial Class Form1
         lblBrandSub.Size = New Size(238, 25)
         lblBrandSub.TabIndex = 1
         lblBrandSub.Text = "Sistem Informasi Akademik"
-        ' 
-        ' lblIntro
-        ' 
-        lblIntro.Font = New Font("Segoe UI", 10.5F)
-        lblIntro.ForeColor = Color.White
-        lblIntro.Location = New Point(50, 261)
-        lblIntro.Name = "lblIntro"
-        lblIntro.Size = New Size(320, 120)
-        lblIntro.TabIndex = 2
-        lblIntro.Text = "Masuk dengan NIM untuk mengisi evaluasi setiap dosen pengampu mata kuliah Anda semester ini."
         ' 
         ' lblScaleTitle
         ' 
@@ -248,9 +235,9 @@ Partial Class Form1
         lblTitle.ForeColor = Color.FromArgb(CByte(31), CByte(36), CByte(33))
         lblTitle.Location = New Point(75, 128)
         lblTitle.Name = "lblTitle"
-        lblTitle.Size = New Size(146, 43)
+        lblTitle.Size = New Size(128, 43)
         lblTitle.TabIndex = 0
-        lblTitle.Text = "Masuk"
+        lblTitle.Text = "Login"
         ' 
         ' lblHint
         ' 

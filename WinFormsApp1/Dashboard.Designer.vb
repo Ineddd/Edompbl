@@ -1,4 +1,4 @@
-﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
+<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
 Partial Class Dashboard
     Inherits System.Windows.Forms.Form
 
@@ -18,6 +18,7 @@ Partial Class Dashboard
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         sidebar = New Panel()
+        Button1 = New Button()
         btnLogout = New Button()
         btnDashboard = New Button()
         lblBrandSubtitle = New Label()
@@ -46,7 +47,6 @@ Partial Class Dashboard
         cardIpk = New Panel()
         lblIpkValue = New Label()
         lblIpkTitle = New Label()
-        lblSummaryTitle = New Label()
         sidebar.SuspendLayout()
         header.SuspendLayout()
         content.SuspendLayout()
@@ -60,6 +60,8 @@ Partial Class Dashboard
         ' sidebar
         ' 
         sidebar.BackColor = Color.FromArgb(CByte(30), CByte(59), CByte(51))
+        sidebar.BorderStyle = BorderStyle.Fixed3D
+        sidebar.Controls.Add(Button1)
         sidebar.Controls.Add(btnLogout)
         sidebar.Controls.Add(btnDashboard)
         sidebar.Controls.Add(lblBrandSubtitle)
@@ -71,33 +73,57 @@ Partial Class Dashboard
         sidebar.Size = New Size(274, 960)
         sidebar.TabIndex = 0
         ' 
+        ' Button1
+        ' 
+        Button1.BackColor = Color.FromArgb(CByte(46), CByte(82), CByte(72))
+        Button1.Cursor = Cursors.Hand
+        Button1.FlatAppearance.BorderSize = 0
+        Button1.FlatAppearance.MouseDownBackColor = Color.FromArgb(CByte(114), CByte(142), CByte(109))
+        Button1.FlatAppearance.MouseOverBackColor = Color.FromArgb(CByte(88), CByte(118), CByte(84))
+        Button1.FlatStyle = FlatStyle.Flat
+        Button1.Font = New Font("Segoe UI", 9.5F, FontStyle.Bold)
+        Button1.ForeColor = Color.White
+        Button1.Location = New Point(-2, 255)
+        Button1.Margin = New Padding(3, 4, 3, 4)
+        Button1.Name = "Button1"
+        Button1.Size = New Size(274, 56)
+        Button1.TabIndex = 9
+        Button1.Text = "    Pengisian EDOM"
+        Button1.TextAlign = ContentAlignment.MiddleLeft
+        Button1.UseVisualStyleBackColor = False
+        ' 
         ' btnLogout
         ' 
         btnLogout.BackColor = Color.FromArgb(CByte(220), CByte(53), CByte(69))
         btnLogout.Cursor = Cursors.Hand
         btnLogout.FlatAppearance.BorderSize = 0
+        btnLogout.FlatAppearance.MouseDownBackColor = Color.FromArgb(CByte(176), CByte(42), CByte(55))
+        btnLogout.FlatAppearance.MouseOverBackColor = Color.FromArgb(CByte(200), CByte(35), CByte(51))
         btnLogout.FlatStyle = FlatStyle.Flat
-        btnLogout.Font = New Font("Segoe UI", 10F, FontStyle.Bold)
+        btnLogout.Font = New Font("Segoe UI", 10.0F, FontStyle.Bold)
         btnLogout.ForeColor = Color.White
         btnLogout.Location = New Point(29, 860)
         btnLogout.Margin = New Padding(3, 4, 3, 4)
         btnLogout.Name = "btnLogout"
         btnLogout.Size = New Size(217, 56)
         btnLogout.TabIndex = 8
-        btnLogout.Text = "Keluar"
+        btnLogout.Text = "Logout"
         btnLogout.UseVisualStyleBackColor = False
         ' 
         ' btnDashboard
         ' 
-        btnDashboard.BackColor = Color.Yellow
+        btnDashboard.BackColor = Color.FromArgb(CByte(114), CByte(142), CByte(109))
+        btnDashboard.Cursor = Cursors.Hand
         btnDashboard.FlatAppearance.BorderSize = 0
+        btnDashboard.FlatAppearance.MouseDownBackColor = Color.FromArgb(CByte(114), CByte(142), CByte(109))
+        btnDashboard.FlatAppearance.MouseOverBackColor = Color.FromArgb(CByte(88), CByte(118), CByte(84))
         btnDashboard.FlatStyle = FlatStyle.Flat
         btnDashboard.Font = New Font("Segoe UI", 9.5F, FontStyle.Bold)
         btnDashboard.ForeColor = Color.White
-        btnDashboard.Location = New Point(17, 187)
+        btnDashboard.Location = New Point(-2, 187)
         btnDashboard.Margin = New Padding(3, 4, 3, 4)
         btnDashboard.Name = "btnDashboard"
-        btnDashboard.Size = New Size(240, 56)
+        btnDashboard.Size = New Size(274, 56)
         btnDashboard.TabIndex = 2
         btnDashboard.Text = "    Dashboard"
         btnDashboard.TextAlign = ContentAlignment.MiddleLeft
@@ -117,7 +143,7 @@ Partial Class Dashboard
         ' lblBrand
         ' 
         lblBrand.AutoSize = True
-        lblBrand.Font = New Font("Segoe UI", 22F, FontStyle.Bold)
+        lblBrand.Font = New Font("Segoe UI", 22.0F, FontStyle.Bold)
         lblBrand.ForeColor = Color.White
         lblBrand.Location = New Point(31, 33)
         lblBrand.Name = "lblBrand"
@@ -127,7 +153,8 @@ Partial Class Dashboard
         ' 
         ' header
         ' 
-        header.BackColor = Color.White
+        header.BackColor = Color.FromArgb(CByte(30), CByte(59), CByte(51))
+        header.BorderStyle = BorderStyle.Fixed3D
         header.Controls.Add(lblInfo)
         header.Controls.Add(lblWelcome)
         header.Dock = DockStyle.Top
@@ -140,8 +167,8 @@ Partial Class Dashboard
         ' lblInfo
         ' 
         lblInfo.AutoSize = True
-        lblInfo.Font = New Font("Segoe UI", 9F)
-        lblInfo.ForeColor = Color.FromArgb(CByte(108), CByte(117), CByte(125))
+        lblInfo.Font = New Font("Segoe UI", 9.0F)
+        lblInfo.ForeColor = Color.FromArgb(CByte(224), CByte(224), CByte(224))
         lblInfo.Location = New Point(42, 73)
         lblInfo.Name = "lblInfo"
         lblInfo.Size = New Size(320, 20)
@@ -151,18 +178,18 @@ Partial Class Dashboard
         ' lblWelcome
         ' 
         lblWelcome.AutoSize = True
-        lblWelcome.Font = New Font("Segoe UI", 18F, FontStyle.Bold)
-        lblWelcome.ForeColor = Color.FromArgb(CByte(33), CByte(37), CByte(41))
+        lblWelcome.Font = New Font("Segoe UI", 18.0F, FontStyle.Bold)
+        lblWelcome.ForeColor = Color.White
         lblWelcome.Location = New Point(40, 24)
         lblWelcome.Name = "lblWelcome"
-        lblWelcome.Size = New Size(409, 41)
+        lblWelcome.Size = New Size(401, 41)
         lblWelcome.TabIndex = 0
-        lblWelcome.Text = "Selamat datang, Mahasiswa"
+        lblWelcome.Text = "Selamat datang Mahasiswa"
         ' 
         ' content
         ' 
         content.AutoScroll = True
-        content.BackColor = Color.FromArgb(CByte(245), CByte(247), CByte(251))
+        content.BackColor = Color.FromArgb(CByte(250), CByte(248), CByte(243))
         content.Controls.Add(lblAnnouncement)
         content.Controls.Add(lblAnnouncementTitle)
         content.Controls.Add(dgvSchedule)
@@ -171,7 +198,6 @@ Partial Class Dashboard
         content.Controls.Add(cardSemester)
         content.Controls.Add(cardSks)
         content.Controls.Add(cardIpk)
-        content.Controls.Add(lblSummaryTitle)
         content.Dock = DockStyle.Fill
         content.Location = New Point(274, 120)
         content.Margin = New Padding(3, 4, 3, 4)
@@ -184,21 +210,21 @@ Partial Class Dashboard
         ' 
         lblAnnouncement.BackColor = Color.White
         lblAnnouncement.Dock = DockStyle.Top
-        lblAnnouncement.Font = New Font("Segoe UI", 10F)
+        lblAnnouncement.Font = New Font("Segoe UI", 10.0F)
         lblAnnouncement.ForeColor = Color.FromArgb(CByte(73), CByte(80), CByte(87))
-        lblAnnouncement.Location = New Point(40, 453)
+        lblAnnouncement.Location = New Point(40, 393)
         lblAnnouncement.Name = "lblAnnouncement"
         lblAnnouncement.Padding = New Padding(17, 20, 17, 20)
         lblAnnouncement.Size = New Size(1113, 120)
         lblAnnouncement.TabIndex = 8
-        lblAnnouncement.Text = "• Pengisian Edom terakhir 12 Januari" & vbCrLf & "• Marksheet dibagikan  setelah pengisian Edom" & vbCrLf & " "
+        lblAnnouncement.Text = "• Pengisian Edom terakhir 12 Januari 2026" & vbCrLf & "• Marksheet dibagikan  setelah pengisian Edom" & vbCrLf & " "
         ' 
         ' lblAnnouncementTitle
         ' 
         lblAnnouncementTitle.Dock = DockStyle.Top
-        lblAnnouncementTitle.Font = New Font("Segoe UI", 13F, FontStyle.Bold)
+        lblAnnouncementTitle.Font = New Font("Segoe UI", 13.0F, FontStyle.Bold)
         lblAnnouncementTitle.ForeColor = Color.FromArgb(CByte(33), CByte(37), CByte(41))
-        lblAnnouncementTitle.Location = New Point(40, 393)
+        lblAnnouncementTitle.Location = New Point(40, 333)
         lblAnnouncementTitle.Name = "lblAnnouncementTitle"
         lblAnnouncementTitle.Padding = New Padding(0, 16, 0, 0)
         lblAnnouncementTitle.Size = New Size(1113, 60)
@@ -215,7 +241,7 @@ Partial Class Dashboard
         dgvSchedule.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize
         dgvSchedule.Columns.AddRange(New DataGridViewColumn() {colJam, colMataKuliah, colDosen, colRuangan})
         dgvSchedule.Dock = DockStyle.Top
-        dgvSchedule.Location = New Point(40, 153)
+        dgvSchedule.Location = New Point(40, 93)
         dgvSchedule.Margin = New Padding(3, 4, 3, 4)
         dgvSchedule.Name = "dgvSchedule"
         dgvSchedule.ReadOnly = True
@@ -256,9 +282,9 @@ Partial Class Dashboard
         ' lblScheduleTitle
         ' 
         lblScheduleTitle.Dock = DockStyle.Top
-        lblScheduleTitle.Font = New Font("Segoe UI", 13F, FontStyle.Bold)
+        lblScheduleTitle.Font = New Font("Segoe UI", 13.0F, FontStyle.Bold)
         lblScheduleTitle.ForeColor = Color.FromArgb(CByte(33), CByte(37), CByte(41))
-        lblScheduleTitle.Location = New Point(40, 93)
+        lblScheduleTitle.Location = New Point(40, 33)
         lblScheduleTitle.Name = "lblScheduleTitle"
         lblScheduleTitle.Padding = New Padding(0, 16, 0, 0)
         lblScheduleTitle.Size = New Size(1113, 60)
@@ -279,7 +305,7 @@ Partial Class Dashboard
         ' lblCourseValue
         ' 
         lblCourseValue.AutoSize = True
-        lblCourseValue.Font = New Font("Segoe UI", 20F, FontStyle.Bold)
+        lblCourseValue.Font = New Font("Segoe UI", 20.0F, FontStyle.Bold)
         lblCourseValue.ForeColor = Color.FromArgb(CByte(111), CByte(66), CByte(193))
         lblCourseValue.Location = New Point(23, 60)
         lblCourseValue.Name = "lblCourseValue"
@@ -290,7 +316,7 @@ Partial Class Dashboard
         ' lblCourseTitle
         ' 
         lblCourseTitle.AutoSize = True
-        lblCourseTitle.Font = New Font("Segoe UI", 9F)
+        lblCourseTitle.Font = New Font("Segoe UI", 9.0F)
         lblCourseTitle.ForeColor = Color.FromArgb(CByte(108), CByte(117), CByte(125))
         lblCourseTitle.Location = New Point(23, 23)
         lblCourseTitle.Name = "lblCourseTitle"
@@ -312,7 +338,7 @@ Partial Class Dashboard
         ' lblSemesterValue
         ' 
         lblSemesterValue.AutoSize = True
-        lblSemesterValue.Font = New Font("Segoe UI", 20F, FontStyle.Bold)
+        lblSemesterValue.Font = New Font("Segoe UI", 20.0F, FontStyle.Bold)
         lblSemesterValue.ForeColor = Color.FromArgb(CByte(255), CByte(193), CByte(7))
         lblSemesterValue.Location = New Point(23, 60)
         lblSemesterValue.Name = "lblSemesterValue"
@@ -323,7 +349,7 @@ Partial Class Dashboard
         ' lblSemesterTitle
         ' 
         lblSemesterTitle.AutoSize = True
-        lblSemesterTitle.Font = New Font("Segoe UI", 9F)
+        lblSemesterTitle.Font = New Font("Segoe UI", 9.0F)
         lblSemesterTitle.ForeColor = Color.FromArgb(CByte(108), CByte(117), CByte(125))
         lblSemesterTitle.Location = New Point(23, 23)
         lblSemesterTitle.Name = "lblSemesterTitle"
@@ -345,7 +371,7 @@ Partial Class Dashboard
         ' lblSksValue
         ' 
         lblSksValue.AutoSize = True
-        lblSksValue.Font = New Font("Segoe UI", 20F, FontStyle.Bold)
+        lblSksValue.Font = New Font("Segoe UI", 20.0F, FontStyle.Bold)
         lblSksValue.ForeColor = Color.FromArgb(CByte(25), CByte(135), CByte(84))
         lblSksValue.Location = New Point(23, 60)
         lblSksValue.Name = "lblSksValue"
@@ -356,7 +382,7 @@ Partial Class Dashboard
         ' lblSksTitle
         ' 
         lblSksTitle.AutoSize = True
-        lblSksTitle.Font = New Font("Segoe UI", 9F)
+        lblSksTitle.Font = New Font("Segoe UI", 9.0F)
         lblSksTitle.ForeColor = Color.FromArgb(CByte(108), CByte(117), CByte(125))
         lblSksTitle.Location = New Point(23, 23)
         lblSksTitle.Name = "lblSksTitle"
@@ -378,7 +404,7 @@ Partial Class Dashboard
         ' lblIpkValue
         ' 
         lblIpkValue.AutoSize = True
-        lblIpkValue.Font = New Font("Segoe UI", 20F, FontStyle.Bold)
+        lblIpkValue.Font = New Font("Segoe UI", 20.0F, FontStyle.Bold)
         lblIpkValue.ForeColor = Color.FromArgb(CByte(13), CByte(110), CByte(253))
         lblIpkValue.Location = New Point(23, 60)
         lblIpkValue.Name = "lblIpkValue"
@@ -389,7 +415,7 @@ Partial Class Dashboard
         ' lblIpkTitle
         ' 
         lblIpkTitle.AutoSize = True
-        lblIpkTitle.Font = New Font("Segoe UI", 9F)
+        lblIpkTitle.Font = New Font("Segoe UI", 9.0F)
         lblIpkTitle.ForeColor = Color.FromArgb(CByte(108), CByte(117), CByte(125))
         lblIpkTitle.Location = New Point(23, 23)
         lblIpkTitle.Name = "lblIpkTitle"
@@ -397,20 +423,9 @@ Partial Class Dashboard
         lblIpkTitle.TabIndex = 0
         lblIpkTitle.Text = "IPK Kumulatif"
         ' 
-        ' lblSummaryTitle
-        ' 
-        lblSummaryTitle.Dock = DockStyle.Top
-        lblSummaryTitle.Font = New Font("Segoe UI", 16F, FontStyle.Bold)
-        lblSummaryTitle.ForeColor = Color.FromArgb(CByte(33), CByte(37), CByte(41))
-        lblSummaryTitle.Location = New Point(40, 33)
-        lblSummaryTitle.Name = "lblSummaryTitle"
-        lblSummaryTitle.Size = New Size(1113, 60)
-        lblSummaryTitle.TabIndex = 0
-        lblSummaryTitle.Text = "Ringkasan Akademik"
-        ' 
         ' Dashboard
         ' 
-        AutoScaleDimensions = New SizeF(8F, 20F)
+        AutoScaleDimensions = New SizeF(8.0F, 20.0F)
         AutoScaleMode = AutoScaleMode.Font
         ClientSize = New Size(1467, 960)
         Controls.Add(content)
@@ -453,7 +468,6 @@ Partial Class Dashboard
     Friend WithEvents lblWelcome As Label
     Friend WithEvents lblInfo As Label
     Friend WithEvents content As Panel
-    Friend WithEvents lblSummaryTitle As Label
     Friend WithEvents cardIpk As Panel
     Friend WithEvents cardSks As Panel
     Friend WithEvents cardSemester As Panel
@@ -474,5 +488,6 @@ Partial Class Dashboard
     Friend WithEvents colRuangan As DataGridViewTextBoxColumn
     Friend WithEvents lblAnnouncementTitle As Label
     Friend WithEvents lblAnnouncement As Label
+    Friend WithEvents Button1 As Button
 
 End Class
