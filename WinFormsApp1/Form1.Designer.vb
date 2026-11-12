@@ -257,9 +257,9 @@ Partial Class Form1
         lblNim.ForeColor = Color.FromArgb(CByte(31), CByte(36), CByte(33))
         lblNim.Location = New Point(80, 261)
         lblNim.Name = "lblNim"
-        lblNim.Size = New Size(44, 23)
+        lblNim.Size = New Size(140, 23)
         lblNim.TabIndex = 2
-        lblNim.Text = "NIM"
+        lblNim.Text = "NIM / Username"
         ' 
         ' pnlNimBox
         ' 
@@ -282,7 +282,7 @@ Partial Class Form1
         txtNim.ForeColor = Color.FromArgb(CByte(31), CByte(36), CByte(33))
         txtNim.Location = New Point(14, 12)
         txtNim.Margin = New Padding(3, 4, 3, 4)
-        txtNim.MaxLength = 15
+        txtNim.MaxLength = 50
         txtNim.Name = "txtNim"
         txtNim.Size = New Size(429, 25)
         txtNim.TabIndex = 0

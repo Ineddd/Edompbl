@@ -99,7 +99,7 @@ Public Class Form1
         Dim password As String = txtPassword.Text
 
         If nim.Length = 0 Then
-            ShowError("NIM belum diisi.", nimInvalid:=True, passwordInvalid:=False)
+            ShowError("NIM / Username belum diisi.", nimInvalid:=True, passwordInvalid:=False)
             txtNim.Focus()
             Return
         End If
@@ -147,6 +147,11 @@ Public Class Form1
 
         If role = DatabaseHelper.RoleAdmin Then
             nextForm = New AdminDashboard With {
+                .Username = nim,
+                .LoginForm = Me
+            }
+        ElseIf role = DatabaseHelper.RoleDosen Then
+            nextForm = New dashboard_dosen With {
                 .Username = nim,
                 .LoginForm = Me
             }
