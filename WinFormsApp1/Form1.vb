@@ -112,43 +112,58 @@ Public Class Form1
 
         SetBusy(True)
 
-        Dim success As Boolean = Await Task.Run(Function()
-                                                    Try
-                                                        Return DatabaseHelper.Login(nim, password)
-                                                    Catch
-                                                        Return False
-                                                    End Try
-                                                End Function)
+        Dim role As String = Nothing
+        Dim connectionError As String = Nothing
+
+        Try
+            role = Await Task.Run(Function() DatabaseHelper.Login(nim, password))
+        Catch ex As Exception
+            connectionError = DatabaseHelper.DescribeError(ex)
+        End Try
 
         SetBusy(False)
 
-        If Not success Then
+        If connectionError IsNot Nothing Then
+            ShowError(connectionError, nimInvalid:=False, passwordInvalid:=False)
+            Return
+        End If
+
+        If role Is Nothing Then
             ShowError("Username atau password salah.", nimInvalid:=True, passwordInvalid:=True)
             txtPassword.SelectAll()
             txtPassword.Focus()
             Return
         End If
 
-        OpenDashboard(nim)
+        OpenDashboard(nim, role)
     End Sub
 
-    Private Sub OpenDashboard(nim As String)
+    Private Sub OpenDashboard(nim As String, role As String)
         txtPassword.Clear()
         chkShowPassword.Checked = False
         ClearError()
 
-        Dim dashboard As New Dashboard With {
-            .Username = nim,
-            .LoginForm = Me
-        }
+        Dim nextForm As Form
+
+        If role = DatabaseHelper.RoleAdmin Then
+            nextForm = New AdminDashboard With {
+                .Username = nim,
+                .LoginForm = Me
+            }
+        Else
+            nextForm = New Dashboard With {
+                .Username = nim,
+                .LoginForm = Me
+            }
+        End If
 
         Hide()
-        dashboard.Show()
+        nextForm.Show()
     End Sub
 
     Private Sub SetBusy(busy As Boolean)
         btnLogin.Enabled = Not busy
-        btnLogin.Text = If(busy, "Memeriksa akun...", "Masuk ke EDOM")
+        btnLogin.Text = If(busy, "Memeriksa akun...", "Masuk ke SIAKAD")
         btnLogin.BackColor = If(busy, Color.FromArgb(92, 112, 105), Color.FromArgb(30, 59, 51))
         txtNim.ReadOnly = busy
         txtPassword.ReadOnly = busy

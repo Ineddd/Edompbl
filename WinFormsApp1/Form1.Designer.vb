@@ -96,7 +96,7 @@ Partial Class Form1
         ' lblBrand
         ' 
         lblBrand.AutoSize = True
-        lblBrand.Font = New Font("Georgia", 30F, FontStyle.Bold)
+        lblBrand.Font = New Font("Georgia", 30.0F, FontStyle.Bold)
         lblBrand.ForeColor = Color.White
         lblBrand.Location = New Point(46, 75)
         lblBrand.Name = "lblBrand"
@@ -107,7 +107,7 @@ Partial Class Form1
         ' lblBrandSub
         ' 
         lblBrandSub.AutoSize = True
-        lblBrandSub.Font = New Font("Segoe UI", 11F)
+        lblBrandSub.Font = New Font("Segoe UI", 11.0F)
         lblBrandSub.ForeColor = Color.FromArgb(CByte(214), CByte(226), CByte(220))
         lblBrandSub.Location = New Point(50, 147)
         lblBrandSub.Name = "lblBrandSub"
@@ -118,7 +118,7 @@ Partial Class Form1
         ' lblScaleTitle
         ' 
         lblScaleTitle.AutoSize = True
-        lblScaleTitle.Font = New Font("Segoe UI", 9F)
+        lblScaleTitle.Font = New Font("Segoe UI", 9.0F)
         lblScaleTitle.ForeColor = Color.FromArgb(CByte(214), CByte(226), CByte(220))
         lblScaleTitle.Location = New Point(50, 525)
         lblScaleTitle.Name = "lblScaleTitle"
@@ -129,7 +129,7 @@ Partial Class Form1
         ' lblScale1
         ' 
         lblScale1.BackColor = Color.FromArgb(CByte(46), CByte(82), CByte(72))
-        lblScale1.Font = New Font("Georgia", 12F, FontStyle.Bold)
+        lblScale1.Font = New Font("Georgia", 12.0F, FontStyle.Bold)
         lblScale1.ForeColor = Color.White
         lblScale1.Location = New Point(50, 560)
         lblScale1.Name = "lblScale1"
@@ -141,7 +141,7 @@ Partial Class Form1
         ' lblScale2
         ' 
         lblScale2.BackColor = Color.FromArgb(CByte(46), CByte(82), CByte(72))
-        lblScale2.Font = New Font("Georgia", 12F, FontStyle.Bold)
+        lblScale2.Font = New Font("Georgia", 12.0F, FontStyle.Bold)
         lblScale2.ForeColor = Color.White
         lblScale2.Location = New Point(110, 560)
         lblScale2.Name = "lblScale2"
@@ -153,7 +153,7 @@ Partial Class Form1
         ' lblScale3
         ' 
         lblScale3.BackColor = Color.FromArgb(CByte(46), CByte(82), CByte(72))
-        lblScale3.Font = New Font("Georgia", 12F, FontStyle.Bold)
+        lblScale3.Font = New Font("Georgia", 12.0F, FontStyle.Bold)
         lblScale3.ForeColor = Color.White
         lblScale3.Location = New Point(169, 560)
         lblScale3.Name = "lblScale3"
@@ -165,7 +165,7 @@ Partial Class Form1
         ' lblScale4
         ' 
         lblScale4.BackColor = Color.FromArgb(CByte(46), CByte(82), CByte(72))
-        lblScale4.Font = New Font("Georgia", 12F, FontStyle.Bold)
+        lblScale4.Font = New Font("Georgia", 12.0F, FontStyle.Bold)
         lblScale4.ForeColor = Color.White
         lblScale4.Location = New Point(229, 560)
         lblScale4.Name = "lblScale4"
@@ -177,7 +177,7 @@ Partial Class Form1
         ' lblScale5
         ' 
         lblScale5.BackColor = Color.FromArgb(CByte(46), CByte(82), CByte(72))
-        lblScale5.Font = New Font("Georgia", 12F, FontStyle.Bold)
+        lblScale5.Font = New Font("Georgia", 12.0F, FontStyle.Bold)
         lblScale5.ForeColor = Color.White
         lblScale5.Location = New Point(288, 560)
         lblScale5.Name = "lblScale5"
@@ -231,7 +231,7 @@ Partial Class Form1
         ' lblTitle
         ' 
         lblTitle.AutoSize = True
-        lblTitle.Font = New Font("Georgia", 22F, FontStyle.Bold)
+        lblTitle.Font = New Font("Georgia", 22.0F, FontStyle.Bold)
         lblTitle.ForeColor = Color.FromArgb(CByte(31), CByte(36), CByte(33))
         lblTitle.Location = New Point(75, 128)
         lblTitle.Name = "lblTitle"
@@ -242,7 +242,7 @@ Partial Class Form1
         ' lblHint
         ' 
         lblHint.AutoSize = True
-        lblHint.Font = New Font("Segoe UI", 10F)
+        lblHint.Font = New Font("Segoe UI", 10.0F)
         lblHint.ForeColor = Color.FromArgb(CByte(84), CByte(90), CByte(86))
         lblHint.Location = New Point(80, 192)
         lblHint.Name = "lblHint"
@@ -253,7 +253,7 @@ Partial Class Form1
         ' lblNim
         ' 
         lblNim.AutoSize = True
-        lblNim.Font = New Font("Segoe UI Semibold", 10F, FontStyle.Bold)
+        lblNim.Font = New Font("Segoe UI Semibold", 10.0F, FontStyle.Bold)
         lblNim.ForeColor = Color.FromArgb(CByte(31), CByte(36), CByte(33))
         lblNim.Location = New Point(80, 261)
         lblNim.Name = "lblNim"
@@ -278,7 +278,7 @@ Partial Class Form1
         txtNim.BackColor = Color.White
         txtNim.BorderStyle = BorderStyle.None
         txtNim.Dock = DockStyle.Top
-        txtNim.Font = New Font("Segoe UI", 11F)
+        txtNim.Font = New Font("Segoe UI", 11.0F)
         txtNim.ForeColor = Color.FromArgb(CByte(31), CByte(36), CByte(33))
         txtNim.Location = New Point(14, 12)
         txtNim.Margin = New Padding(3, 4, 3, 4)
@@ -290,7 +290,7 @@ Partial Class Form1
         ' lblPassword
         ' 
         lblPassword.AutoSize = True
-        lblPassword.Font = New Font("Segoe UI Semibold", 10F, FontStyle.Bold)
+        lblPassword.Font = New Font("Segoe UI Semibold", 10.0F, FontStyle.Bold)
         lblPassword.ForeColor = Color.FromArgb(CByte(31), CByte(36), CByte(33))
         lblPassword.Location = New Point(80, 371)
         lblPassword.Name = "lblPassword"
@@ -315,7 +315,7 @@ Partial Class Form1
         txtPassword.BackColor = Color.White
         txtPassword.BorderStyle = BorderStyle.None
         txtPassword.Dock = DockStyle.Top
-        txtPassword.Font = New Font("Segoe UI", 11F)
+        txtPassword.Font = New Font("Segoe UI", 11.0F)
         txtPassword.ForeColor = Color.FromArgb(CByte(31), CByte(36), CByte(33))
         txtPassword.Location = New Point(14, 12)
         txtPassword.Margin = New Padding(3, 4, 3, 4)
@@ -369,20 +369,20 @@ Partial Class Form1
         btnLogin.FlatAppearance.MouseDownBackColor = Color.FromArgb(CByte(14), CByte(31), CByte(27))
         btnLogin.FlatAppearance.MouseOverBackColor = Color.FromArgb(CByte(22), CByte(45), CByte(39))
         btnLogin.FlatStyle = FlatStyle.Flat
-        btnLogin.Font = New Font("Segoe UI Semibold", 11F, FontStyle.Bold)
+        btnLogin.Font = New Font("Segoe UI Semibold", 11.0F, FontStyle.Bold)
         btnLogin.ForeColor = Color.White
         btnLogin.Location = New Point(80, 571)
         btnLogin.Margin = New Padding(3, 4, 3, 4)
         btnLogin.Name = "btnLogin"
         btnLogin.Size = New Size(457, 61)
         btnLogin.TabIndex = 4
-        btnLogin.Text = "Masuk ke EDOM"
+        btnLogin.Text = "Masuk ke SIAKAD"
         btnLogin.UseVisualStyleBackColor = False
         ' 
         ' Form1
         ' 
         AcceptButton = btnLogin
-        AutoScaleDimensions = New SizeF(8F, 20F)
+        AutoScaleDimensions = New SizeF(8.0F, 20.0F)
         AutoScaleMode = AutoScaleMode.Font
         BackColor = Color.FromArgb(CByte(250), CByte(248), CByte(243))
         ClientSize = New Size(1029, 747)

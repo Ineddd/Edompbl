@@ -25,7 +25,7 @@ Public Class Dashboard
             Username = "Mahasiswa"
         End If
 
-        lblWelcome.Text = $"Selamat datang {Username}"
+        lblWelcome.Text = $"Selamat datang, {Username}"
         SetActiveMenuButton(btnDashboard)
 
         dgvSchedule.Rows.Clear()
@@ -50,9 +50,12 @@ Public Class Dashboard
             "Bagus Wijaya, M.Kom.",
             "PUT 301"
         )
+
+        dgvSchedule.ClearSelection()
     End Sub
 
     Public Sub SetActiveMenuButton(activeButton As Button)
+        navigating = False
         btnDashboard.BackColor = If(activeButton Is btnDashboard, ActiveMenuColor, InactiveMenuColor)
         Button1.BackColor = If(activeButton Is Button1, ActiveMenuColor, InactiveMenuColor)
     End Sub

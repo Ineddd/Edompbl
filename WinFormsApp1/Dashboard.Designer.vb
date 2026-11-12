@@ -17,6 +17,8 @@ Partial Class Dashboard
 
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
+        Dim DataGridViewCellStyle1 As DataGridViewCellStyle = New DataGridViewCellStyle()
+        Dim DataGridViewCellStyle2 As DataGridViewCellStyle = New DataGridViewCellStyle()
         sidebar = New Panel()
         Button1 = New Button()
         btnLogout = New Button()
@@ -35,26 +37,33 @@ Partial Class Dashboard
         colDosen = New DataGridViewTextBoxColumn()
         colRuangan = New DataGridViewTextBoxColumn()
         lblScheduleTitle = New Label()
-        cardCourse = New Panel()
-        lblCourseValue = New Label()
-        lblCourseTitle = New Label()
-        cardSemester = New Panel()
-        lblSemesterValue = New Label()
-        lblSemesterTitle = New Label()
-        cardSks = New Panel()
-        lblSksValue = New Label()
-        lblSksTitle = New Label()
+        pnlSummaryCards = New TableLayoutPanel()
         cardIpk = New Panel()
+        lblIpkNote = New Label()
         lblIpkValue = New Label()
         lblIpkTitle = New Label()
+        cardSks = New Panel()
+        lblSksNote = New Label()
+        lblSksValue = New Label()
+        lblSksTitle = New Label()
+        cardSemester = New Panel()
+        lblSemesterNote = New Label()
+        lblSemesterValue = New Label()
+        lblSemesterTitle = New Label()
+        cardCourse = New Panel()
+        lblCourseNote = New Label()
+        lblCourseValue = New Label()
+        lblCourseTitle = New Label()
+        lblSummaryTitle = New Label()
         sidebar.SuspendLayout()
         header.SuspendLayout()
         content.SuspendLayout()
         CType(dgvSchedule, ComponentModel.ISupportInitialize).BeginInit()
-        cardCourse.SuspendLayout()
-        cardSemester.SuspendLayout()
-        cardSks.SuspendLayout()
+        pnlSummaryCards.SuspendLayout()
         cardIpk.SuspendLayout()
+        cardSks.SuspendLayout()
+        cardSemester.SuspendLayout()
+        cardCourse.SuspendLayout()
         SuspendLayout()
         ' 
         ' sidebar
@@ -94,6 +103,7 @@ Partial Class Dashboard
         ' 
         ' btnLogout
         ' 
+        btnLogout.Anchor = AnchorStyles.Bottom Or AnchorStyles.Left
         btnLogout.BackColor = Color.FromArgb(CByte(220), CByte(53), CByte(69))
         btnLogout.Cursor = Cursors.Hand
         btnLogout.FlatAppearance.BorderSize = 0
@@ -167,13 +177,13 @@ Partial Class Dashboard
         ' lblInfo
         ' 
         lblInfo.AutoSize = True
-        lblInfo.Font = New Font("Segoe UI", 9.0F)
-        lblInfo.ForeColor = Color.FromArgb(CByte(224), CByte(224), CByte(224))
+        lblInfo.Font = New Font("Segoe UI", 9.5F)
+        lblInfo.ForeColor = Color.FromArgb(CByte(214), CByte(226), CByte(220))
         lblInfo.Location = New Point(42, 73)
         lblInfo.Name = "lblInfo"
-        lblInfo.Size = New Size(320, 20)
+        lblInfo.Size = New Size(412, 21)
         lblInfo.TabIndex = 1
-        lblInfo.Text = "Kelola aktivitas akademik Anda dengan mudah"
+        lblInfo.Text = "Ringkasan akademik dan jadwal perkuliahan semester aktif"
         ' 
         ' lblWelcome
         ' 
@@ -194,15 +204,13 @@ Partial Class Dashboard
         content.Controls.Add(lblAnnouncementTitle)
         content.Controls.Add(dgvSchedule)
         content.Controls.Add(lblScheduleTitle)
-        content.Controls.Add(cardCourse)
-        content.Controls.Add(cardSemester)
-        content.Controls.Add(cardSks)
-        content.Controls.Add(cardIpk)
+        content.Controls.Add(pnlSummaryCards)
+        content.Controls.Add(lblSummaryTitle)
         content.Dock = DockStyle.Fill
         content.Location = New Point(274, 120)
         content.Margin = New Padding(3, 4, 3, 4)
         content.Name = "content"
-        content.Padding = New Padding(40, 33, 40, 33)
+        content.Padding = New Padding(40, 28, 40, 33)
         content.Size = New Size(1193, 840)
         content.TabIndex = 2
         ' 
@@ -211,23 +219,23 @@ Partial Class Dashboard
         lblAnnouncement.BackColor = Color.White
         lblAnnouncement.Dock = DockStyle.Top
         lblAnnouncement.Font = New Font("Segoe UI", 10.0F)
-        lblAnnouncement.ForeColor = Color.FromArgb(CByte(73), CByte(80), CByte(87))
-        lblAnnouncement.Location = New Point(40, 393)
+        lblAnnouncement.ForeColor = Color.FromArgb(CByte(52), CByte(58), CByte(64))
+        lblAnnouncement.Location = New Point(40, 567)
         lblAnnouncement.Name = "lblAnnouncement"
-        lblAnnouncement.Padding = New Padding(17, 20, 17, 20)
-        lblAnnouncement.Size = New Size(1113, 120)
+        lblAnnouncement.Padding = New Padding(22, 18, 22, 18)
+        lblAnnouncement.Size = New Size(1113, 110)
         lblAnnouncement.TabIndex = 8
-        lblAnnouncement.Text = "• Pengisian Edom terakhir 12 Januari 2026" & vbCrLf & "• Marksheet dibagikan  setelah pengisian Edom" & vbCrLf & " "
+        lblAnnouncement.Text = "• Batas akhir pengisian EDOM semester ini: 12 Januari 2026." & vbCrLf & "• Kartu Hasil Studi (Marksheet) dapat diunduh setelah seluruh evaluasi dosen selesai diisi."
         ' 
         ' lblAnnouncementTitle
         ' 
         lblAnnouncementTitle.Dock = DockStyle.Top
         lblAnnouncementTitle.Font = New Font("Segoe UI", 13.0F, FontStyle.Bold)
-        lblAnnouncementTitle.ForeColor = Color.FromArgb(CByte(33), CByte(37), CByte(41))
-        lblAnnouncementTitle.Location = New Point(40, 333)
+        lblAnnouncementTitle.ForeColor = Color.FromArgb(CByte(30), CByte(59), CByte(51))
+        lblAnnouncementTitle.Location = New Point(40, 509)
         lblAnnouncementTitle.Name = "lblAnnouncementTitle"
-        lblAnnouncementTitle.Padding = New Padding(0, 16, 0, 0)
-        lblAnnouncementTitle.Size = New Size(1113, 60)
+        lblAnnouncementTitle.Padding = New Padding(0, 20, 0, 0)
+        lblAnnouncementTitle.Size = New Size(1113, 58)
         lblAnnouncementTitle.TabIndex = 7
         lblAnnouncementTitle.Text = "Pengumuman Akademik"
         ' 
@@ -235,31 +243,55 @@ Partial Class Dashboard
         ' 
         dgvSchedule.AllowUserToAddRows = False
         dgvSchedule.AllowUserToDeleteRows = False
+        dgvSchedule.AllowUserToResizeRows = False
         dgvSchedule.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill
         dgvSchedule.BackgroundColor = Color.White
         dgvSchedule.BorderStyle = BorderStyle.None
-        dgvSchedule.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        dgvSchedule.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal
+        dgvSchedule.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None
+        DataGridViewCellStyle1.BackColor = Color.FromArgb(CByte(241), CByte(239), CByte(232))
+        DataGridViewCellStyle1.Font = New Font("Segoe UI", 9.5F, FontStyle.Bold)
+        DataGridViewCellStyle1.ForeColor = Color.FromArgb(CByte(30), CByte(59), CByte(51))
+        DataGridViewCellStyle1.Padding = New Padding(14, 0, 0, 0)
+        DataGridViewCellStyle1.SelectionBackColor = Color.FromArgb(CByte(241), CByte(239), CByte(232))
+        DataGridViewCellStyle1.SelectionForeColor = Color.FromArgb(CByte(30), CByte(59), CByte(51))
+        dgvSchedule.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle1
+        dgvSchedule.ColumnHeadersHeight = 44
+        dgvSchedule.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing
         dgvSchedule.Columns.AddRange(New DataGridViewColumn() {colJam, colMataKuliah, colDosen, colRuangan})
+        DataGridViewCellStyle2.BackColor = Color.White
+        DataGridViewCellStyle2.Font = New Font("Segoe UI", 10.0F)
+        DataGridViewCellStyle2.ForeColor = Color.FromArgb(CByte(33), CByte(37), CByte(41))
+        DataGridViewCellStyle2.Padding = New Padding(14, 0, 0, 0)
+        DataGridViewCellStyle2.SelectionBackColor = Color.FromArgb(CByte(236), CByte(241), CByte(234))
+        DataGridViewCellStyle2.SelectionForeColor = Color.FromArgb(CByte(33), CByte(37), CByte(41))
+        dgvSchedule.DefaultCellStyle = DataGridViewCellStyle2
         dgvSchedule.Dock = DockStyle.Top
-        dgvSchedule.Location = New Point(40, 93)
+        dgvSchedule.EnableHeadersVisualStyles = False
+        dgvSchedule.GridColor = Color.FromArgb(CByte(230), CByte(228), CByte(222))
+        dgvSchedule.Location = New Point(40, 289)
         dgvSchedule.Margin = New Padding(3, 4, 3, 4)
+        dgvSchedule.MultiSelect = False
         dgvSchedule.Name = "dgvSchedule"
         dgvSchedule.ReadOnly = True
         dgvSchedule.RowHeadersVisible = False
         dgvSchedule.RowHeadersWidth = 51
+        dgvSchedule.RowTemplate.Height = 46
         dgvSchedule.SelectionMode = DataGridViewSelectionMode.FullRowSelect
-        dgvSchedule.Size = New Size(1113, 240)
+        dgvSchedule.Size = New Size(1113, 220)
         dgvSchedule.TabIndex = 6
         ' 
         ' colJam
         ' 
-        colJam.HeaderText = "Jam"
+        colJam.FillWeight = 20.0F
+        colJam.HeaderText = "Jam Perkuliahan"
         colJam.MinimumWidth = 6
         colJam.Name = "colJam"
         colJam.ReadOnly = True
         ' 
         ' colMataKuliah
         ' 
+        colMataKuliah.FillWeight = 34.0F
         colMataKuliah.HeaderText = "Mata Kuliah"
         colMataKuliah.MinimumWidth = 6
         colMataKuliah.Name = "colMataKuliah"
@@ -267,13 +299,15 @@ Partial Class Dashboard
         ' 
         ' colDosen
         ' 
-        colDosen.HeaderText = "Dosen"
+        colDosen.FillWeight = 30.0F
+        colDosen.HeaderText = "Dosen Pengampu"
         colDosen.MinimumWidth = 6
         colDosen.Name = "colDosen"
         colDosen.ReadOnly = True
         ' 
         ' colRuangan
         ' 
+        colRuangan.FillWeight = 16.0F
         colRuangan.HeaderText = "Ruangan"
         colRuangan.MinimumWidth = 6
         colRuangan.Name = "colRuangan"
@@ -283,145 +317,229 @@ Partial Class Dashboard
         ' 
         lblScheduleTitle.Dock = DockStyle.Top
         lblScheduleTitle.Font = New Font("Segoe UI", 13.0F, FontStyle.Bold)
-        lblScheduleTitle.ForeColor = Color.FromArgb(CByte(33), CByte(37), CByte(41))
-        lblScheduleTitle.Location = New Point(40, 33)
+        lblScheduleTitle.ForeColor = Color.FromArgb(CByte(30), CByte(59), CByte(51))
+        lblScheduleTitle.Location = New Point(40, 231)
         lblScheduleTitle.Name = "lblScheduleTitle"
-        lblScheduleTitle.Padding = New Padding(0, 16, 0, 0)
-        lblScheduleTitle.Size = New Size(1113, 60)
+        lblScheduleTitle.Padding = New Padding(0, 20, 0, 0)
+        lblScheduleTitle.Size = New Size(1113, 58)
         lblScheduleTitle.TabIndex = 5
         lblScheduleTitle.Text = "Jadwal Kuliah Hari Ini"
         ' 
-        ' cardCourse
+        ' pnlSummaryCards
         ' 
-        cardCourse.BackColor = Color.White
-        cardCourse.Controls.Add(lblCourseValue)
-        cardCourse.Controls.Add(lblCourseTitle)
-        cardCourse.Location = New Point(880, 93)
-        cardCourse.Margin = New Padding(3, 4, 3, 4)
-        cardCourse.Name = "cardCourse"
-        cardCourse.Size = New Size(234, 133)
-        cardCourse.TabIndex = 4
-        ' 
-        ' lblCourseValue
-        ' 
-        lblCourseValue.AutoSize = True
-        lblCourseValue.Font = New Font("Segoe UI", 20.0F, FontStyle.Bold)
-        lblCourseValue.ForeColor = Color.FromArgb(CByte(111), CByte(66), CByte(193))
-        lblCourseValue.Location = New Point(23, 60)
-        lblCourseValue.Name = "lblCourseValue"
-        lblCourseValue.Size = New Size(40, 46)
-        lblCourseValue.TabIndex = 1
-        lblCourseValue.Text = "8"
-        ' 
-        ' lblCourseTitle
-        ' 
-        lblCourseTitle.AutoSize = True
-        lblCourseTitle.Font = New Font("Segoe UI", 9.0F)
-        lblCourseTitle.ForeColor = Color.FromArgb(CByte(108), CByte(117), CByte(125))
-        lblCourseTitle.Location = New Point(23, 23)
-        lblCourseTitle.Name = "lblCourseTitle"
-        lblCourseTitle.Size = New Size(88, 20)
-        lblCourseTitle.TabIndex = 0
-        lblCourseTitle.Text = "Mata Kuliah"
-        ' 
-        ' cardSemester
-        ' 
-        cardSemester.BackColor = Color.White
-        cardSemester.Controls.Add(lblSemesterValue)
-        cardSemester.Controls.Add(lblSemesterTitle)
-        cardSemester.Location = New Point(629, 93)
-        cardSemester.Margin = New Padding(3, 4, 3, 4)
-        cardSemester.Name = "cardSemester"
-        cardSemester.Size = New Size(234, 133)
-        cardSemester.TabIndex = 3
-        ' 
-        ' lblSemesterValue
-        ' 
-        lblSemesterValue.AutoSize = True
-        lblSemesterValue.Font = New Font("Segoe UI", 20.0F, FontStyle.Bold)
-        lblSemesterValue.ForeColor = Color.FromArgb(CByte(255), CByte(193), CByte(7))
-        lblSemesterValue.Location = New Point(23, 60)
-        lblSemesterValue.Name = "lblSemesterValue"
-        lblSemesterValue.Size = New Size(40, 46)
-        lblSemesterValue.TabIndex = 1
-        lblSemesterValue.Text = "6"
-        ' 
-        ' lblSemesterTitle
-        ' 
-        lblSemesterTitle.AutoSize = True
-        lblSemesterTitle.Font = New Font("Segoe UI", 9.0F)
-        lblSemesterTitle.ForeColor = Color.FromArgb(CByte(108), CByte(117), CByte(125))
-        lblSemesterTitle.Location = New Point(23, 23)
-        lblSemesterTitle.Name = "lblSemesterTitle"
-        lblSemesterTitle.Size = New Size(105, 20)
-        lblSemesterTitle.TabIndex = 0
-        lblSemesterTitle.Text = "Semester Aktif"
-        ' 
-        ' cardSks
-        ' 
-        cardSks.BackColor = Color.White
-        cardSks.Controls.Add(lblSksValue)
-        cardSks.Controls.Add(lblSksTitle)
-        cardSks.Location = New Point(377, 93)
-        cardSks.Margin = New Padding(3, 4, 3, 4)
-        cardSks.Name = "cardSks"
-        cardSks.Size = New Size(234, 133)
-        cardSks.TabIndex = 2
-        ' 
-        ' lblSksValue
-        ' 
-        lblSksValue.AutoSize = True
-        lblSksValue.Font = New Font("Segoe UI", 20.0F, FontStyle.Bold)
-        lblSksValue.ForeColor = Color.FromArgb(CByte(25), CByte(135), CByte(84))
-        lblSksValue.Location = New Point(23, 60)
-        lblSksValue.Name = "lblSksValue"
-        lblSksValue.Size = New Size(129, 46)
-        lblSksValue.TabIndex = 1
-        lblSksValue.Text = "96 SKS"
-        ' 
-        ' lblSksTitle
-        ' 
-        lblSksTitle.AutoSize = True
-        lblSksTitle.Font = New Font("Segoe UI", 9.0F)
-        lblSksTitle.ForeColor = Color.FromArgb(CByte(108), CByte(117), CByte(125))
-        lblSksTitle.Location = New Point(23, 23)
-        lblSksTitle.Name = "lblSksTitle"
-        lblSksTitle.Size = New Size(71, 20)
-        lblSksTitle.TabIndex = 0
-        lblSksTitle.Text = "Total SKS"
+        pnlSummaryCards.ColumnCount = 4
+        pnlSummaryCards.ColumnStyles.Add(New ColumnStyle(SizeType.Percent, 25.0F))
+        pnlSummaryCards.ColumnStyles.Add(New ColumnStyle(SizeType.Percent, 25.0F))
+        pnlSummaryCards.ColumnStyles.Add(New ColumnStyle(SizeType.Percent, 25.0F))
+        pnlSummaryCards.ColumnStyles.Add(New ColumnStyle(SizeType.Percent, 25.0F))
+        pnlSummaryCards.Controls.Add(cardIpk, 0, 0)
+        pnlSummaryCards.Controls.Add(cardSks, 1, 0)
+        pnlSummaryCards.Controls.Add(cardSemester, 2, 0)
+        pnlSummaryCards.Controls.Add(cardCourse, 3, 0)
+        pnlSummaryCards.Dock = DockStyle.Top
+        pnlSummaryCards.Location = New Point(40, 74)
+        pnlSummaryCards.Margin = New Padding(0)
+        pnlSummaryCards.Name = "pnlSummaryCards"
+        pnlSummaryCards.RowCount = 1
+        pnlSummaryCards.RowStyles.Add(New RowStyle(SizeType.Percent, 100.0F))
+        pnlSummaryCards.Size = New Size(1113, 157)
+        pnlSummaryCards.TabIndex = 4
         ' 
         ' cardIpk
         ' 
         cardIpk.BackColor = Color.White
+        cardIpk.Controls.Add(lblIpkNote)
         cardIpk.Controls.Add(lblIpkValue)
         cardIpk.Controls.Add(lblIpkTitle)
-        cardIpk.Location = New Point(126, 93)
-        cardIpk.Margin = New Padding(3, 4, 3, 4)
+        cardIpk.Dock = DockStyle.Fill
+        cardIpk.Location = New Point(0, 4)
+        cardIpk.Margin = New Padding(0, 4, 12, 4)
         cardIpk.Name = "cardIpk"
-        cardIpk.Size = New Size(234, 133)
+        cardIpk.Size = New Size(266, 149)
         cardIpk.TabIndex = 1
+        ' 
+        ' lblIpkNote
+        ' 
+        lblIpkNote.AutoSize = True
+        lblIpkNote.Font = New Font("Segoe UI", 8.5F)
+        lblIpkNote.ForeColor = Color.FromArgb(CByte(108), CByte(117), CByte(125))
+        lblIpkNote.Location = New Point(22, 112)
+        lblIpkNote.Name = "lblIpkNote"
+        lblIpkNote.Size = New Size(135, 20)
+        lblIpkNote.TabIndex = 2
+        lblIpkNote.Text = "Skala 4.00 semester berjalan"
         ' 
         ' lblIpkValue
         ' 
         lblIpkValue.AutoSize = True
-        lblIpkValue.Font = New Font("Segoe UI", 20.0F, FontStyle.Bold)
-        lblIpkValue.ForeColor = Color.FromArgb(CByte(13), CByte(110), CByte(253))
-        lblIpkValue.Location = New Point(23, 60)
+        lblIpkValue.Font = New Font("Segoe UI", 22.0F, FontStyle.Bold)
+        lblIpkValue.ForeColor = Color.FromArgb(CByte(30), CByte(59), CByte(51))
+        lblIpkValue.Location = New Point(20, 52)
         lblIpkValue.Name = "lblIpkValue"
-        lblIpkValue.Size = New Size(89, 46)
+        lblIpkValue.Size = New Size(98, 50)
         lblIpkValue.TabIndex = 1
         lblIpkValue.Text = "3.75"
         ' 
         ' lblIpkTitle
         ' 
         lblIpkTitle.AutoSize = True
-        lblIpkTitle.Font = New Font("Segoe UI", 9.0F)
-        lblIpkTitle.ForeColor = Color.FromArgb(CByte(108), CByte(117), CByte(125))
-        lblIpkTitle.Location = New Point(23, 23)
+        lblIpkTitle.Font = New Font("Segoe UI Semibold", 9.5F, FontStyle.Bold)
+        lblIpkTitle.ForeColor = Color.FromArgb(CByte(73), CByte(80), CByte(87))
+        lblIpkTitle.Location = New Point(22, 20)
         lblIpkTitle.Name = "lblIpkTitle"
-        lblIpkTitle.Size = New Size(98, 20)
+        lblIpkTitle.Size = New Size(105, 21)
         lblIpkTitle.TabIndex = 0
         lblIpkTitle.Text = "IPK Kumulatif"
+        ' 
+        ' cardSks
+        ' 
+        cardSks.BackColor = Color.White
+        cardSks.Controls.Add(lblSksNote)
+        cardSks.Controls.Add(lblSksValue)
+        cardSks.Controls.Add(lblSksTitle)
+        cardSks.Dock = DockStyle.Fill
+        cardSks.Location = New Point(284, 4)
+        cardSks.Margin = New Padding(6, 4, 6, 4)
+        cardSks.Name = "cardSks"
+        cardSks.Size = New Size(266, 149)
+        cardSks.TabIndex = 2
+        ' 
+        ' lblSksNote
+        ' 
+        lblSksNote.AutoSize = True
+        lblSksNote.Font = New Font("Segoe UI", 8.5F)
+        lblSksNote.ForeColor = Color.FromArgb(CByte(108), CByte(117), CByte(125))
+        lblSksNote.Location = New Point(22, 112)
+        lblSksNote.Name = "lblSksNote"
+        lblSksNote.Size = New Size(141, 20)
+        lblSksNote.TabIndex = 2
+        lblSksNote.Text = "Lulus dari target 144 SKS"
+        ' 
+        ' lblSksValue
+        ' 
+        lblSksValue.AutoSize = True
+        lblSksValue.Font = New Font("Segoe UI", 22.0F, FontStyle.Bold)
+        lblSksValue.ForeColor = Color.FromArgb(CByte(30), CByte(59), CByte(51))
+        lblSksValue.Location = New Point(20, 52)
+        lblSksValue.Name = "lblSksValue"
+        lblSksValue.Size = New Size(141, 50)
+        lblSksValue.TabIndex = 1
+        lblSksValue.Text = "96 SKS"
+        ' 
+        ' lblSksTitle
+        ' 
+        lblSksTitle.AutoSize = True
+        lblSksTitle.Font = New Font("Segoe UI Semibold", 9.5F, FontStyle.Bold)
+        lblSksTitle.ForeColor = Color.FromArgb(CByte(73), CByte(80), CByte(87))
+        lblSksTitle.Location = New Point(22, 20)
+        lblSksTitle.Name = "lblSksTitle"
+        lblSksTitle.Size = New Size(75, 21)
+        lblSksTitle.TabIndex = 0
+        lblSksTitle.Text = "Total SKS"
+        ' 
+        ' cardSemester
+        ' 
+        cardSemester.BackColor = Color.White
+        cardSemester.Controls.Add(lblSemesterNote)
+        cardSemester.Controls.Add(lblSemesterValue)
+        cardSemester.Controls.Add(lblSemesterTitle)
+        cardSemester.Dock = DockStyle.Fill
+        cardSemester.Location = New Point(562, 4)
+        cardSemester.Margin = New Padding(6, 4, 6, 4)
+        cardSemester.Name = "cardSemester"
+        cardSemester.Size = New Size(266, 149)
+        cardSemester.TabIndex = 3
+        ' 
+        ' lblSemesterNote
+        ' 
+        lblSemesterNote.AutoSize = True
+        lblSemesterNote.Font = New Font("Segoe UI", 8.5F)
+        lblSemesterNote.ForeColor = Color.FromArgb(CByte(108), CByte(117), CByte(125))
+        lblSemesterNote.Location = New Point(22, 112)
+        lblSemesterNote.Name = "lblSemesterNote"
+        lblSemesterNote.Size = New Size(158, 20)
+        lblSemesterNote.TabIndex = 2
+        lblSemesterNote.Text = "Tahun Akademik 2025/2026"
+        ' 
+        ' lblSemesterValue
+        ' 
+        lblSemesterValue.AutoSize = True
+        lblSemesterValue.Font = New Font("Segoe UI", 22.0F, FontStyle.Bold)
+        lblSemesterValue.ForeColor = Color.FromArgb(CByte(30), CByte(59), CByte(51))
+        lblSemesterValue.Location = New Point(20, 52)
+        lblSemesterValue.Name = "lblSemesterValue"
+        lblSemesterValue.Size = New Size(43, 50)
+        lblSemesterValue.TabIndex = 1
+        lblSemesterValue.Text = "6"
+        ' 
+        ' lblSemesterTitle
+        ' 
+        lblSemesterTitle.AutoSize = True
+        lblSemesterTitle.Font = New Font("Segoe UI Semibold", 9.5F, FontStyle.Bold)
+        lblSemesterTitle.ForeColor = Color.FromArgb(CByte(73), CByte(80), CByte(87))
+        lblSemesterTitle.Location = New Point(22, 20)
+        lblSemesterTitle.Name = "lblSemesterTitle"
+        lblSemesterTitle.Size = New Size(112, 21)
+        lblSemesterTitle.TabIndex = 0
+        lblSemesterTitle.Text = "Semester Aktif"
+        ' 
+        ' cardCourse
+        ' 
+        cardCourse.BackColor = Color.White
+        cardCourse.Controls.Add(lblCourseNote)
+        cardCourse.Controls.Add(lblCourseValue)
+        cardCourse.Controls.Add(lblCourseTitle)
+        cardCourse.Dock = DockStyle.Fill
+        cardCourse.Location = New Point(846, 4)
+        cardCourse.Margin = New Padding(12, 4, 0, 4)
+        cardCourse.Name = "cardCourse"
+        cardCourse.Size = New Size(267, 149)
+        cardCourse.TabIndex = 4
+        ' 
+        ' lblCourseNote
+        ' 
+        lblCourseNote.AutoSize = True
+        lblCourseNote.Font = New Font("Segoe UI", 8.5F)
+        lblCourseNote.ForeColor = Color.FromArgb(CByte(108), CByte(117), CByte(125))
+        lblCourseNote.Location = New Point(22, 112)
+        lblCourseNote.Name = "lblCourseNote"
+        lblCourseNote.Size = New Size(148, 20)
+        lblCourseNote.TabIndex = 2
+        lblCourseNote.Text = "Diambil pada KRS semester 6"
+        ' 
+        ' lblCourseValue
+        ' 
+        lblCourseValue.AutoSize = True
+        lblCourseValue.Font = New Font("Segoe UI", 22.0F, FontStyle.Bold)
+        lblCourseValue.ForeColor = Color.FromArgb(CByte(30), CByte(59), CByte(51))
+        lblCourseValue.Location = New Point(20, 52)
+        lblCourseValue.Name = "lblCourseValue"
+        lblCourseValue.Size = New Size(43, 50)
+        lblCourseValue.TabIndex = 1
+        lblCourseValue.Text = "8"
+        ' 
+        ' lblCourseTitle
+        ' 
+        lblCourseTitle.AutoSize = True
+        lblCourseTitle.Font = New Font("Segoe UI Semibold", 9.5F, FontStyle.Bold)
+        lblCourseTitle.ForeColor = Color.FromArgb(CByte(73), CByte(80), CByte(87))
+        lblCourseTitle.Location = New Point(22, 20)
+        lblCourseTitle.Name = "lblCourseTitle"
+        lblCourseTitle.Size = New Size(94, 21)
+        lblCourseTitle.TabIndex = 0
+        lblCourseTitle.Text = "Mata Kuliah"
+        ' 
+        ' lblSummaryTitle
+        ' 
+        lblSummaryTitle.Dock = DockStyle.Top
+        lblSummaryTitle.Font = New Font("Segoe UI", 13.0F, FontStyle.Bold)
+        lblSummaryTitle.ForeColor = Color.FromArgb(CByte(30), CByte(59), CByte(51))
+        lblSummaryTitle.Location = New Point(40, 28)
+        lblSummaryTitle.Name = "lblSummaryTitle"
+        lblSummaryTitle.Padding = New Padding(0, 4, 0, 0)
+        lblSummaryTitle.Size = New Size(1113, 46)
+        lblSummaryTitle.TabIndex = 0
+        lblSummaryTitle.Text = "Ringkasan Akademik"
         ' 
         ' Dashboard
         ' 
@@ -435,21 +553,22 @@ Partial Class Dashboard
         MinimumSize = New Size(1255, 918)
         Name = "Dashboard"
         StartPosition = FormStartPosition.CenterScreen
-        Text = "Dashboard Akademik"
+        Text = "SIAKAD - Dashboard Akademik"
         sidebar.ResumeLayout(False)
         sidebar.PerformLayout()
         header.ResumeLayout(False)
         header.PerformLayout()
         content.ResumeLayout(False)
         CType(dgvSchedule, ComponentModel.ISupportInitialize).EndInit()
-        cardCourse.ResumeLayout(False)
-        cardCourse.PerformLayout()
-        cardSemester.ResumeLayout(False)
-        cardSemester.PerformLayout()
-        cardSks.ResumeLayout(False)
-        cardSks.PerformLayout()
+        pnlSummaryCards.ResumeLayout(False)
         cardIpk.ResumeLayout(False)
         cardIpk.PerformLayout()
+        cardSks.ResumeLayout(False)
+        cardSks.PerformLayout()
+        cardSemester.ResumeLayout(False)
+        cardSemester.PerformLayout()
+        cardCourse.ResumeLayout(False)
+        cardCourse.PerformLayout()
         ResumeLayout(False)
 
     End Sub
@@ -458,28 +577,29 @@ Partial Class Dashboard
     Friend WithEvents lblBrand As Label
     Friend WithEvents lblBrandSubtitle As Label
     Friend WithEvents btnDashboard As Button
-    Friend WithEvents btnKRS As Button
-    Friend WithEvents btnSchedule As Button
-    Friend WithEvents btnKHS As Button
-    Friend WithEvents btnTranscript As Button
-    Friend WithEvents btnProfile As Button
     Friend WithEvents btnLogout As Button
     Friend WithEvents header As Panel
     Friend WithEvents lblWelcome As Label
     Friend WithEvents lblInfo As Label
     Friend WithEvents content As Panel
+    Friend WithEvents lblSummaryTitle As Label
+    Friend WithEvents pnlSummaryCards As TableLayoutPanel
     Friend WithEvents cardIpk As Panel
     Friend WithEvents cardSks As Panel
     Friend WithEvents cardSemester As Panel
     Friend WithEvents cardCourse As Panel
     Friend WithEvents lblIpkTitle As Label
     Friend WithEvents lblIpkValue As Label
+    Friend WithEvents lblIpkNote As Label
     Friend WithEvents lblSksTitle As Label
     Friend WithEvents lblSksValue As Label
+    Friend WithEvents lblSksNote As Label
     Friend WithEvents lblSemesterTitle As Label
     Friend WithEvents lblSemesterValue As Label
+    Friend WithEvents lblSemesterNote As Label
     Friend WithEvents lblCourseTitle As Label
     Friend WithEvents lblCourseValue As Label
+    Friend WithEvents lblCourseNote As Label
     Friend WithEvents lblScheduleTitle As Label
     Friend WithEvents dgvSchedule As DataGridView
     Friend WithEvents colJam As DataGridViewTextBoxColumn
