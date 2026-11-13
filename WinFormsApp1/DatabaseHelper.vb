@@ -863,6 +863,74 @@ Public Module DatabaseHelper
         Return stats
     End Function
 
+    ' ---------- Mahasiswa: Pengisian EDOM & Fuzzy Tsukamoto ----------
+
+    Public Function SimpanPengisianEdom(
+        username As String,
+        mataKuliahId As Integer,
+        skorPedagogik As Double,
+        skorProfesional As Double,
+        skorKepribadian As Double,
+        skorSosial As Double,
+        nilaiAkhir As Double,
+        saran As String
+    ) As Boolean
+        Const query As String =
+            "INSERT INTO edom_pengisian (" &
+            "  username, mata_kuliah_id, skor_pedagogik, skor_profesional, " &
+            "  skor_kepribadian, skor_sosial, nilai_rata_rata, saran, diisi_pada" &
+            ") VALUES (" &
+            "  @u, @mk, @ped, @pro, @kep, @sos, @avg, @sar, CURRENT_TIMESTAMP" &
+            ") ON DUPLICATE KEY UPDATE " &
+            "  skor_pedagogik = VALUES(skor_pedagogik), " &
+            "  skor_profesional = VALUES(skor_profesional), " &
+            "  skor_kepribadian = VALUES(skor_kepribadian), " &
+            "  skor_sosial = VALUES(skor_sosial), " &
+            "  nilai_rata_rata = VALUES(nilai_rata_rata), " &
+            "  saran = VALUES(saran), " &
+            "  diisi_pada = CURRENT_TIMESTAMP"
+
+        Using connection As New MySqlConnection(ConnectionString)
+            connection.Open()
+            EnsureSchema(connection)
+
+            Using cmd As New MySqlCommand(query, connection)
+                cmd.Parameters.AddWithValue("@u", username)
+                cmd.Parameters.AddWithValue("@mk", mataKuliahId)
+                cmd.Parameters.AddWithValue("@ped", Math.Round(skorPedagogik, 2))
+                cmd.Parameters.AddWithValue("@pro", Math.Round(skorProfesional, 2))
+                cmd.Parameters.AddWithValue("@kep", Math.Round(skorKepribadian, 2))
+                cmd.Parameters.AddWithValue("@sos", Math.Round(skorSosial, 2))
+                cmd.Parameters.AddWithValue("@avg", Math.Round(nilaiAkhir, 2))
+                cmd.Parameters.AddWithValue("@sar", If(String.IsNullOrWhiteSpace(saran), DBNull.Value, saran.Trim()))
+                cmd.ExecuteNonQuery()
+                Return True
+            End Using
+        End Using
+    End Function
+
+    Public Function GetStatusPengisianMahasiswa(username As String) As HashSet(Of Integer)
+        Dim sudahDiisi As New HashSet(Of Integer)()
+
+        Const query As String = "SELECT mata_kuliah_id FROM edom_pengisian WHERE username = @u"
+
+        Using connection As New MySqlConnection(ConnectionString)
+            connection.Open()
+            EnsureSchema(connection)
+
+            Using cmd As New MySqlCommand(query, connection)
+                cmd.Parameters.AddWithValue("@u", username)
+                Using reader As MySqlDataReader = cmd.ExecuteReader()
+                    While reader.Read()
+                        sudahDiisi.Add(reader.GetInt32("mata_kuliah_id"))
+                    End While
+                End Using
+            End Using
+        End Using
+
+        Return sudahDiisi
+    End Function
+
     ' ---------- Helpers ----------
 
     Private Sub Execute(query As String, ParamArray parameters() As (Name As String, Value As Object))
