@@ -384,6 +384,9 @@ Public Module DatabaseHelper
     ' Turns a database exception into a message the user can act on.
     Public Function DescribeError(ex As Exception) As String
         Dim sqlEx As MySqlException = TryCast(ex, MySqlException)
+        If sqlEx Is Nothing AndAlso ex.InnerException IsNot Nothing Then
+            sqlEx = TryCast(ex.InnerException, MySqlException)
+        End If
 
         If sqlEx IsNot Nothing Then
             Select Case sqlEx.Number
@@ -393,6 +396,12 @@ Public Module DatabaseHelper
                     Return "Database winforms_login belum dibuat di MySQL."
                 Case 1045
                     Return "MySQL menolak login. Periksa user dan password di DatabaseHelper.vb."
+                Case 1451, 1217
+                    Return "Data ini masih memiliki relasi aktif di database dan tidak dapat dihapus."
+                Case 1062
+                    Return "Data dengan identitas tersebut (NIM/NIDN/Username) sudah ada di database (duplikat)."
+                Case Else
+                    Return $"Kesalahan database (kode {sqlEx.Number}): {sqlEx.Message}"
             End Select
         End If
 
@@ -504,7 +513,63 @@ Public Module DatabaseHelper
     End Sub
 
     Public Sub DeleteDosen(id As Integer)
-        Execute("DELETE FROM dosen WHERE id = @id", ("@id", id))
+        Using connection As New MySqlConnection(ConnectionString)
+            connection.Open()
+            EnsureSchema(connection)
+
+            Dim nidn As String = Nothing
+            Using getCmd As New MySqlCommand("SELECT nidn FROM dosen WHERE id = @id", connection)
+                getCmd.Parameters.AddWithValue("@id", id)
+                Dim res As Object = getCmd.ExecuteScalar()
+                If res IsNot Nothing AndAlso res IsNot DBNull.Value Then
+                    nidn = res.ToString().Trim()
+                End If
+            End Using
+
+            Using transaction As MySqlTransaction = connection.BeginTransaction()
+                Try
+                    ' 1. Unlink dosen_id pada tabel users agar tidak melanggar foreign key
+                    Using cmd As New MySqlCommand("UPDATE users SET dosen_id = NULL WHERE dosen_id = @id", connection, transaction)
+                        cmd.Parameters.AddWithValue("@id", id)
+                        cmd.ExecuteNonQuery()
+                    End Using
+
+                    ' Jika ada akun user khusus untuk dosen ini, hapus juga akunnya
+                    If Not String.IsNullOrWhiteSpace(nidn) Then
+                        Using cmd As New MySqlCommand("DELETE FROM users WHERE username = @nidn AND role = 'dosen'", connection, transaction)
+                            cmd.Parameters.AddWithValue("@nidn", nidn)
+                            cmd.ExecuteNonQuery()
+                        End Using
+                    End If
+
+                    ' 2. Hapus data evaluasi edom_pengisian untuk seluruh mata kuliah yang diampu dosen ini
+                    Using cmd As New MySqlCommand(
+                        "DELETE p FROM edom_pengisian p " &
+                        "JOIN mata_kuliah mk ON mk.id = p.mata_kuliah_id " &
+                        "WHERE mk.dosen_id = @id", connection, transaction)
+                        cmd.Parameters.AddWithValue("@id", id)
+                        cmd.ExecuteNonQuery()
+                    End Using
+
+                    ' 3. Hapus seluruh mata kuliah yang diampu dosen ini
+                    Using cmd As New MySqlCommand("DELETE FROM mata_kuliah WHERE dosen_id = @id", connection, transaction)
+                        cmd.Parameters.AddWithValue("@id", id)
+                        cmd.ExecuteNonQuery()
+                    End Using
+
+                    ' 4. Hapus dosen dari tabel dosen
+                    Using cmd As New MySqlCommand("DELETE FROM dosen WHERE id = @id", connection, transaction)
+                        cmd.Parameters.AddWithValue("@id", id)
+                        cmd.ExecuteNonQuery()
+                    End Using
+
+                    transaction.Commit()
+                Catch
+                    transaction.Rollback()
+                    Throw
+                End Try
+            End Using
+        End Using
     End Sub
 
     ' ---------- Admin: mata kuliah ----------
@@ -558,7 +623,31 @@ Public Module DatabaseHelper
     End Sub
 
     Public Sub DeleteMataKuliah(id As Integer)
-        Execute("DELETE FROM mata_kuliah WHERE id = @id", ("@id", id))
+        Using connection As New MySqlConnection(ConnectionString)
+            connection.Open()
+            EnsureSchema(connection)
+
+            Using transaction As MySqlTransaction = connection.BeginTransaction()
+                Try
+                    ' 1. Hapus data pengisian EDOM terkait mata kuliah ini
+                    Using cmd As New MySqlCommand("DELETE FROM edom_pengisian WHERE mata_kuliah_id = @id", connection, transaction)
+                        cmd.Parameters.AddWithValue("@id", id)
+                        cmd.ExecuteNonQuery()
+                    End Using
+
+                    ' 2. Hapus mata kuliah
+                    Using cmd As New MySqlCommand("DELETE FROM mata_kuliah WHERE id = @id", connection, transaction)
+                        cmd.Parameters.AddWithValue("@id", id)
+                        cmd.ExecuteNonQuery()
+                    End Using
+
+                    transaction.Commit()
+                Catch
+                    transaction.Rollback()
+                    Throw
+                End Try
+            End Using
+        End Using
     End Sub
 
     ' ---------- Dosen: Pengambilan Profil & Mata Kuliah ----------
@@ -863,6 +952,112 @@ Public Module DatabaseHelper
         Return stats
     End Function
 
+    ' ---------- Mahasiswa: Pengisian EDOM ----------
+
+    Public Function GetEdomMahasiswa(username As String) As List(Of EdomMahasiswaItem)
+        Const query As String =
+            "SELECT " &
+            "  d.id AS dosen_id, " &
+            "  d.nama AS dosen_nama, " &
+            "  COALESCE(d.nidn, '') AS dosen_nidn, " &
+            "  mk.id AS mata_kuliah_id, " &
+            "  mk.nama AS mata_kuliah_nama, " &
+            "  COALESCE(mk.ruang, '') AS ruang, " &
+            "  p.id AS pengisian_id, " &
+            "  COALESCE(p.nilai_rata_rata, 0) AS nilai_rata_rata, " &
+            "  COALESCE(p.skor_pedagogik, 0) AS skor_pedagogik, " &
+            "  COALESCE(p.skor_profesional, 0) AS skor_profesional, " &
+            "  COALESCE(p.skor_kepribadian, 0) AS skor_kepribadian, " &
+            "  COALESCE(p.skor_sosial, 0) AS skor_sosial, " &
+            "  p.diisi_pada, " &
+            "  p.saran " &
+            "FROM dosen d " &
+            "LEFT JOIN mata_kuliah mk ON mk.dosen_id = d.id " &
+            "LEFT JOIN edom_pengisian p ON p.mata_kuliah_id = mk.id AND p.username = @username " &
+            "ORDER BY d.nama ASC, mk.nama ASC"
+
+        Dim items As New List(Of EdomMahasiswaItem)
+
+        Using connection As New MySqlConnection(ConnectionString)
+            connection.Open()
+            EnsureSchema(connection)
+
+            Using command As New MySqlCommand(query, connection)
+                command.Parameters.AddWithValue("@username", username)
+                Using reader As MySqlDataReader = command.ExecuteReader()
+                    While reader.Read()
+                        Dim item As New EdomMahasiswaItem With {
+                            .DosenId = reader.GetInt32("dosen_id"),
+                            .DosenNama = reader.GetString("dosen_nama"),
+                            .DosenNidn = reader.GetString("dosen_nidn"),
+                            .SudahDievaluasi = Not reader.IsDBNull(reader.GetOrdinal("pengisian_id"))
+                        }
+
+                        If Not reader.IsDBNull(reader.GetOrdinal("mata_kuliah_id")) Then
+                            item.MataKuliahId = reader.GetInt32("mata_kuliah_id")
+                            item.MataKuliahNama = reader.GetString("mata_kuliah_nama")
+                            item.Ruang = reader.GetString("ruang")
+                        End If
+
+                        If item.SudahDievaluasi Then
+                            item.NilaiRataRata = Convert.ToDouble(reader("nilai_rata_rata"))
+                            item.SkorPedagogik = Convert.ToDouble(reader("skor_pedagogik"))
+                            item.SkorProfesional = Convert.ToDouble(reader("skor_profesional"))
+                            item.SkorKepribadian = Convert.ToDouble(reader("skor_kepribadian"))
+                            item.SkorSosial = Convert.ToDouble(reader("skor_sosial"))
+                            If Not reader.IsDBNull(reader.GetOrdinal("diisi_pada")) Then
+                                item.DiisiPada = reader.GetDateTime("diisi_pada")
+                            End If
+                            item.Saran = If(reader.IsDBNull(reader.GetOrdinal("saran")), "", reader.GetString("saran"))
+                        End If
+
+                        items.Add(item)
+                    End While
+                End Using
+            End Using
+        End Using
+
+        Return items
+    End Function
+
+    Public Sub SimpanPengisianEdom(
+        username As String,
+        mataKuliahId As Integer,
+        skorPedagogik As Double,
+        skorProfesional As Double,
+        skorKepribadian As Double,
+        skorSosial As Double,
+        saran As String
+    )
+        Dim rataRata As Double = Math.Round((skorPedagogik + skorProfesional + skorKepribadian + skorSosial) / 4.0, 2)
+
+        Const query As String =
+            "INSERT INTO edom_pengisian (" &
+            "  username, mata_kuliah_id, skor_pedagogik, skor_profesional, skor_kepribadian, skor_sosial, nilai_rata_rata, saran, diisi_pada" &
+            ") VALUES (" &
+            "  @u, @mkId, @ped, @pro, @kep, @sos, @avg, @saran, NOW()" &
+            ") ON DUPLICATE KEY UPDATE " &
+            "  skor_pedagogik = VALUES(skor_pedagogik), " &
+            "  skor_profesional = VALUES(skor_profesional), " &
+            "  skor_kepribadian = VALUES(skor_kepribadian), " &
+            "  skor_sosial = VALUES(skor_sosial), " &
+            "  nilai_rata_rata = VALUES(nilai_rata_rata), " &
+            "  saran = VALUES(saran), " &
+            "  diisi_pada = VALUES(diisi_pada)"
+
+        Execute(
+            query,
+            ("@u", username),
+            ("@mkId", mataKuliahId),
+            ("@ped", skorPedagogik),
+            ("@pro", skorProfesional),
+            ("@kep", skorKepribadian),
+            ("@sos", skorSosial),
+            ("@avg", rataRata),
+            ("@saran", NullIfEmpty(saran))
+        )
+    End Sub
+
     ' ---------- Helpers ----------
 
     Private Sub Execute(query As String, ParamArray parameters() As (Name As String, Value As Object))
@@ -961,4 +1156,21 @@ Public Class DosenEdomStatistik
     Public Property SkorSosial As Double
     Public Property PerMataKuliah As New List(Of DosenMkStatistik)
     Public Property DaftarFeedback As New List(Of EdomFeedbackItem)
+End Class
+
+Public Class EdomMahasiswaItem
+    Public Property DosenId As Integer
+    Public Property DosenNama As String
+    Public Property DosenNidn As String
+    Public Property MataKuliahId As Integer?
+    Public Property MataKuliahNama As String
+    Public Property Ruang As String
+    Public Property SudahDievaluasi As Boolean
+    Public Property NilaiRataRata As Double
+    Public Property SkorPedagogik As Double
+    Public Property SkorProfesional As Double
+    Public Property SkorKepribadian As Double
+    Public Property SkorSosial As Double
+    Public Property DiisiPada As DateTime?
+    Public Property Saran As String
 End Class

@@ -258,9 +258,10 @@ Public Class AdminDashboard
     Private Async Sub btnDosenHapus_Click(sender As Object, e As EventArgs) Handles btnDosenHapus.Click
         If Not selectedDosenId.HasValue Then Return
 
+        Dim namaDosen As String = txtDosenNama.Text.Trim()
         Dim confirm As DialogResult = MessageBox.Show(
-            $"Hapus dosen {txtDosenNama.Text.Trim()}?",
-            "Hapus Dosen",
+            $"Hapus dosen {namaDosen}? Seluruh mata kuliah yang diampu dan data pengisian EDOM terkait juga akan ikut terhapus.",
+            "Konfirmasi Hapus Dosen",
             MessageBoxButtons.YesNo,
             MessageBoxIcon.Warning)
 
@@ -283,16 +284,28 @@ Public Class AdminDashboard
 
     Private Async Function RunDosenActionAsync(action As Action) As Task
         pnlDosenForm.Enabled = False
+        lblDosenError.Text = ""
 
         Try
             Await Task.Run(action)
             Await LoadKelolaAsync()
-        Catch ex As MySqlException When ex.Number = 1451
-            lblDosenError.Text = "Dosen ini masih mengampu mata kuliah. Pindahkan atau hapus mata kuliahnya dulu."
-        Catch ex As MySqlException When ex.Number = 1062
-            lblDosenError.Text = "NIDN ini sudah dipakai dosen lain."
         Catch ex As Exception
-            lblDosenError.Text = DatabaseHelper.DescribeError(ex)
+            Dim sqlEx As MySqlException = TryCast(ex, MySqlException)
+            If sqlEx Is Nothing AndAlso ex.InnerException IsNot Nothing Then
+                sqlEx = TryCast(ex.InnerException, MySqlException)
+            End If
+
+            If sqlEx IsNot Nothing Then
+                If sqlEx.Number = 1451 OrElse sqlEx.Number = 1217 Then
+                    lblDosenError.Text = "Dosen ini masih terhubung dengan data lain di sistem."
+                ElseIf sqlEx.Number = 1062 Then
+                    lblDosenError.Text = "NIDN ini sudah dipakai dosen lain."
+                Else
+                    lblDosenError.Text = DatabaseHelper.DescribeError(ex)
+                End If
+            Else
+                lblDosenError.Text = DatabaseHelper.DescribeError(ex)
+            End If
         Finally
             pnlDosenForm.Enabled = True
         End Try
@@ -394,6 +407,7 @@ Public Class AdminDashboard
 
     Private Async Function RunMkActionAsync(action As Action) As Task
         pnlMkForm.Enabled = False
+        lblMkError.Text = ""
 
         Try
             Await Task.Run(action)

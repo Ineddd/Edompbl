@@ -24,33 +24,16 @@ Partial Class pengisianEdom
         lblBrandSubtitle = New Label()
         lblBrand = New Label()
         content = New Panel()
-        cardDosen4 = New Panel()
-        btnEval4 = New Button()
-        lblStatusDosen4 = New Label()
-        lblMatkulDosen4 = New Label()
-        lblNamaDosen4 = New Label()
-        cardDosen3 = New Panel()
-        btnEval3 = New Button()
-        lblStatusDosen3 = New Label()
-        lblMatkulDosen3 = New Label()
-        lblNamaDosen3 = New Label()
-        cardDosen2 = New Panel()
-        btnEval2 = New Button()
-        lblStatusDosen2 = New Label()
-        lblMatkulDosen2 = New Label()
-        lblNamaDosen2 = New Label()
-        cardDosen1 = New Panel()
-        btnEval1 = New Button()
-        lblStatusDosen1 = New Label()
-        lblMatkulDosen1 = New Label()
-        lblNamaDosen1 = New Label()
+        pnlCardContainer = New FlowLayoutPanel()
+        pnlState = New Panel()
+        btnRetry = New Button()
+        lblStateMessage = New Label()
+        btnRefresh = New Button()
+        lblListSubtitle = New Label()
         lblListTitle = New Label()
         sidebar.SuspendLayout()
         content.SuspendLayout()
-        cardDosen4.SuspendLayout()
-        cardDosen3.SuspendLayout()
-        cardDosen2.SuspendLayout()
-        cardDosen1.SuspendLayout()
+        pnlState.SuspendLayout()
         SuspendLayout()
         ' 
         ' sidebar
@@ -90,6 +73,7 @@ Partial Class pengisianEdom
         ' 
         ' btnLogout
         ' 
+        btnLogout.Anchor = AnchorStyles.Bottom Or AnchorStyles.Left
         btnLogout.BackColor = Color.FromArgb(CByte(220), CByte(53), CByte(69))
         btnLogout.Cursor = Cursors.Hand
         btnLogout.FlatAppearance.BorderSize = 0
@@ -149,12 +133,11 @@ Partial Class pengisianEdom
         ' 
         ' content
         ' 
-        content.AutoScroll = True
         content.BackColor = Color.FromArgb(CByte(250), CByte(248), CByte(243))
-        content.Controls.Add(cardDosen4)
-        content.Controls.Add(cardDosen3)
-        content.Controls.Add(cardDosen2)
-        content.Controls.Add(cardDosen1)
+        content.Controls.Add(pnlCardContainer)
+        content.Controls.Add(pnlState)
+        content.Controls.Add(btnRefresh)
+        content.Controls.Add(lblListSubtitle)
         content.Controls.Add(lblListTitle)
         content.Dock = DockStyle.Fill
         content.Location = New Point(274, 0)
@@ -164,262 +147,98 @@ Partial Class pengisianEdom
         content.Size = New Size(1193, 960)
         content.TabIndex = 2
         ' 
-        ' cardDosen4
+        ' pnlCardContainer
         ' 
-        cardDosen4.BackColor = Color.White
-        cardDosen4.Controls.Add(btnEval4)
-        cardDosen4.Controls.Add(lblStatusDosen4)
-        cardDosen4.Controls.Add(lblMatkulDosen4)
-        cardDosen4.Controls.Add(lblNamaDosen4)
-        cardDosen4.Location = New Point(62, 518)
-        cardDosen4.Name = "cardDosen4"
-        cardDosen4.Size = New Size(1068, 110)
-        cardDosen4.TabIndex = 13
+        pnlCardContainer.Anchor = AnchorStyles.Top Or AnchorStyles.Bottom Or AnchorStyles.Left Or AnchorStyles.Right
+        pnlCardContainer.AutoScroll = True
+        pnlCardContainer.BackColor = Color.Transparent
+        pnlCardContainer.FlowDirection = FlowDirection.TopDown
+        pnlCardContainer.Location = New Point(40, 130)
+        pnlCardContainer.Name = "pnlCardContainer"
+        pnlCardContainer.Size = New Size(1113, 797)
+        pnlCardContainer.TabIndex = 14
+        pnlCardContainer.WrapContents = False
         ' 
-        ' btnEval4
+        ' pnlState
         ' 
-        btnEval4.BackColor = Color.FromArgb(CByte(30), CByte(59), CByte(51))
-        btnEval4.Cursor = Cursors.Hand
-        btnEval4.FlatAppearance.BorderSize = 0
-        btnEval4.FlatAppearance.MouseDownBackColor = Color.FromArgb(CByte(114), CByte(142), CByte(109))
-        btnEval4.FlatAppearance.MouseOverBackColor = Color.FromArgb(CByte(46), CByte(82), CByte(72))
-        btnEval4.FlatStyle = FlatStyle.Flat
-        btnEval4.Font = New Font("Segoe UI Semibold", 9.5F, FontStyle.Bold)
-        btnEval4.ForeColor = Color.White
-        btnEval4.Location = New Point(838, 29)
-        btnEval4.Name = "btnEval4"
-        btnEval4.Size = New Size(200, 52)
-        btnEval4.TabIndex = 3
-        btnEval4.Text = "Isi Evaluasi"
-        btnEval4.UseVisualStyleBackColor = False
+        pnlState.Anchor = AnchorStyles.Top Or AnchorStyles.Left Or AnchorStyles.Right
+        pnlState.BackColor = Color.White
+        pnlState.Controls.Add(btnRetry)
+        pnlState.Controls.Add(lblStateMessage)
+        pnlState.Location = New Point(40, 130)
+        pnlState.Name = "pnlState"
+        pnlState.Size = New Size(1113, 200)
+        pnlState.TabIndex = 15
+        pnlState.Visible = False
         ' 
-        ' lblStatusDosen4
+        ' btnRetry
         ' 
-        lblStatusDosen4.AutoSize = True
-        lblStatusDosen4.Font = New Font("Segoe UI Semibold", 9.5F, FontStyle.Bold)
-        lblStatusDosen4.ForeColor = Color.FromArgb(CByte(220), CByte(53), CByte(69))
-        lblStatusDosen4.Location = New Point(650, 44)
-        lblStatusDosen4.Name = "lblStatusDosen4"
-        lblStatusDosen4.Size = New Size(132, 21)
-        lblStatusDosen4.TabIndex = 2
-        lblStatusDosen4.Text = "Belum Dievaluasi"
+        btnRetry.Anchor = AnchorStyles.None
+        btnRetry.BackColor = Color.FromArgb(CByte(30), CByte(59), CByte(51))
+        btnRetry.Cursor = Cursors.Hand
+        btnRetry.FlatAppearance.BorderSize = 0
+        btnRetry.FlatAppearance.MouseDownBackColor = Color.FromArgb(CByte(114), CByte(142), CByte(109))
+        btnRetry.FlatAppearance.MouseOverBackColor = Color.FromArgb(CByte(46), CByte(82), CByte(72))
+        btnRetry.FlatStyle = FlatStyle.Flat
+        btnRetry.Font = New Font("Segoe UI Semibold", 9.5F, FontStyle.Bold)
+        btnRetry.ForeColor = Color.White
+        btnRetry.Location = New Point(486, 120)
+        btnRetry.Name = "btnRetry"
+        btnRetry.Size = New Size(140, 42)
+        btnRetry.TabIndex = 1
+        btnRetry.Text = "Coba Lagi"
+        btnRetry.UseVisualStyleBackColor = False
+        btnRetry.Visible = False
         ' 
-        ' lblMatkulDosen4
+        ' lblStateMessage
         ' 
-        lblMatkulDosen4.AutoSize = True
-        lblMatkulDosen4.Font = New Font("Segoe UI", 9.5F)
-        lblMatkulDosen4.ForeColor = Color.FromArgb(CByte(108), CByte(117), CByte(125))
-        lblMatkulDosen4.Location = New Point(28, 58)
-        lblMatkulDosen4.Name = "lblMatkulDosen4"
-        lblMatkulDosen4.Size = New Size(403, 21)
-        lblMatkulDosen4.TabIndex = 1
-        lblMatkulDosen4.Text = "Mata Kuliah: Rekayasa Perangkat Lunak  |  Ruang AA 205"
+        lblStateMessage.Anchor = AnchorStyles.Top Or AnchorStyles.Left Or AnchorStyles.Right
+        lblStateMessage.Font = New Font("Segoe UI", 11.0F)
+        lblStateMessage.ForeColor = Color.FromArgb(CByte(108), CByte(117), CByte(125))
+        lblStateMessage.Location = New Point(20, 40)
+        lblStateMessage.Name = "lblStateMessage"
+        lblStateMessage.Size = New Size(1073, 60)
+        lblStateMessage.TabIndex = 0
+        lblStateMessage.Text = "Memuat daftar dosen..."
+        lblStateMessage.TextAlign = ContentAlignment.MiddleCenter
         ' 
-        ' lblNamaDosen4
+        ' btnRefresh
         ' 
-        lblNamaDosen4.AutoSize = True
-        lblNamaDosen4.Font = New Font("Segoe UI", 12.0F, FontStyle.Bold)
-        lblNamaDosen4.ForeColor = Color.FromArgb(CByte(30), CByte(59), CByte(51))
-        lblNamaDosen4.Location = New Point(28, 22)
-        lblNamaDosen4.Name = "lblNamaDosen4"
-        lblNamaDosen4.Size = New Size(248, 28)
-        lblNamaDosen4.TabIndex = 0
-        lblNamaDosen4.Text = "Dr. Hendra Pratama, M.T."
+        btnRefresh.Anchor = AnchorStyles.Top Or AnchorStyles.Right
+        btnRefresh.BackColor = Color.FromArgb(CByte(114), CByte(142), CByte(109))
+        btnRefresh.Cursor = Cursors.Hand
+        btnRefresh.FlatAppearance.BorderSize = 0
+        btnRefresh.FlatAppearance.MouseDownBackColor = Color.FromArgb(CByte(88), CByte(118), CByte(84))
+        btnRefresh.FlatAppearance.MouseOverBackColor = Color.FromArgb(CByte(98), CByte(128), CByte(94))
+        btnRefresh.FlatStyle = FlatStyle.Flat
+        btnRefresh.Font = New Font("Segoe UI Semibold", 9.5F, FontStyle.Bold)
+        btnRefresh.ForeColor = Color.White
+        btnRefresh.Location = New Point(993, 40)
+        btnRefresh.Name = "btnRefresh"
+        btnRefresh.Size = New Size(160, 46)
+        btnRefresh.TabIndex = 11
+        btnRefresh.Text = "Segarkan Data"
+        btnRefresh.UseVisualStyleBackColor = False
         ' 
-        ' cardDosen3
+        ' lblListSubtitle
         ' 
-        cardDosen3.BackColor = Color.White
-        cardDosen3.Controls.Add(btnEval3)
-        cardDosen3.Controls.Add(lblStatusDosen3)
-        cardDosen3.Controls.Add(lblMatkulDosen3)
-        cardDosen3.Controls.Add(lblNamaDosen3)
-        cardDosen3.Location = New Point(62, 377)
-        cardDosen3.Name = "cardDosen3"
-        cardDosen3.Size = New Size(1068, 110)
-        cardDosen3.TabIndex = 12
-        ' 
-        ' btnEval3
-        ' 
-        btnEval3.BackColor = Color.FromArgb(CByte(30), CByte(59), CByte(51))
-        btnEval3.Cursor = Cursors.Hand
-        btnEval3.FlatAppearance.BorderSize = 0
-        btnEval3.FlatAppearance.MouseDownBackColor = Color.FromArgb(CByte(114), CByte(142), CByte(109))
-        btnEval3.FlatAppearance.MouseOverBackColor = Color.FromArgb(CByte(46), CByte(82), CByte(72))
-        btnEval3.FlatStyle = FlatStyle.Flat
-        btnEval3.Font = New Font("Segoe UI Semibold", 9.5F, FontStyle.Bold)
-        btnEval3.ForeColor = Color.White
-        btnEval3.Location = New Point(838, 29)
-        btnEval3.Name = "btnEval3"
-        btnEval3.Size = New Size(200, 52)
-        btnEval3.TabIndex = 3
-        btnEval3.Text = "Isi Evaluasi"
-        btnEval3.UseVisualStyleBackColor = False
-        ' 
-        ' lblStatusDosen3
-        ' 
-        lblStatusDosen3.AutoSize = True
-        lblStatusDosen3.Font = New Font("Segoe UI Semibold", 9.5F, FontStyle.Bold)
-        lblStatusDosen3.ForeColor = Color.FromArgb(CByte(220), CByte(53), CByte(69))
-        lblStatusDosen3.Location = New Point(650, 44)
-        lblStatusDosen3.Name = "lblStatusDosen3"
-        lblStatusDosen3.Size = New Size(132, 21)
-        lblStatusDosen3.TabIndex = 2
-        lblStatusDosen3.Text = "Belum Dievaluasi"
-        ' 
-        ' lblMatkulDosen3
-        ' 
-        lblMatkulDosen3.AutoSize = True
-        lblMatkulDosen3.Font = New Font("Segoe UI", 9.5F)
-        lblMatkulDosen3.ForeColor = Color.FromArgb(CByte(108), CByte(117), CByte(125))
-        lblMatkulDosen3.Location = New Point(28, 58)
-        lblMatkulDosen3.Name = "lblMatkulDosen3"
-        lblMatkulDosen3.Size = New Size(331, 21)
-        lblMatkulDosen3.TabIndex = 1
-        lblMatkulDosen3.Text = "Mata Kuliah: Analisis Sistem  |  Ruang PUT 301"
-        ' 
-        ' lblNamaDosen3
-        ' 
-        lblNamaDosen3.AutoSize = True
-        lblNamaDosen3.Font = New Font("Segoe UI", 12.0F, FontStyle.Bold)
-        lblNamaDosen3.ForeColor = Color.FromArgb(CByte(30), CByte(59), CByte(51))
-        lblNamaDosen3.Location = New Point(28, 22)
-        lblNamaDosen3.Name = "lblNamaDosen3"
-        lblNamaDosen3.Size = New Size(223, 28)
-        lblNamaDosen3.TabIndex = 0
-        lblNamaDosen3.Text = "Bagus Wijaya, M.Kom."
-        ' 
-        ' cardDosen2
-        ' 
-        cardDosen2.BackColor = Color.White
-        cardDosen2.Controls.Add(btnEval2)
-        cardDosen2.Controls.Add(lblStatusDosen2)
-        cardDosen2.Controls.Add(lblMatkulDosen2)
-        cardDosen2.Controls.Add(lblNamaDosen2)
-        cardDosen2.Location = New Point(62, 237)
-        cardDosen2.Name = "cardDosen2"
-        cardDosen2.Size = New Size(1068, 110)
-        cardDosen2.TabIndex = 11
-        ' 
-        ' btnEval2
-        ' 
-        btnEval2.BackColor = Color.FromArgb(CByte(30), CByte(59), CByte(51))
-        btnEval2.Cursor = Cursors.Hand
-        btnEval2.FlatAppearance.BorderSize = 0
-        btnEval2.FlatAppearance.MouseDownBackColor = Color.FromArgb(CByte(114), CByte(142), CByte(109))
-        btnEval2.FlatAppearance.MouseOverBackColor = Color.FromArgb(CByte(46), CByte(82), CByte(72))
-        btnEval2.FlatStyle = FlatStyle.Flat
-        btnEval2.Font = New Font("Segoe UI Semibold", 9.5F, FontStyle.Bold)
-        btnEval2.ForeColor = Color.White
-        btnEval2.Location = New Point(838, 29)
-        btnEval2.Name = "btnEval2"
-        btnEval2.Size = New Size(200, 52)
-        btnEval2.TabIndex = 3
-        btnEval2.Text = "Isi Evaluasi"
-        btnEval2.UseVisualStyleBackColor = False
-        ' 
-        ' lblStatusDosen2
-        ' 
-        lblStatusDosen2.AutoSize = True
-        lblStatusDosen2.Font = New Font("Segoe UI Semibold", 9.5F, FontStyle.Bold)
-        lblStatusDosen2.ForeColor = Color.FromArgb(CByte(220), CByte(53), CByte(69))
-        lblStatusDosen2.Location = New Point(650, 44)
-        lblStatusDosen2.Name = "lblStatusDosen2"
-        lblStatusDosen2.Size = New Size(132, 21)
-        lblStatusDosen2.TabIndex = 2
-        lblStatusDosen2.Text = "Belum Dievaluasi"
-        ' 
-        ' lblMatkulDosen2
-        ' 
-        lblMatkulDosen2.AutoSize = True
-        lblMatkulDosen2.Font = New Font("Segoe UI", 9.5F)
-        lblMatkulDosen2.ForeColor = Color.FromArgb(CByte(108), CByte(117), CByte(125))
-        lblMatkulDosen2.Location = New Point(28, 58)
-        lblMatkulDosen2.Name = "lblMatkulDosen2"
-        lblMatkulDosen2.Size = New Size(404, 21)
-        lblMatkulDosen2.TabIndex = 1
-        lblMatkulDosen2.Text = "Mata Kuliah: Pemrograman Basis Data  |  Ruang GSG 204"
-        ' 
-        ' lblNamaDosen2
-        ' 
-        lblNamaDosen2.AutoSize = True
-        lblNamaDosen2.Font = New Font("Segoe UI", 12.0F, FontStyle.Bold)
-        lblNamaDosen2.ForeColor = Color.FromArgb(CByte(30), CByte(59), CByte(51))
-        lblNamaDosen2.Location = New Point(28, 22)
-        lblNamaDosen2.Name = "lblNamaDosen2"
-        lblNamaDosen2.Size = New Size(188, 28)
-        lblNamaDosen2.TabIndex = 0
-        lblNamaDosen2.Text = "Risna Sari, M.Kom."
-        ' 
-        ' cardDosen1
-        ' 
-        cardDosen1.BackColor = Color.White
-        cardDosen1.Controls.Add(btnEval1)
-        cardDosen1.Controls.Add(lblStatusDosen1)
-        cardDosen1.Controls.Add(lblMatkulDosen1)
-        cardDosen1.Controls.Add(lblNamaDosen1)
-        cardDosen1.Location = New Point(62, 95)
-        cardDosen1.Name = "cardDosen1"
-        cardDosen1.Size = New Size(1068, 110)
-        cardDosen1.TabIndex = 10
-        ' 
-        ' btnEval1
-        ' 
-        btnEval1.BackColor = Color.FromArgb(CByte(30), CByte(59), CByte(51))
-        btnEval1.Cursor = Cursors.Hand
-        btnEval1.FlatAppearance.BorderSize = 0
-        btnEval1.FlatAppearance.MouseDownBackColor = Color.FromArgb(CByte(114), CByte(142), CByte(109))
-        btnEval1.FlatAppearance.MouseOverBackColor = Color.FromArgb(CByte(46), CByte(82), CByte(72))
-        btnEval1.FlatStyle = FlatStyle.Flat
-        btnEval1.Font = New Font("Segoe UI Semibold", 9.5F, FontStyle.Bold)
-        btnEval1.ForeColor = Color.White
-        btnEval1.Location = New Point(838, 29)
-        btnEval1.Name = "btnEval1"
-        btnEval1.Size = New Size(200, 52)
-        btnEval1.TabIndex = 3
-        btnEval1.Text = "Isi Evaluasi"
-        btnEval1.UseVisualStyleBackColor = False
-        ' 
-        ' lblStatusDosen1
-        ' 
-        lblStatusDosen1.AutoSize = True
-        lblStatusDosen1.Font = New Font("Segoe UI Semibold", 9.5F, FontStyle.Bold)
-        lblStatusDosen1.ForeColor = Color.FromArgb(CByte(220), CByte(53), CByte(69))
-        lblStatusDosen1.Location = New Point(650, 44)
-        lblStatusDosen1.Name = "lblStatusDosen1"
-        lblStatusDosen1.Size = New Size(132, 21)
-        lblStatusDosen1.TabIndex = 2
-        lblStatusDosen1.Text = "Belum Dievaluasi"
-        ' 
-        ' lblMatkulDosen1
-        ' 
-        lblMatkulDosen1.AutoSize = True
-        lblMatkulDosen1.Font = New Font("Segoe UI", 9.5F)
-        lblMatkulDosen1.ForeColor = Color.FromArgb(CByte(108), CByte(117), CByte(125))
-        lblMatkulDosen1.Location = New Point(28, 58)
-        lblMatkulDosen1.Name = "lblMatkulDosen1"
-        lblMatkulDosen1.Size = New Size(400, 21)
-        lblMatkulDosen1.TabIndex = 1
-        lblMatkulDosen1.Text = "Mata Kuliah: Pemrograman Web Lanjut  |  Ruang AA 301"
-        ' 
-        ' lblNamaDosen1
-        ' 
-        lblNamaDosen1.AutoSize = True
-        lblNamaDosen1.Font = New Font("Segoe UI", 12.0F, FontStyle.Bold)
-        lblNamaDosen1.ForeColor = Color.FromArgb(CByte(30), CByte(59), CByte(51))
-        lblNamaDosen1.Location = New Point(28, 22)
-        lblNamaDosen1.Name = "lblNamaDosen1"
-        lblNamaDosen1.Size = New Size(206, 28)
-        lblNamaDosen1.TabIndex = 0
-        lblNamaDosen1.Text = "Asep Taufik, M.Kom."
+        lblListSubtitle.AutoSize = True
+        lblListSubtitle.Font = New Font("Segoe UI", 10.0F)
+        lblListSubtitle.ForeColor = Color.FromArgb(CByte(108), CByte(117), CByte(125))
+        lblListSubtitle.Location = New Point(40, 80)
+        lblListSubtitle.Name = "lblListSubtitle"
+        lblListSubtitle.Size = New Size(620, 23)
+        lblListSubtitle.TabIndex = 10
+        lblListSubtitle.Text = "Pilih dosen dan mata kuliah di bawah ini untuk mengisi instrumen evaluasi dosen (EDOM)."
         ' 
         ' lblListTitle
         ' 
         lblListTitle.AutoSize = True
-        lblListTitle.Font = New Font("Segoe UI", 14.0F, FontStyle.Bold)
+        lblListTitle.Font = New Font("Segoe UI", 16.0F, FontStyle.Bold)
         lblListTitle.ForeColor = Color.FromArgb(CByte(33), CByte(37), CByte(41))
-        lblListTitle.Location = New Point(62, 50)
+        lblListTitle.Location = New Point(38, 38)
         lblListTitle.Name = "lblListTitle"
-        lblListTitle.Size = New Size(419, 32)
+        lblListTitle.Size = New Size(458, 37)
         lblListTitle.TabIndex = 9
         lblListTitle.Text = "Daftar Dosen yang Ingin Dievaluasi"
         ' 
@@ -439,14 +258,7 @@ Partial Class pengisianEdom
         sidebar.PerformLayout()
         content.ResumeLayout(False)
         content.PerformLayout()
-        cardDosen4.ResumeLayout(False)
-        cardDosen4.PerformLayout()
-        cardDosen3.ResumeLayout(False)
-        cardDosen3.PerformLayout()
-        cardDosen2.ResumeLayout(False)
-        cardDosen2.PerformLayout()
-        cardDosen1.ResumeLayout(False)
-        cardDosen1.PerformLayout()
+        pnlState.ResumeLayout(False)
         ResumeLayout(False)
 
     End Sub
@@ -458,26 +270,12 @@ Partial Class pengisianEdom
     Friend WithEvents Button1 As Button
     Friend WithEvents btnLogout As Button
     Friend WithEvents content As Panel
-    Friend WithEvents cardDosen4 As Panel
-    Friend WithEvents btnEval4 As Button
-    Friend WithEvents lblStatusDosen4 As Label
-    Friend WithEvents lblMatkulDosen4 As Label
-    Friend WithEvents lblNamaDosen4 As Label
-    Friend WithEvents cardDosen3 As Panel
-    Friend WithEvents btnEval3 As Button
-    Friend WithEvents lblStatusDosen3 As Label
-    Friend WithEvents lblMatkulDosen3 As Label
-    Friend WithEvents lblNamaDosen3 As Label
-    Friend WithEvents cardDosen2 As Panel
-    Friend WithEvents btnEval2 As Button
-    Friend WithEvents lblStatusDosen2 As Label
-    Friend WithEvents lblMatkulDosen2 As Label
-    Friend WithEvents lblNamaDosen2 As Label
-    Friend WithEvents cardDosen1 As Panel
-    Friend WithEvents btnEval1 As Button
-    Friend WithEvents lblStatusDosen1 As Label
-    Friend WithEvents lblMatkulDosen1 As Label
-    Friend WithEvents lblNamaDosen1 As Label
     Friend WithEvents lblListTitle As Label
+    Friend WithEvents lblListSubtitle As Label
+    Friend WithEvents btnRefresh As Button
+    Friend WithEvents pnlCardContainer As FlowLayoutPanel
+    Friend WithEvents pnlState As Panel
+    Friend WithEvents lblStateMessage As Label
+    Friend WithEvents btnRetry As Button
 
 End Class

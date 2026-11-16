@@ -16,7 +16,7 @@ Public Class Dashboard
         InitializeComponent()
     End Sub
 
-    Private Sub Dashboard_Load(
+    Private Async Sub Dashboard_Load(
         sender As Object,
         e As EventArgs
     ) Handles MyBase.Load
@@ -28,6 +28,37 @@ Public Class Dashboard
         lblWelcome.Text = $"Selamat datang, {Username}"
         SetActiveMenuButton(btnDashboard)
 
+        dgvSchedule.Rows.Clear()
+
+        Try
+            Dim courses As List(Of MataKuliahItem) = Await Task.Run(AddressOf DatabaseHelper.GetMataKuliah)
+            If courses IsNot Nothing AndAlso courses.Count > 0 Then
+                Dim defaultTimes() As String = {
+                    "08:00 - 09:40", "10:00 - 11:40", "13:00 - 14:40", "15:00 - 16:40", "16:40 - 18:20"
+                }
+                Dim idx As Integer = 0
+                For Each c In courses
+                    Dim timeStr As String = defaultTimes(idx Mod defaultTimes.Length)
+                    dgvSchedule.Rows.Add(
+                        timeStr,
+                        c.Nama,
+                        c.DosenNama,
+                        If(String.IsNullOrWhiteSpace(c.Ruang), "-", c.Ruang)
+                    )
+                    idx += 1
+                Next
+                lblCourseValue.Text = courses.Count.ToString()
+            Else
+                LoadFallbackSchedule()
+            End If
+        Catch
+            LoadFallbackSchedule()
+        End Try
+
+        dgvSchedule.ClearSelection()
+    End Sub
+
+    Private Sub LoadFallbackSchedule()
         dgvSchedule.Rows.Clear()
 
         dgvSchedule.Rows.Add(
@@ -50,8 +81,6 @@ Public Class Dashboard
             "Bagus Wijaya, M.Kom.",
             "PUT 301"
         )
-
-        dgvSchedule.ClearSelection()
     End Sub
 
     Public Sub SetActiveMenuButton(activeButton As Button)
