@@ -14,6 +14,33 @@ Public Module DatabaseHelper
     Public Const RoleDosen As String = "dosen"
 
     Private schemaInitialized As Boolean
+    Private databaseEnsured As Boolean
+
+    ' Membuat database (mis. winforms_login) jika belum ada, supaya aplikasi bisa langsung
+    ' dijalankan di MySQL/XAMPP/Laragon yang masih kosong tanpa import SQL manual.
+    Private Sub EnsureDatabaseExists()
+        If databaseEnsured Then Return
+
+        Dim builder As New MySqlConnectionStringBuilder(ConnectionString)
+        Dim databaseName As String = builder.Database
+        If String.IsNullOrWhiteSpace(databaseName) Then
+            databaseEnsured = True
+            Return
+        End If
+
+        builder.Database = ""
+        Using connection As New MySqlConnection(builder.ConnectionString)
+            connection.Open()
+            Dim safeName As String = databaseName.Replace("`", "``")
+            Using cmd As New MySqlCommand(
+                $"CREATE DATABASE IF NOT EXISTS `{safeName}` CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci",
+                connection)
+                cmd.ExecuteNonQuery()
+            End Using
+        End Using
+
+        databaseEnsured = True
+    End Sub
 
     ' Ensures the role column, EDOM tables, and default accounts exist.
     ' Each step is isolated so an existing database quirk never blocks login.
@@ -172,8 +199,136 @@ Public Module DatabaseHelper
         Catch
         End Try
 
+        Try
+            EnsureInstrumenEdom(connection)
+        Catch
+        End Try
+
         schemaInitialized = True
     End Sub
+
+    ' ---------- Instrumen EDOM (butir pertanyaan & jawaban per butir) ----------
+
+    Public Const KompetensiPedagogik As String = "pedagogik"
+    Public Const KompetensiProfesional As String = "profesional"
+    Public Const KompetensiKepribadian As String = "kepribadian"
+    Public Const KompetensiSosial As String = "sosial"
+
+    ' Butir sesuai INSTRUMEN EDOM 2023 (skala 1-5).
+    Private ReadOnly InstrumenEdom2023 As (Nomor As Integer, Kompetensi As String, Pertanyaan As String)() = {
+        (1, KompetensiPedagogik, "Kesiapan memberikan kuliah dan/atau praktek/praktikum"),
+        (2, KompetensiPedagogik, "Keteraturan dan ketertiban penyelenggaraan perkuliahan"),
+        (3, KompetensiPedagogik, "Kemampuan menghidupkan suasana kelas"),
+        (4, KompetensiPedagogik, "Kejelasan penyampaian materi dan jawaban terhadap pertanyaan di kelas"),
+        (5, KompetensiPedagogik, "Pemanfaatan media dan teknologi pembelajaran"),
+        (6, KompetensiPedagogik, "Keanekaragaman cara pengukuran/penilaian hasil belajar"),
+        (7, KompetensiPedagogik, "Pemberian umpan balik terhadap tugas/penilaian"),
+        (8, KompetensiPedagogik, "Kesesuaian materi ujian dan/atau tugas dengan tujuan mata kuliah"),
+        (9, KompetensiPedagogik, "Kesesuaian nilai yang diberikan dengan hasil belajar"),
+        (10, KompetensiProfesional, "Kemampuan menjelaskan pokok bahasan/topik secara tepat sesuai Garis-garis Besar Pengajaran (GBPP) dan Satuan Acara Pengajaran (SAP)"),
+        (11, KompetensiProfesional, "Kemampuan memberi contoh relevan dari konsep yang diajarkan berdasarkan Program Studi"),
+        (12, KompetensiProfesional, "Kemampuan menjelaskan keterkaitan bidang/topik yang diajarkan dengan bidang/topik lain"),
+        (13, KompetensiProfesional, "Kemampuan menjelaskan keterkaitan bidang/topik yang diajarkan dengan konteks kehidupan"),
+        (14, KompetensiProfesional, "Penguasaan akan isu-isu mutakhir dalam bidang yang diajarkan (kemutakhiran bahan/referensi kuliah)"),
+        (15, KompetensiProfesional, "Penggunaan hasil-hasil penelitian untuk meningkatkan kualitas perkuliahan"),
+        (16, KompetensiProfesional, "Pelibatan mahasiswa dalam penelitian/kajian dan atau pengembangan/rekayasa/desain yang dilakukan dosen"),
+        (17, KompetensiProfesional, "Kemampuan menggunakan beragam teknologi komunikasi"),
+        (18, KompetensiKepribadian, "Kewibawaan sebagai pribadi dosen"),
+        (19, KompetensiKepribadian, "Kearifan dalam mengambil keputusan"),
+        (20, KompetensiKepribadian, "Menjadi contoh dalam bersikap dan berperilaku"),
+        (21, KompetensiKepribadian, "Satu kata dan tindakan"),
+        (22, KompetensiKepribadian, "Kemampuan mengendalikan diri dalam berbagai situasi dan kondisi"),
+        (23, KompetensiKepribadian, "Adil dalam memperlakukan mahasiswa"),
+        (24, KompetensiSosial, "Kemampuan menyampaikan pendapat"),
+        (25, KompetensiSosial, "Kemampuan menerima kritik, saran, dan pendapat dari mahasiswa"),
+        (26, KompetensiSosial, "Mengenal dengan baik mahasiswa yang mengikuti kuliahnya"),
+        (27, KompetensiSosial, "Toleransi terhadap keberagaman mahasiswa")
+    }
+
+    Public Function JudulKompetensi(kompetensi As String) As String
+        Select Case If(kompetensi, "").Trim().ToLowerInvariant()
+            Case KompetensiPedagogik : Return "A. Kompetensi Pedagogik"
+            Case KompetensiProfesional : Return "B. Kompetensi Profesional"
+            Case KompetensiKepribadian : Return "C. Kompetensi Kepribadian"
+            Case KompetensiSosial : Return "D. Kompetensi Sosial"
+            Case Else : Return "Kompetensi Lainnya"
+        End Select
+    End Function
+
+    Private Sub EnsureInstrumenEdom(connection As MySqlConnection)
+        Using cmd As New MySqlCommand(
+            "CREATE TABLE IF NOT EXISTS edom_pertanyaan (" &
+            "  id INT AUTO_INCREMENT PRIMARY KEY," &
+            "  nomor INT NOT NULL," &
+            "  kompetensi VARCHAR(20) NOT NULL," &
+            "  pertanyaan VARCHAR(255) NOT NULL," &
+            "  aktif TINYINT(1) NOT NULL DEFAULT 1," &
+            "  UNIQUE KEY uq_pertanyaan_nomor (nomor)" &
+            ")", connection)
+            cmd.ExecuteNonQuery()
+        End Using
+
+        ' Tipe kolom FK harus sama persis dengan kolom induknya. Tabel induk bisa dibuat oleh
+        ' aplikasi (INT) atau oleh database\winforms_login.sql (INT UNSIGNED), jadi dicek dulu.
+        Dim pengisianIdType As String = GetIntColumnType(connection, "edom_pengisian", "id")
+        Dim pertanyaanIdType As String = GetIntColumnType(connection, "edom_pertanyaan", "id")
+
+        Dim kolomJawaban As String =
+            "  id INT AUTO_INCREMENT PRIMARY KEY," &
+            $"  pengisian_id {pengisianIdType} NOT NULL," &
+            $"  pertanyaan_id {pertanyaanIdType} NOT NULL," &
+            "  nilai TINYINT NOT NULL," &
+            "  UNIQUE KEY uq_jawaban (pengisian_id, pertanyaan_id)"
+
+        Try
+            Using cmd As New MySqlCommand(
+                "CREATE TABLE IF NOT EXISTS edom_jawaban (" & kolomJawaban & "," &
+                "  CONSTRAINT fk_jawaban_pengisian FOREIGN KEY (pengisian_id) REFERENCES edom_pengisian (id) ON DELETE CASCADE," &
+                "  CONSTRAINT fk_jawaban_pertanyaan FOREIGN KEY (pertanyaan_id) REFERENCES edom_pertanyaan (id) ON DELETE CASCADE" &
+                ")", connection)
+                cmd.ExecuteNonQuery()
+            End Using
+        Catch ex As MySqlException
+            ' Database lama yang tidak mendukung FK tetap bisa dipakai; penghapusan jawaban
+            ' juga dilakukan manual di DeleteDosen/DeleteMataKuliah.
+            Using cmd As New MySqlCommand("CREATE TABLE IF NOT EXISTS edom_jawaban (" & kolomJawaban & ")", connection)
+                cmd.ExecuteNonQuery()
+            End Using
+        End Try
+
+        Dim jumlahPertanyaan As Integer
+        Using cmd As New MySqlCommand("SELECT COUNT(*) FROM edom_pertanyaan", connection)
+            jumlahPertanyaan = Convert.ToInt32(cmd.ExecuteScalar())
+        End Using
+
+        If jumlahPertanyaan = 0 Then
+            Using cmd As New MySqlCommand(
+                "INSERT IGNORE INTO edom_pertanyaan (nomor, kompetensi, pertanyaan) VALUES (@n, @k, @p)", connection)
+                cmd.Parameters.Add("@n", MySqlDbType.Int32)
+                cmd.Parameters.Add("@k", MySqlDbType.VarChar)
+                cmd.Parameters.Add("@p", MySqlDbType.VarChar)
+
+                For Each butir In InstrumenEdom2023
+                    cmd.Parameters("@n").Value = butir.Nomor
+                    cmd.Parameters("@k").Value = butir.Kompetensi
+                    cmd.Parameters("@p").Value = butir.Pertanyaan
+                    cmd.ExecuteNonQuery()
+                Next
+            End Using
+        End If
+    End Sub
+
+    Private Function GetIntColumnType(connection As MySqlConnection, table As String, column As String) As String
+        Using cmd As New MySqlCommand(
+            "SELECT COLUMN_TYPE FROM information_schema.COLUMNS " &
+            "WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME = @t AND COLUMN_NAME = @c", connection)
+            cmd.Parameters.AddWithValue("@t", table)
+            cmd.Parameters.AddWithValue("@c", column)
+            Dim res As Object = cmd.ExecuteScalar()
+            Dim columnType As String = If(res Is Nothing OrElse res Is DBNull.Value, "", res.ToString())
+            Return If(columnType.IndexOf("unsigned", StringComparison.OrdinalIgnoreCase) >= 0, "INT UNSIGNED", "INT")
+        End Using
+    End Function
 
     Private Sub EnsureAccount(connection As MySqlConnection, username As String, password As String, role As String)
         Dim exists As Integer
@@ -308,6 +463,14 @@ Public Module DatabaseHelper
 
     ' Returns the account's role, or Nothing when the credentials don't match.
     Public Function Login(username As String, password As String) As String
+        ' Login selalu menjadi akses database pertama, jadi database dipastikan ada di sini.
+        ' Kegagalan di sini (MySQL mati, tidak punya hak CREATE DATABASE) diabaikan; koneksi
+        ' di bawah akan memunculkan error yang sama dan diterjemahkan oleh DescribeError.
+        Try
+            EnsureDatabaseExists()
+        Catch ex As MySqlException
+        End Try
+
         ' Built-in admin credentials always work even before SQL migration is run.
         If String.Equals(username, "admin", StringComparison.OrdinalIgnoreCase) AndAlso
            password = "admin123" Then
@@ -542,7 +705,16 @@ Public Module DatabaseHelper
                         End Using
                     End If
 
-                    ' 2. Hapus data evaluasi edom_pengisian untuk seluruh mata kuliah yang diampu dosen ini
+                    ' 2. Hapus jawaban per butir lalu data evaluasi edom_pengisian untuk seluruh mata kuliah yang diampu dosen ini
+                    Using cmd As New MySqlCommand(
+                        "DELETE j FROM edom_jawaban j " &
+                        "JOIN edom_pengisian p ON p.id = j.pengisian_id " &
+                        "JOIN mata_kuliah mk ON mk.id = p.mata_kuliah_id " &
+                        "WHERE mk.dosen_id = @id", connection, transaction)
+                        cmd.Parameters.AddWithValue("@id", id)
+                        cmd.ExecuteNonQuery()
+                    End Using
+
                     Using cmd As New MySqlCommand(
                         "DELETE p FROM edom_pengisian p " &
                         "JOIN mata_kuliah mk ON mk.id = p.mata_kuliah_id " &
@@ -629,7 +801,15 @@ Public Module DatabaseHelper
 
             Using transaction As MySqlTransaction = connection.BeginTransaction()
                 Try
-                    ' 1. Hapus data pengisian EDOM terkait mata kuliah ini
+                    ' 1. Hapus jawaban per butir dan data pengisian EDOM terkait mata kuliah ini
+                    Using cmd As New MySqlCommand(
+                        "DELETE j FROM edom_jawaban j " &
+                        "JOIN edom_pengisian p ON p.id = j.pengisian_id " &
+                        "WHERE p.mata_kuliah_id = @id", connection, transaction)
+                        cmd.Parameters.AddWithValue("@id", id)
+                        cmd.ExecuteNonQuery()
+                    End Using
+
                     Using cmd As New MySqlCommand("DELETE FROM edom_pengisian WHERE mata_kuliah_id = @id", connection, transaction)
                         cmd.Parameters.AddWithValue("@id", id)
                         cmd.ExecuteNonQuery()
@@ -952,6 +1132,52 @@ Public Module DatabaseHelper
         Return stats
     End Function
 
+    ' Rata-rata nilai setiap butir instrumen untuk seorang dosen. mataKuliahId kosong/0 = semua mata kuliah dosen.
+    ' Hanya pengisian yang memiliki jawaban per butir (edom_jawaban) yang ikut dihitung.
+    Public Function GetRataRataPerButir(dosenId As Integer, Optional mataKuliahId As Integer? = Nothing) As List(Of RataRataButirItem)
+        Const query As String =
+            "SELECT q.id, q.nomor, q.kompetensi, q.pertanyaan, " &
+            "  COUNT(x.nilai) AS responden, " &
+            "  COALESCE(AVG(x.nilai), 0) AS rata_rata " &
+            "FROM edom_pertanyaan q " &
+            "LEFT JOIN (" &
+            "  SELECT j.pertanyaan_id, j.nilai " &
+            "  FROM edom_jawaban j " &
+            "  JOIN edom_pengisian p ON p.id = j.pengisian_id " &
+            "  JOIN mata_kuliah mk ON mk.id = p.mata_kuliah_id " &
+            "  WHERE mk.dosen_id = @dosenId AND (@mkId = 0 OR mk.id = @mkId)" &
+            ") x ON x.pertanyaan_id = q.id " &
+            "WHERE q.aktif = 1 " &
+            "GROUP BY q.id, q.nomor, q.kompetensi, q.pertanyaan " &
+            "ORDER BY q.nomor"
+
+        Dim items As New List(Of RataRataButirItem)
+
+        Using connection As New MySqlConnection(ConnectionString)
+            connection.Open()
+            EnsureSchema(connection)
+
+            Using command As New MySqlCommand(query, connection)
+                command.Parameters.AddWithValue("@dosenId", dosenId)
+                command.Parameters.AddWithValue("@mkId", If(mataKuliahId.HasValue, mataKuliahId.Value, 0))
+                Using reader As MySqlDataReader = command.ExecuteReader()
+                    While reader.Read()
+                        items.Add(New RataRataButirItem With {
+                            .PertanyaanId = Convert.ToInt32(reader("id")),
+                            .Nomor = Convert.ToInt32(reader("nomor")),
+                            .Kompetensi = reader.GetString("kompetensi"),
+                            .Pertanyaan = reader.GetString("pertanyaan"),
+                            .Responden = Convert.ToInt32(reader("responden")),
+                            .RataRata = Math.Round(Convert.ToDouble(reader("rata_rata")), 2)
+                        })
+                    End While
+                End Using
+            End Using
+        End Using
+
+        Return items
+    End Function
+
     ' ---------- Mahasiswa: Pengisian EDOM ----------
 
     Public Function GetEdomMahasiswa(username As String) As List(Of EdomMahasiswaItem)
@@ -1020,43 +1246,177 @@ Public Module DatabaseHelper
         Return items
     End Function
 
+    ' Butir pertanyaan aktif, urut sesuai nomor di instrumen.
+    Public Function GetPertanyaanEdom() As List(Of PertanyaanEdomItem)
+        Const query As String =
+            "SELECT id, nomor, kompetensi, pertanyaan " &
+            "FROM edom_pertanyaan " &
+            "WHERE aktif = 1 " &
+            "ORDER BY nomor"
+
+        Dim items As New List(Of PertanyaanEdomItem)
+
+        Using connection As New MySqlConnection(ConnectionString)
+            connection.Open()
+            EnsureSchema(connection)
+
+            Using command As New MySqlCommand(query, connection)
+                Using reader As MySqlDataReader = command.ExecuteReader()
+                    While reader.Read()
+                        items.Add(New PertanyaanEdomItem With {
+                            .Id = Convert.ToInt32(reader("id")),
+                            .Nomor = Convert.ToInt32(reader("nomor")),
+                            .Kompetensi = reader.GetString("kompetensi"),
+                            .Pertanyaan = reader.GetString("pertanyaan")
+                        })
+                    End While
+                End Using
+            End Using
+        End Using
+
+        Return items
+    End Function
+
+    ' Jawaban mahasiswa sebelumnya untuk satu mata kuliah: pertanyaan_id -> nilai (1-5).
+    Public Function GetJawabanEdom(username As String, mataKuliahId As Integer) As Dictionary(Of Integer, Integer)
+        Const query As String =
+            "SELECT j.pertanyaan_id, j.nilai " &
+            "FROM edom_jawaban j " &
+            "JOIN edom_pengisian p ON p.id = j.pengisian_id " &
+            "WHERE p.username = @u AND p.mata_kuliah_id = @mkId"
+
+        Dim jawaban As New Dictionary(Of Integer, Integer)
+
+        Using connection As New MySqlConnection(ConnectionString)
+            connection.Open()
+            EnsureSchema(connection)
+
+            Using command As New MySqlCommand(query, connection)
+                command.Parameters.AddWithValue("@u", username)
+                command.Parameters.AddWithValue("@mkId", mataKuliahId)
+                Using reader As MySqlDataReader = command.ExecuteReader()
+                    While reader.Read()
+                        jawaban(Convert.ToInt32(reader("pertanyaan_id"))) = Convert.ToInt32(reader("nilai"))
+                    End While
+                End Using
+            End Using
+        End Using
+
+        Return jawaban
+    End Function
+
+    ' Menyimpan nilai setiap butir ke edom_jawaban, lalu merangkumnya ke edom_pengisian
+    ' (rata-rata per kompetensi + rata-rata seluruh butir) agar dashboard dosen tetap bekerja.
     Public Sub SimpanPengisianEdom(
         username As String,
         mataKuliahId As Integer,
-        skorPedagogik As Double,
-        skorProfesional As Double,
-        skorKepribadian As Double,
-        skorSosial As Double,
+        jawaban As IReadOnlyDictionary(Of Integer, Integer),
         saran As String
     )
-        Dim rataRata As Double = Math.Round((skorPedagogik + skorProfesional + skorKepribadian + skorSosial) / 4.0, 2)
+        If jawaban Is Nothing OrElse jawaban.Count = 0 Then
+            Throw New ArgumentException("Belum ada butir yang dinilai.", NameOf(jawaban))
+        End If
 
-        Const query As String =
-            "INSERT INTO edom_pengisian (" &
-            "  username, mata_kuliah_id, skor_pedagogik, skor_profesional, skor_kepribadian, skor_sosial, nilai_rata_rata, saran, diisi_pada" &
-            ") VALUES (" &
-            "  @u, @mkId, @ped, @pro, @kep, @sos, @avg, @saran, NOW()" &
-            ") ON DUPLICATE KEY UPDATE " &
-            "  skor_pedagogik = VALUES(skor_pedagogik), " &
-            "  skor_profesional = VALUES(skor_profesional), " &
-            "  skor_kepribadian = VALUES(skor_kepribadian), " &
-            "  skor_sosial = VALUES(skor_sosial), " &
-            "  nilai_rata_rata = VALUES(nilai_rata_rata), " &
-            "  saran = VALUES(saran), " &
-            "  diisi_pada = VALUES(diisi_pada)"
+        Using connection As New MySqlConnection(ConnectionString)
+            connection.Open()
+            EnsureSchema(connection)
 
-        Execute(
-            query,
-            ("@u", username),
-            ("@mkId", mataKuliahId),
-            ("@ped", skorPedagogik),
-            ("@pro", skorProfesional),
-            ("@kep", skorKepribadian),
-            ("@sos", skorSosial),
-            ("@avg", rataRata),
-            ("@saran", NullIfEmpty(saran))
-        )
+            Dim kompetensiPerPertanyaan As New Dictionary(Of Integer, String)
+            Using cmd As New MySqlCommand("SELECT id, kompetensi FROM edom_pertanyaan", connection)
+                Using reader As MySqlDataReader = cmd.ExecuteReader()
+                    While reader.Read()
+                        kompetensiPerPertanyaan(Convert.ToInt32(reader("id"))) = reader.GetString("kompetensi").Trim().ToLowerInvariant()
+                    End While
+                End Using
+            End Using
+
+            Dim nilaiPerKompetensi As New Dictionary(Of String, List(Of Integer))
+            For Each kv In jawaban
+                If kv.Value < 1 OrElse kv.Value > 5 Then
+                    Throw New ArgumentOutOfRangeException(NameOf(jawaban), $"Nilai butir harus 1-5 (didapat {kv.Value}).")
+                End If
+
+                Dim kompetensi As String = Nothing
+                If Not kompetensiPerPertanyaan.TryGetValue(kv.Key, kompetensi) Then
+                    Throw New ArgumentException($"Butir pertanyaan dengan id {kv.Key} tidak ada di database.", NameOf(jawaban))
+                End If
+
+                If Not nilaiPerKompetensi.ContainsKey(kompetensi) Then
+                    nilaiPerKompetensi(kompetensi) = New List(Of Integer)
+                End If
+                nilaiPerKompetensi(kompetensi).Add(kv.Value)
+            Next
+
+            Dim rataRata As Double = Math.Round(jawaban.Values.Average(), 2)
+
+            Using transaction As MySqlTransaction = connection.BeginTransaction()
+                Try
+                    Using cmd As New MySqlCommand(
+                        "INSERT INTO edom_pengisian (" &
+                        "  username, mata_kuliah_id, skor_pedagogik, skor_profesional, skor_kepribadian, skor_sosial, nilai_rata_rata, saran, diisi_pada" &
+                        ") VALUES (" &
+                        "  @u, @mkId, @ped, @pro, @kep, @sos, @avg, @saran, NOW()" &
+                        ") ON DUPLICATE KEY UPDATE " &
+                        "  skor_pedagogik = VALUES(skor_pedagogik), " &
+                        "  skor_profesional = VALUES(skor_profesional), " &
+                        "  skor_kepribadian = VALUES(skor_kepribadian), " &
+                        "  skor_sosial = VALUES(skor_sosial), " &
+                        "  nilai_rata_rata = VALUES(nilai_rata_rata), " &
+                        "  saran = VALUES(saran), " &
+                        "  diisi_pada = VALUES(diisi_pada)", connection, transaction)
+                        cmd.Parameters.AddWithValue("@u", username)
+                        cmd.Parameters.AddWithValue("@mkId", mataKuliahId)
+                        cmd.Parameters.AddWithValue("@ped", RataRataKompetensi(nilaiPerKompetensi, KompetensiPedagogik))
+                        cmd.Parameters.AddWithValue("@pro", RataRataKompetensi(nilaiPerKompetensi, KompetensiProfesional))
+                        cmd.Parameters.AddWithValue("@kep", RataRataKompetensi(nilaiPerKompetensi, KompetensiKepribadian))
+                        cmd.Parameters.AddWithValue("@sos", RataRataKompetensi(nilaiPerKompetensi, KompetensiSosial))
+                        cmd.Parameters.AddWithValue("@avg", rataRata)
+                        cmd.Parameters.AddWithValue("@saran", NullIfEmpty(saran))
+                        cmd.ExecuteNonQuery()
+                    End Using
+
+                    Dim pengisianId As Long
+                    Using cmd As New MySqlCommand(
+                        "SELECT id FROM edom_pengisian WHERE username = @u AND mata_kuliah_id = @mkId", connection, transaction)
+                        cmd.Parameters.AddWithValue("@u", username)
+                        cmd.Parameters.AddWithValue("@mkId", mataKuliahId)
+                        pengisianId = Convert.ToInt64(cmd.ExecuteScalar())
+                    End Using
+
+                    Using cmd As New MySqlCommand("DELETE FROM edom_jawaban WHERE pengisian_id = @id", connection, transaction)
+                        cmd.Parameters.AddWithValue("@id", pengisianId)
+                        cmd.ExecuteNonQuery()
+                    End Using
+
+                    Using cmd As New MySqlCommand(
+                        "INSERT INTO edom_jawaban (pengisian_id, pertanyaan_id, nilai) VALUES (@id, @q, @n)", connection, transaction)
+                        cmd.Parameters.AddWithValue("@id", pengisianId)
+                        cmd.Parameters.Add("@q", MySqlDbType.Int32)
+                        cmd.Parameters.Add("@n", MySqlDbType.Int32)
+
+                        For Each kv In jawaban
+                            cmd.Parameters("@q").Value = kv.Key
+                            cmd.Parameters("@n").Value = kv.Value
+                            cmd.ExecuteNonQuery()
+                        Next
+                    End Using
+
+                    transaction.Commit()
+                Catch
+                    transaction.Rollback()
+                    Throw
+                End Try
+            End Using
+        End Using
     End Sub
+
+    Private Function RataRataKompetensi(nilaiPerKompetensi As Dictionary(Of String, List(Of Integer)), kompetensi As String) As Object
+        Dim nilai As List(Of Integer) = Nothing
+        If nilaiPerKompetensi.TryGetValue(kompetensi, nilai) AndAlso nilai.Count > 0 Then
+            Return Math.Round(nilai.Average(), 2)
+        End If
+        Return DBNull.Value
+    End Function
 
     ' ---------- Helpers ----------
 
@@ -1156,6 +1516,22 @@ Public Class DosenEdomStatistik
     Public Property SkorSosial As Double
     Public Property PerMataKuliah As New List(Of DosenMkStatistik)
     Public Property DaftarFeedback As New List(Of EdomFeedbackItem)
+End Class
+
+Public Class PertanyaanEdomItem
+    Public Property Id As Integer
+    Public Property Nomor As Integer
+    Public Property Kompetensi As String
+    Public Property Pertanyaan As String
+End Class
+
+Public Class RataRataButirItem
+    Public Property PertanyaanId As Integer
+    Public Property Nomor As Integer
+    Public Property Kompetensi As String
+    Public Property Pertanyaan As String
+    Public Property Responden As Integer
+    Public Property RataRata As Double
 End Class
 
 Public Class EdomMahasiswaItem

@@ -214,6 +214,19 @@ Public Class dashboard_dosen
         Await LoadDashboardAsync()
     End Sub
 
+    ' Membuka rata-rata nilai setiap butir instrumen EDOM, mengikuti filter mata kuliah yang dipilih.
+    Private Sub btnRincianButir_Click(sender As Object, e As EventArgs) Handles btnRincianButir.Click
+        If currentDosen Is Nothing Then Return
+
+        Dim selected = TryCast(cmbMataKuliah.SelectedItem, MataKuliahComboItem)
+        Dim mkId As Integer? = If(selected IsNot Nothing AndAlso selected.Id > 0, selected.Id, CType(Nothing, Integer?))
+        Dim cakupan As String = If(mkId.HasValue, selected.DisplayText, "Semua mata kuliah yang diajar")
+
+        Using dlg As New FormRincianButir(currentDosen, mkId, cakupan)
+            dlg.ShowDialog(Me)
+        End Using
+    End Sub
+
     ' ---------- Navigasi Menu Sidebar ----------
 
     Private Sub btnMenuStatistik_Click(sender As Object, e As EventArgs) Handles btnMenuStatistik.Click
@@ -274,7 +287,7 @@ Public Class dashboard_dosen
         pnlMataKuliahView.Visible = (btnMenuMataKuliah.BackColor = ActiveMenuColor)
     End Sub
 
-    Private Shared Sub StyleGrid(grid As DataGridView)
+    Friend Shared Sub StyleGrid(grid As DataGridView)
         Dim ink As Color = Color.FromArgb(33, 37, 41)
 
         grid.AllowUserToAddRows = False

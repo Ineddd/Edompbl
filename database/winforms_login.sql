@@ -67,6 +67,34 @@ CREATE TABLE IF NOT EXISTS `edom_pengisian` (
         ON DELETE CASCADE
 ) ENGINE=InnoDB;
 
+-- 5. Tabel Butir Pertanyaan EDOM (INSTRUMEN EDOM 2023, skala 1-5)
+CREATE TABLE IF NOT EXISTS `edom_pertanyaan` (
+    `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+    `nomor` INT NOT NULL,
+    `kompetensi` VARCHAR(20) NOT NULL COMMENT 'pedagogik | profesional | kepribadian | sosial',
+    `pertanyaan` VARCHAR(255) NOT NULL,
+    `aktif` TINYINT(1) NOT NULL DEFAULT 1,
+    PRIMARY KEY (`id`),
+    UNIQUE KEY `uq_pertanyaan_nomor` (`nomor`)
+) ENGINE=InnoDB;
+
+-- 6. Tabel Jawaban per Butir (satu baris per butir per pengisian)
+CREATE TABLE IF NOT EXISTS `edom_jawaban` (
+    `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+    `pengisian_id` INT UNSIGNED NOT NULL,
+    `pertanyaan_id` INT UNSIGNED NOT NULL,
+    `nilai` TINYINT NOT NULL,
+    PRIMARY KEY (`id`),
+    UNIQUE KEY `uq_jawaban` (`pengisian_id`, `pertanyaan_id`),
+    KEY `idx_jawaban_pertanyaan_id` (`pertanyaan_id`),
+    CONSTRAINT `fk_jawaban_pengisian`
+        FOREIGN KEY (`pengisian_id`) REFERENCES `edom_pengisian` (`id`)
+        ON DELETE CASCADE,
+    CONSTRAINT `fk_jawaban_pertanyaan`
+        FOREIGN KEY (`pertanyaan_id`) REFERENCES `edom_pertanyaan` (`id`)
+        ON DELETE CASCADE
+) ENGINE=InnoDB;
+
 -- ============================================================================
 -- SINTAKS MIGRASI: Jalankan jika tabel sudah ada sebelumnya di database
 -- ============================================================================
@@ -127,6 +155,47 @@ INSERT INTO `mata_kuliah` (`nama`, `ruang`, `dosen_id`)
 SELECT 'Rekayasa Perangkat Lunak', 'AA 205', `id`
 FROM `dosen` WHERE `nama` = 'Dr. Hendra Pratama, M.T.'
 AND NOT EXISTS (SELECT 1 FROM `mata_kuliah` WHERE `nama` = 'Rekayasa Perangkat Lunak');
+
+-- ============================================================================
+-- BUTIR PERTANYAAN EDOM (sesuai INSTRUMEN EDOM 2023)
+-- Skala: 1 (Sangat Kurang), 2 (Kurang), 3 (Cukup), 4 (Baik), 5 (Sangat Baik)
+-- ============================================================================
+INSERT INTO `edom_pertanyaan` (`nomor`, `kompetensi`, `pertanyaan`)
+VALUES
+    -- A. Kompetensi Pedagogik
+    (1,  'pedagogik',   'Kesiapan memberikan kuliah dan/atau praktek/praktikum'),
+    (2,  'pedagogik',   'Keteraturan dan ketertiban penyelenggaraan perkuliahan'),
+    (3,  'pedagogik',   'Kemampuan menghidupkan suasana kelas'),
+    (4,  'pedagogik',   'Kejelasan penyampaian materi dan jawaban terhadap pertanyaan di kelas'),
+    (5,  'pedagogik',   'Pemanfaatan media dan teknologi pembelajaran'),
+    (6,  'pedagogik',   'Keanekaragaman cara pengukuran/penilaian hasil belajar'),
+    (7,  'pedagogik',   'Pemberian umpan balik terhadap tugas/penilaian'),
+    (8,  'pedagogik',   'Kesesuaian materi ujian dan/atau tugas dengan tujuan mata kuliah'),
+    (9,  'pedagogik',   'Kesesuaian nilai yang diberikan dengan hasil belajar'),
+    -- B. Kompetensi Profesional
+    (10, 'profesional', 'Kemampuan menjelaskan pokok bahasan/topik secara tepat sesuai Garis-garis Besar Pengajaran (GBPP) dan Satuan Acara Pengajaran (SAP)'),
+    (11, 'profesional', 'Kemampuan memberi contoh relevan dari konsep yang diajarkan berdasarkan Program Studi'),
+    (12, 'profesional', 'Kemampuan menjelaskan keterkaitan bidang/topik yang diajarkan dengan bidang/topik lain'),
+    (13, 'profesional', 'Kemampuan menjelaskan keterkaitan bidang/topik yang diajarkan dengan konteks kehidupan'),
+    (14, 'profesional', 'Penguasaan akan isu-isu mutakhir dalam bidang yang diajarkan (kemutakhiran bahan/referensi kuliah)'),
+    (15, 'profesional', 'Penggunaan hasil-hasil penelitian untuk meningkatkan kualitas perkuliahan'),
+    (16, 'profesional', 'Pelibatan mahasiswa dalam penelitian/kajian dan atau pengembangan/rekayasa/desain yang dilakukan dosen'),
+    (17, 'profesional', 'Kemampuan menggunakan beragam teknologi komunikasi'),
+    -- C. Kompetensi Kepribadian
+    (18, 'kepribadian', 'Kewibawaan sebagai pribadi dosen'),
+    (19, 'kepribadian', 'Kearifan dalam mengambil keputusan'),
+    (20, 'kepribadian', 'Menjadi contoh dalam bersikap dan berperilaku'),
+    (21, 'kepribadian', 'Satu kata dan tindakan'),
+    (22, 'kepribadian', 'Kemampuan mengendalikan diri dalam berbagai situasi dan kondisi'),
+    (23, 'kepribadian', 'Adil dalam memperlakukan mahasiswa'),
+    -- D. Kompetensi Sosial
+    (24, 'sosial',      'Kemampuan menyampaikan pendapat'),
+    (25, 'sosial',      'Kemampuan menerima kritik, saran, dan pendapat dari mahasiswa'),
+    (26, 'sosial',      'Mengenal dengan baik mahasiswa yang mengikuti kuliahnya'),
+    (27, 'sosial',      'Toleransi terhadap keberagaman mahasiswa')
+ON DUPLICATE KEY UPDATE
+    `kompetensi` = VALUES(`kompetensi`),
+    `pertanyaan` = VALUES(`pertanyaan`);
 
 -- ============================================================================
 -- DATA AKUN PENGGUNA (Admin, Mahasiswa, dan Dosen)
@@ -247,3 +316,4 @@ JOIN `dosen` d ON d.id = mk.dosen_id;
 SELECT p.id, p.username, mk.nama AS mata_kuliah, p.nilai_rata_rata, p.saran, p.diisi_pada
 FROM `edom_pengisian` p
 JOIN `mata_kuliah` mk ON mk.id = p.mata_kuliah_id;
+SELECT `nomor`, `kompetensi`, `pertanyaan` FROM `edom_pertanyaan` ORDER BY `nomor`;

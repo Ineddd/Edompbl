@@ -71,6 +71,7 @@ Partial Class dashboard_dosen
 
     Friend WithEvents pnlFeedbackSection As Panel
     Friend WithEvents lblFeedbackTitle As Label
+    Friend WithEvents btnRincianButir As Button
     Friend WithEvents lblFeedbackSub As Label
     Friend WithEvents dgvFeedback As DataGridView
     Friend WithEvents colFNo As DataGridViewTextBoxColumn
@@ -162,6 +163,7 @@ Partial Class dashboard_dosen
 
         pnlFeedbackSection = New Panel()
         lblFeedbackTitle = New Label()
+        btnRincianButir = New Button()
         lblFeedbackSub = New Label()
         dgvFeedback = New DataGridView()
         colFNo = New DataGridViewTextBoxColumn()
@@ -901,6 +903,7 @@ Partial Class dashboard_dosen
         ' pnlFeedbackSection
         ' 
         pnlFeedbackSection.BackColor = Color.White
+        pnlFeedbackSection.Controls.Add(btnRincianButir)
         pnlFeedbackSection.Controls.Add(dgvFeedback)
         pnlFeedbackSection.Controls.Add(lblFeedbackSub)
         pnlFeedbackSection.Controls.Add(lblFeedbackTitle)
@@ -923,6 +926,25 @@ Partial Class dashboard_dosen
         lblFeedbackTitle.Size = New Size(403, 25)
         lblFeedbackTitle.TabIndex = 0
         lblFeedbackTitle.Text = "Rincian Respon Pengisian & Masukan Mahasiswa"
+
+        '
+        ' btnRincianButir
+        '
+        btnRincianButir.Anchor = AnchorStyles.Top Or AnchorStyles.Right
+        btnRincianButir.BackColor = Color.FromArgb(46, 82, 72)
+        btnRincianButir.Cursor = Cursors.Hand
+        btnRincianButir.FlatAppearance.BorderSize = 0
+        btnRincianButir.FlatAppearance.MouseDownBackColor = Color.FromArgb(30, 59, 51)
+        btnRincianButir.FlatAppearance.MouseOverBackColor = Color.FromArgb(64, 105, 93)
+        btnRincianButir.FlatStyle = FlatStyle.Flat
+        btnRincianButir.Font = New Font("Segoe UI Semibold", 9.5F, FontStyle.Bold)
+        btnRincianButir.ForeColor = Color.White
+        btnRincianButir.Location = New Point(909, 22)
+        btnRincianButir.Name = "btnRincianButir"
+        btnRincianButir.Size = New Size(200, 38)
+        btnRincianButir.TabIndex = 3
+        btnRincianButir.Text = "Rincian Nilai per Butir"
+        btnRincianButir.UseVisualStyleBackColor = False
 
         ' 
         ' lblFeedbackSub
